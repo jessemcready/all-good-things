@@ -1,4 +1,5 @@
 import { CREATE_POST, LIKE_POST, CREATE_POST_COMMENT } from '../constants/postActions'
+import { LOGIN_OR_SIGNUP } from '../constants/userActions'
 
 const initialState = []
 
@@ -25,6 +26,11 @@ export default(state = initialState, action) => {
         ...state.slice(0, index),
         Object.assign({}, post, { comments: [...post.comments, action.comment] }),
         ...state.slice(index + 1)
+      ]
+    case LOGIN_OR_SIGNUP:
+      const posts = action.user.followers.map( follower => [...follower.posts])
+      return [
+        ...posts.flat()
       ]
     default:
       return state

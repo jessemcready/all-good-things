@@ -9,7 +9,7 @@ const initialState = {
 
 export default(state = initialState, action) => {
   let index
-  let user
+  // let user
   switch(action.type){
     case LOGIN_OR_SIGNUP:
       return Object.assign({}, action.user)
@@ -23,7 +23,7 @@ export default(state = initialState, action) => {
       }
     case UNFOLLOW_USER:
       index = state.followers.findIndex( follower => follower.id === action.userId)
-      user = state.followers[index]
+      // user = state.followers[index]
       return {
         ...state,
         followers: [
