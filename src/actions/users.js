@@ -1,4 +1,10 @@
-import { LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT } from '../constants/userActions'
+import {
+  LOGIN_OR_SIGNUP,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
+  SIGNOUT,
+  EDIT_USER
+} from '../constants/userActions'
 
 export const loginOrSignup = user => {
   return {
@@ -24,5 +30,12 @@ export const unfollowUser = userId => {
 export const signout = () => {
   return {
     type: SIGNOUT
+  }
+}
+
+export const editUser = user => {
+  return {
+    type: EDIT_USER,
+    user
   }
 }

@@ -1,4 +1,4 @@
-import { LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT } from '../constants/userActions'
+import { LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER } from '../constants/userActions'
 
 const initialState = {
   id: null,
@@ -31,6 +31,8 @@ export default(state = initialState, action) => {
           ...state.followers.slice(index + 1)
         ]
       }
+    case EDIT_USER:
+      return Object.assign({}, action.user)
     case SIGNOUT:
       return initialState
     default:
