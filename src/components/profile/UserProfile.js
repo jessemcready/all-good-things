@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Header, Card, Button, Confirm } from 'semantic-ui-react'
+import { Container, Header, Card, Button } from 'semantic-ui-react'
 import { usersUrl, followUrl } from '../../constants/fetchUrls'
 import { followUser, unfollowUser } from '../../actions/users'
 
@@ -40,12 +40,29 @@ class Profile extends Component {
   }
 
   handleUnfollow = () => {
-
+    const { user, unfollowUser } = this.props
+    const { currentUser } = this.state
+    fetch(followUrl, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        relationship: {
+          follower_id: user.id,
+          followee_id: currentUser.id
+        }
+      })
+    }).then(res => res.json()).then( relationshipObj => {
+      unfollowUser(currentUser.id)
+      this.following()
+    })
   }
 
   following = () => {
     const { user } = this.props
-    const { currentUser, following } = this.state
+    const { currentUser } = this.state
     const foundUser = user.followers.find(follower => {
       return follower.email === currentUser.email
     })
@@ -56,8 +73,7 @@ class Profile extends Component {
   }
 
   render(){
-    const { user } = this.props
-    const { currentUser, following } = this.state
+    const { currentUser } = this.state
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
         <Header size='huge'>{currentUser.name}'s Profile</Header>

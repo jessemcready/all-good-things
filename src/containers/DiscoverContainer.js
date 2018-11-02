@@ -41,7 +41,7 @@ class DiscoverContainer extends Component {
   }
 
   render() {
-    const { users, searchTerm } = this.state
+    const { searchTerm } = this.state
     return (
       <Container style={{ marginTop: '75px' }} textAlign='center'>
         <Search handleChange={this.handleChange} value={searchTerm} />

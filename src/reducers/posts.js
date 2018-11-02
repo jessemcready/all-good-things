@@ -1,5 +1,5 @@
 import { CREATE_POST, LIKE_POST, CREATE_POST_COMMENT } from '../constants/postActions'
-import { LOGIN_OR_SIGNUP, SIGNOUT } from '../constants/userActions'
+import { LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER } from '../constants/userActions'
 
 const initialState = []
 
@@ -32,6 +32,14 @@ export default(state = initialState, action) => {
       return [
         ...posts.flat()
       ]
+    case FOLLOW_USER:
+      const { user } = action
+      return [
+        ...state,
+        ...user.posts
+      ]
+    // case UNFOLLOW_USER:
+    //
     case SIGNOUT:
       return initialState
     default:

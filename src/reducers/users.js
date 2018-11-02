@@ -23,11 +23,10 @@ export default(state = initialState, action) => {
       }
     case UNFOLLOW_USER:
       index = state.followers.findIndex( follower => follower.id === action.userId)
-      // user = state.followers[index]
       return {
         ...state,
         followers: [
-          ...state.followers.slice(0, index),
+          ...state.followers.slice(0, index - 1),
           ...state.followers.slice(index + 1)
         ]
       }
