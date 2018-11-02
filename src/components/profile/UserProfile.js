@@ -35,6 +35,7 @@ class Profile extends Component {
       })
     }).then(res => res.json()).then( relationshipObj => {
       followUser(currentUser)
+      this.following()
     })
   }
 
@@ -45,8 +46,8 @@ class Profile extends Component {
   following = () => {
     const { user } = this.props
     const { currentUser, following } = this.state
-    const foundUser = user.followees.find(followee => {
-      return followee.email === currentUser.email
+    const foundUser = user.followers.find(follower => {
+      return follower.email === currentUser.email
     })
     if(foundUser === undefined){
       return true
