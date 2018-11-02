@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 import LoginForm from '../components/form/LoginForm'
 import SignupForm from '../components/form/SignupForm'
-import { loginUrl, signupEditUrl } from '../constants/fetchUrls'
+import { loginUrl, usersUrl } from '../constants/fetchUrls'
 import { loginOrSignup } from '../actions/users'
 
 class FormContainer extends Component {
@@ -35,7 +35,7 @@ class FormContainer extends Component {
   }
 
   handleSignup = (event, formData) => {
-    fetch(signupEditUrl, {
+    fetch(usersUrl, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

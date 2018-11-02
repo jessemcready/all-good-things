@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import FeedContainer from './FeedContainer'
+import DiscoverContainer from './DiscoverContainer'
 import Profile from '../components/profile/Profile'
+import UserProfile from '../components/profile/UserProfile'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 class MainPage extends Component {
@@ -17,6 +19,14 @@ class MainPage extends Component {
             <Route
               exact path='/profile'
               component={Profile}
+            />
+            <Route
+              exact path='/profile/:id'
+              component={UserProfile}
+            />
+            <Route
+              exact path='/discover'
+              component={DiscoverContainer}
             />
           </Switch>
         </div>

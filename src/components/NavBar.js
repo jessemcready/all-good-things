@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { signout } from '../actions/users'
 
 class NavBar extends Component {
 
@@ -14,11 +16,17 @@ class NavBar extends Component {
           <Link to='/profile'>
             <Menu.Item name='profile' />
           </Link>
-          <Menu.Item name='discover' />
-          <Menu.Item name='signOut' position='right' />
+          <Link to='/discover'>
+            <Menu.Item name='discover' />
+          </Link>
+          <Menu.Item
+            name='signOut'
+            position='right'
+            onClick={() => this.props.signout()}
+          />
         </Menu>
     );
   }
 }
 
-export default NavBar;
+export default connect(null, { signout } )(NavBar);

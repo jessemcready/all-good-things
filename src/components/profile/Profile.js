@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Header, Card, Button, Confirm } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
-import { signupEditUrl } from '../../constants/fetchUrls'
+import { usersUrl } from '../../constants/fetchUrls'
 import { editUser, signout } from '../../actions/users'
 
 class Profile extends Component {
@@ -44,7 +44,7 @@ class Profile extends Component {
 
   handleConfirm = () => {
     const { user } = this.props
-    fetch(`${signupEditUrl}/${user.id}`, {
+    fetch(`${usersUrl}/${user.id}`, {
       method: 'DELETE'
     }).then(res => res.json()).then( deletedObj => {
       debugger
@@ -74,7 +74,7 @@ class Profile extends Component {
         password: value.password
       }
     }
-    fetch(`${signupEditUrl}/${user.id}`, {
+    fetch(`${usersUrl}/${user.id}`, {
       method: 'PATCH',
       headers: {
         'Accept': 'application/json',
