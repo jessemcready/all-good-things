@@ -81,8 +81,8 @@ class FeedContainer extends Component{
 
     return (
       <Container textAlign='center' style={{marginTop: '75px'}}>
-        {posts.map( post => <Post key={post.id} {...post} />)}
         {user.posts.map( post => <Post key={post.id} {...post} />)}
+        {posts.map( post => <Post key={post.id} {...post} />)}
         <Modal
           open={this.state.modalOpen}
           onClose={this.handleClose}

@@ -1,10 +1,14 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react'
+import { Card, Button } from 'semantic-ui-react'
 
 const Post = ({username, content}) => {
   return (
     <Card centered raised>
-      <p>{username} {content}</p>
+      <Card.Header>{ username }</Card.Header>
+      <Card.Content>{ content }</Card.Content>
+      <Card.Content extra>
+        <Button>Like</Button>
+      </Card.Content>
     </Card>
   );
 }
