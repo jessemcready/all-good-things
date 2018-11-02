@@ -28,8 +28,9 @@ export default(state = initialState, action) => {
         ...state.slice(index + 1)
       ]
     case LOGIN_OR_SIGNUP:
-      const posts = action.user.followers.map( follower => [...follower.posts])
+      const posts = action.user.followers.map( follower => follower.posts)
       return [
+        action.user.posts,
         ...posts.flat()
       ]
     case FOLLOW_USER:
