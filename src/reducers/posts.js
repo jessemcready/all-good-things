@@ -38,8 +38,10 @@ export default(state = initialState, action) => {
         ...state,
         ...user.posts
       ]
-    // case UNFOLLOW_USER:
-    //
+    case UNFOLLOW_USER:
+      const { userId } = action
+      const followedUsersPosts = state.filter( post => post.user_id !== userId)
+      return [...followedUsersPosts]
     case SIGNOUT:
       return initialState
     default:
