@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { likePost } from '../../actions/posts'
+import { likePost, unlikePost } from '../../actions/users'
 import { likesUrl } from '../../constants/fetchUrls'
 
 class Post extends Component {
@@ -35,7 +35,27 @@ class Post extends Component {
       })
     }).then(res => res.json()).then(likeObj => {
       likePost({ id: likeObj.id, user_id: user.id, post_id: id })
-      this.setState({ liked: !this.state.liked })
+      this.setState({ liked: true })
+    })
+  }
+
+  handleUnlike = () => {
+    const { id, unlikePost, user } = this.props
+    fetch(likesUrl, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        like: {
+          user_id: user.id,
+          post_id: id
+        }
+      })
+    }).then(res => res.json()).then( deletedObj => {
+      unlikePost(id)
+      this.setState({ liked: false })
     })
   }
 
@@ -54,7 +74,7 @@ class Post extends Component {
         <Card.Content extra>
           {
             liked ?
-            <Button>Unlike</Button> :
+            <Button onClick={this.handleUnlike}>Unlike</Button> :
             <Button onClick={this.handleLike}>Like</Button>
           }
         </Card.Content>
@@ -69,4 +89,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { likePost })(Post);
+export default connect(mapStateToProps, { likePost, unlikePost })(Post);

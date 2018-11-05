@@ -3,7 +3,9 @@ import {
   FOLLOW_USER,
   UNFOLLOW_USER,
   SIGNOUT,
-  EDIT_USER
+  EDIT_USER,
+  LIKE_POST,
+  UNLIKE_POST
 } from '../constants/userActions'
 
 export const loginOrSignup = user => {
@@ -37,5 +39,19 @@ export const editUser = user => {
   return {
     type: EDIT_USER,
     user
+  }
+}
+
+export const likePost = like => {
+  return {
+    type: LIKE_POST,
+    like
+  }
+}
+
+export const unlikePost = postId => {
+  return {
+    type: UNLIKE_POST,
+    postId
   }
 }

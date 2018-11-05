@@ -43,12 +43,11 @@ class Profile extends Component {
   }
 
   handleConfirm = () => {
-    const { user } = this.props
+    const { user, signout } = this.props
     fetch(`${usersUrl}/${user.id}`, {
       method: 'DELETE'
     }).then(res => res.json()).then( deletedObj => {
-      debugger
-      this.props.signout()
+      signout()
     })
   }
   handleCancel = () => this.setState({ result: 'cancelled', open: false })

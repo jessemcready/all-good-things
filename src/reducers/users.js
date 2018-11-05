@@ -1,5 +1,4 @@
-import { LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER } from '../constants/userActions'
-import { LIKE_POST } from '../constants/postActions'
+import { LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST } from '../constants/userActions'
 
 const initialState = {
   id: null,
@@ -34,12 +33,21 @@ export default(state = initialState, action) => {
         ]
       }
     case LIKE_POST:
-      debugger
       return {
         ...state,
         likes: [
           ...state.likes,
           action.like
+        ]
+      }
+    case UNLIKE_POST:
+      index = state.likes.findIndex( like => like.post_id === action.postId )
+      debugger
+      return {
+        ...state,
+        likes: [
+          ...state.likes.slice(0, index - 1),
+          ...state.likes.slice(index + 1)
         ]
       }
     case EDIT_USER:
