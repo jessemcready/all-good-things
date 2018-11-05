@@ -62,6 +62,7 @@ class Post extends Component {
   render() {
     const { username, content } = this.props
     const { liked } = this.state
+    debugger
 
     if( username === undefined || content === undefined){
       return null

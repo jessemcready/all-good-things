@@ -39,7 +39,8 @@ class FeedContainer extends Component{
       this.setState({
         userInput: '',
         modalOpen: false
-      }, () => createPost(postObj))
+      })
+      createPost(postObj)
     })
   }
 

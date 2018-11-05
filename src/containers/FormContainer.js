@@ -18,6 +18,7 @@ class FormContainer extends Component {
   }
 
   handleLogin = (event, formData) => {
+    const { loginOrSignup } = this.props
     fetch(loginUrl, {
       method: 'POST',
       headers: {
@@ -29,12 +30,13 @@ class FormContainer extends Component {
       if(user.errors){
         // handle errors
       } else {
-        this.props.loginOrSignup(user)
+        loginOrSignup(user)
       }
     })
   }
 
   handleSignup = (event, formData) => {
+    const { loginOrSignup } = this.props
     fetch(usersUrl, {
       method: 'POST',
       headers: {
@@ -48,7 +50,7 @@ class FormContainer extends Component {
       if(user.errors){
         // handle errors
       } else {
-        this.props.loginOrSignup(user)
+        loginOrSignup(user)
       }
     })
   }
