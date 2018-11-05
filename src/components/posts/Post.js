@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Redirect } from 'react-router-dom'
 import { Card, Feed, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
@@ -8,7 +9,8 @@ import CommentContainer from '../../containers/CommentContainer'
 
 class Post extends Component {
   state = {
-    liked : false
+    liked : false,
+    clicked: false
   }
 
   componentDidMount(){
@@ -61,42 +63,60 @@ class Post extends Component {
     })
   }
 
-  render() {
-    const { username, content, comments, created_at } = this.props
-    const { liked } = this.state
+  handlePostPage = () => {
+    this.setState({
+      clicked: true
+    })
+  }
 
-    if( username === undefined || content === undefined){
+  render() {
+    const { id, username, content, comments, created_at, user } = this.props
+    const { liked, clicked } = this.state
+
+    if( username === undefined && content === undefined){
       return null
     }
 
     return (
-      <Feed.Event>
-        <Card centered raised>
-        <Feed.Content>
-          <Feed.Summary>
-            <Feed.User>{username}</Feed.User>
-            <Card.Meta>
-              <Feed.Date>
-                <Moment fromNow ago>{created_at}</Moment> ago
-              </Feed.Date>
-            </Card.Meta>
-          </Feed.Summary>
-          <Feed.Extra text>
-            {content}
-          </Feed.Extra>
-          <Feed.Meta>
-            <Feed.Like>
-            {
-              liked ?
-              <Icon name='like' color='red' onClick={this.handleUnlike} /> :
-              <Icon name='like' onClick={this.handleLike} />
-            }
-            </Feed.Like>
-            <CommentContainer comments={comments} />
-          </Feed.Meta>
-        </Feed.Content>
-        </Card>
-      </Feed.Event>
+      <Fragment>
+      {
+        clicked ?
+        <Redirect to={`/posts/${id}`} /> :
+        <Feed.Event>
+          <Card centered raised onClick={this.handlePostPage}>
+          <Feed.Content>
+            <Feed.Summary>
+              <Feed.User>
+              {
+                username === undefined ?
+                user.name :
+                username
+              }
+              </Feed.User>
+              <Card.Meta>
+                <Feed.Date>
+                  <Moment fromNow ago>{created_at}</Moment> ago
+                </Feed.Date>
+              </Card.Meta>
+            </Feed.Summary>
+            <Feed.Extra text>
+              {content}
+            </Feed.Extra>
+            <Feed.Meta>
+              <Feed.Like>
+              {
+                liked ?
+                <Icon name='like' color='red' onClick={this.handleUnlike} /> :
+                <Icon name='like' onClick={this.handleLike} />
+              }
+              </Feed.Like>
+              <CommentContainer comments={comments} />
+            </Feed.Meta>
+          </Feed.Content>
+          </Card>
+        </Feed.Event>
+      }
+      </Fragment>
     );
   }
 }

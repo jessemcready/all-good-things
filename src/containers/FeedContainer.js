@@ -48,9 +48,19 @@ class FeedContainer extends Component{
 
   handleClose = () => this.setState({ modalOpen: false })
 
+  orderPosts = posts => {
+    return posts.sort((a,b) => {
+      return new Date(b.created_at) - new Date(a.created_at)
+    })
+  }
+
   render() {
     const { posts, user } = this.props
     const { userInput } = this.state
+    let combinedPosts = {}
+    Object.assign(combinedPosts, posts)
+    Object.assign(combinedPosts, user.posts)
+    combinedPosts = this.orderPosts(posts)
     if(posts.length === 0){
       return (
         <Container textAlign='center' style={{marginTop: '75px'}}>
@@ -62,7 +72,7 @@ class FeedContainer extends Component{
             open={this.state.modalOpen}
             onClose={this.handleClose}
             trigger={
-              <Icon name='plus circle' size='massive' style={{position: 'fixed', bottom: '0', right: '0'}} onClick={this.handleOpen} />
+              <Icon name='plus circle' size='huge' style={{position: 'fixed', bottom: '0', right: '0'}} onClick={this.handleOpen} />
             }>
             <Modal.Header>Create/Edit Post</Modal.Header>
             <Modal.Content>
@@ -81,14 +91,13 @@ class FeedContainer extends Component{
     }
 
     return (
-      <Feed textAlign='center' style={{marginTop: '75px'}}>
-        {user.posts.map( post => <Post key={post.id} {...post} username={user.name} />)}
-        {posts.map( post => <Post key={post.id} {...post} />)}
+      <Feed size='large' textAlign='center' style={{marginTop: '75px'}}>
+        {combinedPosts.map( post => <Post key={post.id} {...post} />)}
         <Modal
           open={this.state.modalOpen}
           onClose={this.handleClose}
           trigger={
-            <Icon name='plus circle' size='massive' style={{position: 'fixed', bottom: '0', right: '0'}} onClick={this.handleOpen} />
+            <Icon name='plus circle' size='huge' style={{position: 'fixed', bottom: '0', right: '0'}} onClick={this.handleOpen} />
           }>
           <Modal.Header>Create/Edit Post</Modal.Header>
           <Modal.Content>
