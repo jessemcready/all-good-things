@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Card, Button, Feed, Icon } from 'semantic-ui-react'
+import { Card, Feed, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
 import { likesUrl } from '../../constants/fetchUrls'
 import Moment from 'react-moment'
+import CommentContainer from '../../containers/CommentContainer'
 
 class Post extends Component {
   state = {
@@ -61,9 +62,9 @@ class Post extends Component {
   }
 
   render() {
-    const { username, content, likes, comments, created_at } = this.props
+    const { username, content, comments, created_at } = this.props
     const { liked } = this.state
-    debugger
+
     if( username === undefined || content === undefined){
       return null
     }
@@ -90,8 +91,8 @@ class Post extends Component {
               <Icon name='like' color='red' onClick={this.handleUnlike} /> :
               <Icon name='like' onClick={this.handleLike} />
             }
-              { likes ? likes.length : 0 } Likes
             </Feed.Like>
+            <CommentContainer comments={comments} />
           </Feed.Meta>
         </Feed.Content>
         </Card>
@@ -102,7 +103,8 @@ class Post extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.users
+    user: state.users,
+    posts: state.posts
   }
 }
 

@@ -37,8 +37,8 @@ export default(state = initialState, action) => {
         ...state.slice(0, index),
         Object.assign({}, post, {
           likes: [
-            ...state.likes.slice(0, likeIndex - 1),
-            ...state.likes.slice(likeIndex + 1)
+            ...post.likes.slice(0, likeIndex - 1),
+            ...post.likes.slice(likeIndex + 1)
           ]
         }),
         ...state.slice(index + 1)

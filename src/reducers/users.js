@@ -42,6 +42,7 @@ export default(state = initialState, action) => {
       }
     case UNLIKE_POST:
       index = state.likes.findIndex( like => like.post_id === action.postId )
+      debugger
       return {
         ...state,
         likes: [
