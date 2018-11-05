@@ -1,11 +1,13 @@
-import { CREATE_POST, LIKE_POST, CREATE_POST_COMMENT } from '../constants/postActions'
-import { LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER } from '../constants/userActions'
+import { CREATE_POST, CREATE_POST_COMMENT } from '../constants/postActions'
+import { LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER, LIKE_POST, UNLIKE_POST } from '../constants/userActions'
 
 const initialState = []
 
 export default(state = initialState, action) => {
   let index
   let post
+  let likeIndex
+  let like
   switch(action.type){
     case CREATE_POST:
       return [...state, action.post]
@@ -18,10 +20,33 @@ export default(state = initialState, action) => {
         Object.assign({}, post, { comments: [...post.comments, action.comment] }),
         ...state.slice(index + 1)
       ]
+    case LIKE_POST:
+      index = state.findIndex( post => post.id === action.like.post_id )
+      post = state[index]
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, post, { likes: [...post.likes, action.like] }),
+        ...state.slice(index + 1)
+      ]
+    case UNLIKE_POST:
+      index = state.findIndex( post => post.id === action.postId )
+      post = state[index]
+      likeIndex = post.likes.findIndex( like => like.user_id === action.userId )
+      like = post.likes[likeIndex]
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, post, {
+          likes: [
+            ...state.likes.slice(0, likeIndex - 1),
+            ...state.likes.slice(likeIndex + 1)
+          ]
+        }),
+        ...state.slice(index + 1)
+      ]
     case LOGIN_OR_SIGNUP:
       const posts = action.user.followers.map( follower => follower.posts )
       return [
-        action.user.posts,
+        ...action.user.posts,
         ...posts.flat()
       ]
     case FOLLOW_USER:

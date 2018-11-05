@@ -49,9 +49,10 @@ export const likePost = like => {
   }
 }
 
-export const unlikePost = postId => {
+export const unlikePost = (postId, userId) => {
   return {
     type: UNLIKE_POST,
-    postId
+    postId,
+    userId
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Post from '../components/posts/Post'
-import { Container, Header, Icon, Modal, Form, TextArea, Button } from 'semantic-ui-react'
+import { Container, Header, Icon, Modal, Form, TextArea, Button, Feed } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { postsUrl } from '../constants/fetchUrls'
@@ -81,7 +81,7 @@ class FeedContainer extends Component{
     }
 
     return (
-      <Container textAlign='center' style={{marginTop: '75px'}}>
+      <Feed textAlign='center' style={{marginTop: '75px'}}>
         {user.posts.map( post => <Post key={post.id} {...post} username={user.name} />)}
         {posts.map( post => <Post key={post.id} {...post} />)}
         <Modal
@@ -102,7 +102,7 @@ class FeedContainer extends Component{
             </Form>
           </Modal.Content>
         </Modal>
-      </Container>
+      </Feed>
     )
   }
 }
