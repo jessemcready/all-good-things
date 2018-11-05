@@ -2,6 +2,11 @@ import React from 'react';
 import { Card, Button } from 'semantic-ui-react'
 
 const Post = ({username, content}) => {
+  // debugger
+  if( username === undefined || content === undefined){
+    return null
+  }
+
   return (
     <Card centered raised>
       <Card.Header>{ username }</Card.Header>
