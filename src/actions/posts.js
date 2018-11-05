@@ -7,10 +7,10 @@ export const createPost = post => {
   }
 }
 
-export const likePost = postId => {
+export const likePost = like => {
   return {
     type: LIKE_POST,
-    postId
+    like
   }
 }
 

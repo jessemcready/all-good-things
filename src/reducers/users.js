@@ -1,14 +1,17 @@
 import { LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER } from '../constants/userActions'
+import { LIKE_POST } from '../constants/postActions'
 
 const initialState = {
   id: null,
   name: '',
   email: '',
-  followers: []
+  followers: [],
+  likes: []
 }
 
 export default(state = initialState, action) => {
   let index
+  // let post
   // let user
   switch(action.type){
     case LOGIN_OR_SIGNUP:
@@ -28,6 +31,15 @@ export default(state = initialState, action) => {
         followers: [
           ...state.followers.slice(0, index - 1),
           ...state.followers.slice(index + 1)
+        ]
+      }
+    case LIKE_POST:
+      debugger
+      return {
+        ...state,
+        likes: [
+          ...state.likes,
+          action.like
         ]
       }
     case EDIT_USER:
