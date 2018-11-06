@@ -22,6 +22,7 @@ class PostShow extends Component {
 
   render() {
     const { post : { comments, likes, user, created_at, content, liked } } = this.state
+    const { id } = this.props.match.params
 
     if(user === undefined){
       return null
@@ -49,7 +50,7 @@ class PostShow extends Component {
               <Icon name='like' onClick={this.handleLike} />
             }
             </Feed.Like>
-            <CommentContainer comments={comments} />
+            <CommentContainer comments={comments} postId={id} />
           </Feed.Meta>
         </Feed.Content>
         </Card>

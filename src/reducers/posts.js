@@ -12,7 +12,7 @@ export default(state = initialState, action) => {
     case CREATE_POST:
       return [...state, action.post]
     case CREATE_POST_COMMENT:
-      index = state.findIndex( post => post.id === action.postId)
+      index = state.findIndex( post => post.id === action.comment.post_id)
       post = state[index]
 
       return [
