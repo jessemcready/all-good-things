@@ -48,10 +48,10 @@ class Post extends Component {
   }
 
   render() {
-    const { id, username, content, comments, created_at, user } = this.props
+    const { id, content, comments, created_at, user } = this.props
     const { liked, clicked } = this.state
 
-    if( username === undefined && content === undefined){
+    if( user.name === undefined && content === undefined){
       return null
     }
 
@@ -65,7 +65,7 @@ class Post extends Component {
           <Feed.Content>
             <Feed.Summary>
               <Feed.User>
-              {username}
+              {user.name}
               </Feed.User>
               <Card.Meta>
                 <Feed.Date>

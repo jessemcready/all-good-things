@@ -36,7 +36,7 @@ class FeedContainer extends Component{
 
     return (
       <Feed size='large' textAlign='center' style={{marginTop: '75px'}}>
-        {combinedPosts.map( post => <Post key={post.id} {...post} username={post.user.name} />)}
+        {combinedPosts.map( post => <Post key={post.id} {...post} />)}
         <NewPostModal />
       </Feed>
     )
