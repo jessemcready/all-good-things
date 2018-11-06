@@ -10,6 +10,7 @@ const initialState = {
 
 export default(state = initialState, action) => {
   let index
+  // let like
   switch(action.type){
     case LOGIN_OR_SIGNUP:
       return Object.assign({}, action.user)
@@ -40,11 +41,10 @@ export default(state = initialState, action) => {
       }
     case UNLIKE_POST:
       index = state.likes.findIndex( like => like.post_id === action.postId )
-      debugger
       return {
         ...state,
         likes: [
-          ...state.likes.slice(0, index - 1),
+          ...state.likes.slice(0, index),
           ...state.likes.slice(index + 1)
         ]
       }

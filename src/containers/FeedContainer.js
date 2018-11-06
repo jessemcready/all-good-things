@@ -21,7 +21,6 @@ class FeedContainer extends Component{
     Object.assign(combinedPosts, posts)
     Object.assign(combinedPosts, user.posts)
     combinedPosts = this.orderPosts(posts)
-    debugger
     if(posts.length === 0){
       return (
         <Container textAlign='center' style={{marginTop: '75px'}}>

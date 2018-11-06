@@ -4,6 +4,7 @@ import { Feed, Card, Icon } from 'semantic-ui-react'
 import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
 import { createPostComment } from '../../actions/posts'
+import { likePost, unlikePost } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 
 class PostShow extends Component {
@@ -15,6 +16,13 @@ class PostShow extends Component {
 
   componentDidMount(){
     const { id } = this.props.match.params
+    const { user } = this.props
+    const foundPost = user.likes.find( like => {
+      return like.post_id === parseInt(id)
+    })
+    if(foundPost){
+      this.setState({ liked: true })
+    }
     FetchAdapter.getPost(id).then( post => {
       this.setState({ post, comments: post.comments })
     })
@@ -36,8 +44,28 @@ class PostShow extends Component {
     })
   }
 
+  handleLike = () => {
+    const { user, likePost } = this.props
+    const { id } = this.props.match.params
+    const like = { user_id: user.id, post_id: parseInt(id) }
+    FetchAdapter.createLike(like).then(likeObj => {
+      likePost({ id: likeObj.id, user_id: user.id, post_id: parseInt(id) })
+      this.setState({ liked: true })
+    })
+  }
+
+  handleUnlike = () => {
+    const { unlikePost, user } = this.props
+    const { id } = this.props.match.params
+    const like = { user_id: user.id, post_id: parseInt(id) }
+    FetchAdapter.deleteLike(like).then( deletedObj => {
+      unlikePost(parseInt(id), user.id)
+      this.setState({ liked: false })
+    })
+  }
+
   render() {
-    const { post : { user, created_at, content, liked } } = this.state
+    const { liked, post : { user, created_at, content } } = this.state
     const { comments } = this.state
     const { id } = this.props.match.params
 
@@ -84,4 +112,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { createPostComment })(PostShow);
+export default connect(mapStateToProps, { createPostComment, likePost, unlikePost })(PostShow);

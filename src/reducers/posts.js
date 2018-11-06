@@ -7,7 +7,6 @@ export default(state = initialState, action) => {
   let index
   let post
   let likeIndex
-  let like
   switch(action.type){
     case CREATE_POST:
       return [action.post, ...state]
@@ -31,12 +30,12 @@ export default(state = initialState, action) => {
       index = state.findIndex( post => post.id === action.postId )
       post = state[index]
       likeIndex = post.likes.findIndex( like => like.user_id === action.userId )
-      like = post.likes[likeIndex]
+      debugger
       return [
         ...state.slice(0, index),
         Object.assign({}, post, {
           likes: [
-            ...post.likes.slice(0, likeIndex - 1),
+            ...post.likes.slice(0, likeIndex),
             ...post.likes.slice(likeIndex + 1)
           ]
         }),
