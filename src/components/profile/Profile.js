@@ -19,13 +19,20 @@ class Profile extends Component {
     }
   }
 
+  orderPosts = posts => {
+    return posts.sort((a,b) => {
+      return new Date(b.created_at) - new Date(a.created_at)
+    })
+  }
+
   renderCard = () => {
     const { user } = this.props
     const { open } = this.state
+    const posts = this.orderPosts(user.posts)
     return (
-      <Grid>
-        <Grid.Column floated='left' width={6}>
-          <Card>
+      <Grid container columns={2}>
+        <Grid.Column>
+          <Card fluid>
             <Card.Content>
               <Card.Header>{user.name}</Card.Header>
               <Card.Description>
@@ -43,8 +50,8 @@ class Profile extends Component {
             </Card.Content>
           </Card>
         </Grid.Column>
-        <Grid.Column floated='right' width={10}>
-          { user.posts.map( post => <Post key={post.id} {...post} />) }
+        <Grid.Column>
+          { posts.map( post => <Post key={post.id} {...post} profile={true} />) }
         </Grid.Column>
       </Grid>
     )

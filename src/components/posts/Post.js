@@ -64,7 +64,7 @@ class Post extends Component {
   }
 
   render() {
-    const { id, content, comments, created_at, user, likes } = this.props
+    const { id, content, comments, created_at, user, likes, profile } = this.props
     const { liked, clicked } = this.state
 
     if( user.name === undefined && content === undefined){
@@ -105,7 +105,7 @@ class Post extends Component {
                 0
                } Likes
               </Feed.Like>
-              <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} />
+              <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} />
             </Feed.Meta>
           </Feed.Content>
           </Card>
