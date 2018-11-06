@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Header, Card, Button } from 'semantic-ui-react'
-import { usersUrl, followUrl } from '../../constants/fetchUrls'
 import { followUser, unfollowUser } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 

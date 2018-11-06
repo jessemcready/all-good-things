@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Feed, Card, Icon } from 'semantic-ui-react'
-import { postsUrl } from '../../constants/fetchUrls'
 import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
-import { commentsUrl } from '../../constants/fetchUrls'
 import { createPostComment } from '../../actions/posts'
 import FetchAdapter from '../../adapters/FetchAdapter'
 

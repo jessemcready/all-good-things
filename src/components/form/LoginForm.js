@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Header, Card } from 'semantic-ui-react'
+import { Form, Input, Button, Header, Card, Message } from 'semantic-ui-react'
 
 class LoginForm extends React.Component {
   state = {
@@ -15,11 +15,11 @@ class LoginForm extends React.Component {
 
   render(){
     const { email, password } = this.state
-    const { handleLogin, handleLinkClick } = this.props
+    const { handleLogin, handleLinkClick, errors } = this.props
     return(
       <Card>
         <Card.Content>
-          <Form onSubmit={(event) => handleLogin(event, this.state)}>
+          <Form error onSubmit={(event) => handleLogin(event, this.state)}>
             <Header>Login</Header>
             <Form.Field>
               <Input
@@ -36,10 +36,15 @@ class LoginForm extends React.Component {
                 value={password}
                 onChange={this.handleChange} />
             </Form.Field>
+            {
+              errors !== '' ?
+              <Message error header='Login Failed' content={errors} /> :
+              null
+            }
             <Button fluid>Log In</Button>
-            <div onClick={handleLinkClick}>
+            <Message onClick={handleLinkClick}>
               <h3>Need an account? Sign Up</h3>
-            </div>
+            </Message>
           </Form>
         </Card.Content>
       </Card>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Comment, Header, Form } from 'semantic-ui-react'
 import PostComment from '../components/posts/PostComment'
 import { connect } from 'react-redux'
-import { commentsUrl } from '../constants/fetchUrls'
 import { createPostComment } from '../actions/posts'
 
 class CommentContainer extends Component {

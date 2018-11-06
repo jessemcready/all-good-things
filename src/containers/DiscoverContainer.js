@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react'
-import { usersUrl } from '../constants/fetchUrls'
 import Search from '../components/discover/Search'
 import UserList from '../components/discover/UserList'
 import { connect } from 'react-redux'

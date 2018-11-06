@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Header, Card, Button, Confirm } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
-import { usersUrl } from '../../constants/fetchUrls'
 import { editUser, signout } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 

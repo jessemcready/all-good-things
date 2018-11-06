@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Header, Card } from 'semantic-ui-react'
+import { Form, Input, Button, Header, Card, Message } from 'semantic-ui-react'
 
 class SignupForm extends React.Component {
   constructor(props){
@@ -29,7 +29,7 @@ class SignupForm extends React.Component {
 
   render(){
     const { name, email, password, preFilled } = this.state
-    const { handleSignup, handleLinkClick } = this.props
+    const { handleSignup, handleLinkClick, errors } = this.props
     let originalName
     if(preFilled){
       originalName = this.props.user.name
@@ -37,7 +37,7 @@ class SignupForm extends React.Component {
     return(
       <Card centered>
         <Card.Content>
-          <Form onSubmit={event => handleSignup(event, this.state)}>
+          <Form error onSubmit={event => handleSignup(event, this.state)}>
             {
               preFilled ?
               <Header>Edit {originalName}</Header> :
@@ -65,13 +65,18 @@ class SignupForm extends React.Component {
                 onChange={this.handleChange} />
             </Form.Field>
             {
+              errors !== '' ?
+              <Message error header='Sign Up Failed' content={errors} /> :
+              null
+            }
+            {
               this.props.user ?
               <Button fluid color='green' basic>Edit</Button> :
               <div>
                 <Button fluid>Sign Up</Button>
-                <div onClick={handleLinkClick}>
+                <Message onClick={handleLinkClick}>
                 <h3>Already have an account? Login</h3>
-                </div>
+                </Message>
               </div>
             }
           </Form>
