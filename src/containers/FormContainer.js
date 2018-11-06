@@ -20,14 +20,6 @@ class FormContainer extends Component {
 
   handleLogin = (event, formData) => {
     const { loginOrSignup } = this.props
-    // fetch(loginUrl, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(formData)
-    // }).then(res => res.json())
     FetchAdapter.loginUser(formData).then( user => {
       if(user.errors){
         // handle errors
@@ -39,16 +31,7 @@ class FormContainer extends Component {
 
   handleSignup = (event, formData) => {
     const { loginOrSignup } = this.props
-    fetch(usersUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        user: formData
-      })
-    }).then(res => res.json()).then(user => {
+    FetchAdapter.signupUser(formData).then(user => {
       if(user.errors){
         // handle errors
       } else {

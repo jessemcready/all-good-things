@@ -10,4 +10,11 @@ export default class FetchAdapter {
     }).then(res => res.json())
   }
 
+  static signupUser(userData){
+    return fetch(`${backendUrl}/users`, {
+      ...postHeader,
+      body: JSON.stringify({ user: userData })
+    }).then(res => res.json())
+  }
+
 }
