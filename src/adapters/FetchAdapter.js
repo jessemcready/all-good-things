@@ -35,4 +35,15 @@ export default class FetchAdapter {
     }).then(res => res.json())
   }
 
+  static getPost(id){
+    return fetch(`${backendUrl}/posts/${id}`).then(res => res.json())
+  }
+
+  static createComment(comment){
+    return fetch(`${backendUrl}/comments`, {
+      ...postHeader,
+      body: JSON.stringify({ comment })
+    }).then(res => res.json())
+  }
+
 }

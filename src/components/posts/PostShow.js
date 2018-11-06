@@ -6,6 +6,7 @@ import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
 import { commentsUrl } from '../../constants/fetchUrls'
 import { createPostComment } from '../../actions/posts'
+import FetchAdapter from '../../adapters/FetchAdapter'
 
 class PostShow extends Component {
   state = {
@@ -16,7 +17,7 @@ class PostShow extends Component {
 
   componentDidMount(){
     const { id } = this.props.match.params
-    fetch(`${postsUrl}/${id}`).then(res => res.json()).then( post => {
+    FetchAdapter.getPost(id).then( post => {
       this.setState({ post, comments: post.comments })
     })
   }
@@ -25,20 +26,8 @@ class PostShow extends Component {
     const { user } = this.props
     const { comments, post } = this.state
     const { userInput } = input
-    fetch(commentsUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify({
-        comment: {
-          post_id: post.id,
-          user_id: user.id,
-          content: userInput
-        }
-      })
-    }).then(res => res.json()).then( commentObj => {
+    const comment = { post_id: post.id, user_id: user.id, content: userInput }
+    FetchAdapter.createComment(comment).then( commentObj => {
       this.setState({ comments: [commentObj, ...comments] })
       createPostComment({
         id: commentObj.id,
