@@ -13,3 +13,11 @@ export const deleteHeader = {
     'Content-Type': 'application/json'
   }
 }
+
+export const patchHeader = {
+  method: 'PATCH',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
+}

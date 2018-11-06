@@ -1,5 +1,5 @@
 import { backendUrl } from '../constants/fetchUrls'
-import { postHeader, deleteHeader } from '../constants/fetchHeaders'
+import { postHeader, deleteHeader, patchHeader } from '../constants/fetchHeaders'
 
 export default class FetchAdapter {
 
@@ -43,6 +43,19 @@ export default class FetchAdapter {
     return fetch(`${backendUrl}/comments`, {
       ...postHeader,
       body: JSON.stringify({ comment })
+    }).then(res => res.json())
+  }
+
+  static updateUser(id, user){
+    return fetch(`${backendUrl}/users/${id}`, {
+      ...patchHeader,
+      body: JSON.stringify({ user })
+    }).then(res => res.json())
+  }
+
+  static deleteUser(id){
+    return fetch(`${backendUrl}/users/${id}`, {
+      ...deleteHeader
     }).then(res => res.json())
   }
 

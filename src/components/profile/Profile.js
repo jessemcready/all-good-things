@@ -4,6 +4,7 @@ import { Container, Header, Card, Button, Confirm } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
 import { usersUrl } from '../../constants/fetchUrls'
 import { editUser, signout } from '../../actions/users'
+import FetchAdapter from '../../adapters/FetchAdapter'
 
 class Profile extends Component {
   constructor(props){
@@ -44,12 +45,11 @@ class Profile extends Component {
 
   handleConfirm = () => {
     const { user, signout } = this.props
-    fetch(`${usersUrl}/${user.id}`, {
-      method: 'DELETE'
-    }).then(res => res.json()).then( deletedObj => {
+    FetchAdapter.deleteUser(user.id).then( deletedObj => {
       signout()
     })
   }
+
   handleCancel = () => this.setState({ result: 'cancelled', open: false })
 
   handleEdit = () => {
@@ -73,14 +73,7 @@ class Profile extends Component {
         password: value.password
       }
     }
-    fetch(`${usersUrl}/${user.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ user: updatedUser})
-    }).then(res => res.json()).then( updatedUserObj => {
+    FetchAdapter.updateUser(user.id, updatedUser).then( updatedUserObj => {
       this.props.editUser(updatedUserObj)
       this.setState({
         editing: false
