@@ -5,6 +5,7 @@ import LoginForm from '../components/form/LoginForm'
 import SignupForm from '../components/form/SignupForm'
 import { loginUrl, usersUrl } from '../constants/fetchUrls'
 import { loginOrSignup } from '../actions/users'
+import FetchAdapter from '../adapters/FetchAdapter'
 
 class FormContainer extends Component {
   state = {
@@ -19,14 +20,15 @@ class FormContainer extends Component {
 
   handleLogin = (event, formData) => {
     const { loginOrSignup } = this.props
-    fetch(loginUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    }).then(res => res.json()).then( user => {
+    // fetch(loginUrl, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(formData)
+    // }).then(res => res.json())
+    FetchAdapter.loginUser(formData).then( user => {
       if(user.errors){
         // handle errors
       } else {

@@ -5,6 +5,7 @@ import Search from '../components/discover/Search'
 import UserList from '../components/discover/UserList'
 import { connect } from 'react-redux'
 
+
 class DiscoverContainer extends Component {
   state = {
     users: [],
