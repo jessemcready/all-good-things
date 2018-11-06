@@ -17,4 +17,8 @@ export default class FetchAdapter {
     }).then(res => res.json())
   }
 
+  static getUsers(){
+    return fetch(`${backendUrl}/users`).then(res => res.json())
+  }
+
 }

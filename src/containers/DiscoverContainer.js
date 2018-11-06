@@ -4,7 +4,7 @@ import { usersUrl } from '../constants/fetchUrls'
 import Search from '../components/discover/Search'
 import UserList from '../components/discover/UserList'
 import { connect } from 'react-redux'
-
+import FetchAdapter from '../adapters/FetchAdapter'
 
 class DiscoverContainer extends Component {
   state = {
@@ -14,7 +14,7 @@ class DiscoverContainer extends Component {
 
   componentDidMount(){
     const { user } = this.props
-    fetch(usersUrl).then(res => res.json()).then( userObjs => {
+    FetchAdapter.getUsers().then( userObjs => {
       const users = userObjs.filter( userObj => {
         return user.email !== userObj.email
       })
