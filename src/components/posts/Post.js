@@ -6,6 +6,7 @@ import { likePost, unlikePost } from '../../actions/users'
 import { likesUrl } from '../../constants/fetchUrls'
 import Moment from 'react-moment'
 import CommentContainer from '../../containers/CommentContainer'
+import FetchAdapter from '../../adapters/FetchAdapter'
 
 class Post extends Component {
   state = {
@@ -25,19 +26,8 @@ class Post extends Component {
 
   handleLike = () => {
     const { id, user, likePost } = this.props
-    fetch(likesUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        like: {
-          user_id: user.id,
-          post_id: id
-        }
-      })
-    }).then(res => res.json()).then(likeObj => {
+    const like = { user_id: user.id, post_id: id }
+    FetchAdapter.createLike(like).then(likeObj => {
       likePost({ id: likeObj.id, user_id: user.id, post_id: id })
       this.setState({ liked: true })
     })
@@ -45,19 +35,8 @@ class Post extends Component {
 
   handleUnlike = () => {
     const { id, unlikePost, user } = this.props
-    fetch(likesUrl, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        like: {
-          user_id: user.id,
-          post_id: id
-        }
-      })
-    }).then(res => res.json()).then( deletedObj => {
+    const like = { user_id: user.id, post_id: id }
+    FetchAdapter.deleteLike(like).then( deletedObj => {
       unlikePost(id, user.id)
       this.setState({ liked: false })
     })
