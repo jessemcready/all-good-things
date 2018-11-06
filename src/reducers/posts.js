@@ -14,7 +14,6 @@ export default(state = initialState, action) => {
     case CREATE_POST_COMMENT:
       index = state.findIndex( post => post.id === action.comment.post_id)
       post = state[index]
-
       return [
         ...state.slice(0, index),
         Object.assign({}, post, { comments: [action.comment, ...post.comments] }),

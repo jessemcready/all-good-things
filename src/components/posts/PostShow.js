@@ -21,7 +21,7 @@ class PostShow extends Component {
   }
 
   handleSubmit = (event, input) => {
-    const { user } = this.props
+    const { user, createPostComment } = this.props
     const { comments, post } = this.state
     const { userInput } = input
     const comment = { post_id: post.id, user_id: user.id, content: userInput }
@@ -84,4 +84,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(PostShow);
+export default connect(mapStateToProps, { createPostComment })(PostShow);
