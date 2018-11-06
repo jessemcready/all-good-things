@@ -95,7 +95,7 @@ class Profile extends Component {
         {
           !editing ?
           this.renderCard() :
-          <SignupForm handleSignup={this.handleSubmit} user={user} />
+          <SignupForm handleSignup={this.handleSubmit} user={user} errors='' />
         }
       </Container>
     );
