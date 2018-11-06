@@ -95,7 +95,7 @@ class PostShow extends Component {
               <Icon name='like' onClick={this.handleLike} />
             }
             </Feed.Like>
-            <CommentContainer comments={comments} postId={id} handleSubmit={this.handleSubmit} addComment={true} />
+            <CommentContainer comments={comments} postId={id} handleSubmit={this.handleSubmit} />
           </Feed.Meta>
         </Feed.Content>
         </Card>

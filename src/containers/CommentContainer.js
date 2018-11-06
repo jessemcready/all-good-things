@@ -15,8 +15,10 @@ class CommentContainer extends Component {
 
   handleComment = (event, input) => {
     const { handleSubmit } = this.props
-    this.setState({ userInput: '' })
-    handleSubmit(event, input)
+    if(input.userInput !== ''){
+      this.setState({ userInput: '' })
+      handleSubmit(event, input)
+    }
   }
 
   render() {
@@ -27,13 +29,9 @@ class CommentContainer extends Component {
         <Header as='h3' dividing>
           Comments
         </Header>
-        {
-          addComment ?
-          <Form onSubmit={event => this.handleComment(event, this.state)}>
-            <Form.Input placeholder="Comment" fluid onChange={this.handleChange} value={userInput} />
-          </Form> :
-          null
-        }
+        <Form onSubmit={event => this.handleComment(event, this.state)}>
+          <Form.Input placeholder="Comment" fluid onChange={this.handleChange} value={userInput} />
+        </Form>
         { comments.map( comment => <PostComment key={comment.id} {...comment} />) }
       </Comment.Group>
     );

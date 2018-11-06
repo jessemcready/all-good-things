@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { Card, Feed, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
+import { createPostComment } from '../../actions/posts'
 import Moment from 'react-moment'
 import CommentContainer from '../../containers/CommentContainer'
 import FetchAdapter from '../../adapters/FetchAdapter'
@@ -21,6 +22,21 @@ class Post extends Component {
     if(foundPost){
       this.setState({ liked: true })
     }
+  }
+
+  handleSubmit = (event, input) => {
+    const { users, createPostComment, id, comments } = this.props
+    const { userInput } = input
+    const comment = { post_id: id, user_id: users.id, content: userInput }
+    FetchAdapter.createComment(comment).then( commentObj => {
+      this.setState({ comments: [commentObj, ...comments] })
+      createPostComment({
+        id: commentObj.id,
+        post_id: commentObj.post.id,
+        user: commentObj.user,
+        content: commentObj.content
+      })
+    })
   }
 
   handleLike = () => {
@@ -84,7 +100,7 @@ class Post extends Component {
                 <Icon name='like' onClick={this.handleLike} />
               }
               </Feed.Like>
-              <CommentContainer comments={comments.slice(0,2)} postId={id} addComment={false} />
+              <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} />
             </Feed.Meta>
           </Feed.Content>
           </Card>
@@ -102,4 +118,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { likePost, unlikePost })(Post);
+export default connect(mapStateToProps, { likePost, unlikePost, createPostComment })(Post);
