@@ -14,8 +14,8 @@ class Post extends Component {
   }
 
   componentDidMount(){
-    const { id, user } = this.props
-    const foundPost = user.likes.find( like => {
+    const { id, users } = this.props
+    const foundPost = users.likes.find( like => {
       return like.post_id === id
     })
     if(foundPost){
@@ -24,19 +24,19 @@ class Post extends Component {
   }
 
   handleLike = () => {
-    const { id, user, likePost } = this.props
-    const like = { user_id: user.id, post_id: id }
+    const { id, users, likePost } = this.props
+    const like = { user_id: users.id, post_id: id }
     FetchAdapter.createLike(like).then(likeObj => {
-      likePost({ id: likeObj.id, user_id: user.id, post_id: id })
+      likePost({ id: likeObj.id, user_id: users.id, post_id: id })
       this.setState({ liked: true })
     })
   }
 
   handleUnlike = () => {
-    const { id, unlikePost, user } = this.props
-    const like = { user_id: user.id, post_id: id }
+    const { id, unlikePost, users } = this.props
+    const like = { user_id: users.id, post_id: id }
     FetchAdapter.deleteLike(like).then( deletedObj => {
-      unlikePost(id, user.id)
+      unlikePost(id, users.id)
       this.setState({ liked: false })
     })
   }
@@ -48,10 +48,10 @@ class Post extends Component {
   }
 
   render() {
-    const { id, username, content, comments, created_at, user } = this.props
+    const { id, content, comments, created_at, user } = this.props
     const { liked, clicked } = this.state
 
-    if( username === undefined && content === undefined){
+    if( user.name === undefined && content === undefined){
       return null
     }
 
@@ -65,11 +65,7 @@ class Post extends Component {
           <Feed.Content>
             <Feed.Summary>
               <Feed.User>
-              {
-                username === undefined ?
-                user.name :
-                username
-              }
+              {user.name}
               </Feed.User>
               <Card.Meta>
                 <Feed.Date>
@@ -101,7 +97,7 @@ class Post extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.users,
+    users: state.users,
     posts: state.posts
   }
 }
