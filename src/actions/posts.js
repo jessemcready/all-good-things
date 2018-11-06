@@ -8,6 +8,7 @@ export const createPost = post => {
 }
 
 export const createPostComment = comment => {
+  debugger
   return {
     type: CREATE_POST_COMMENT,
     comment

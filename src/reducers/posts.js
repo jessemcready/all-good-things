@@ -17,7 +17,7 @@ export default(state = initialState, action) => {
 
       return [
         ...state.slice(0, index),
-        Object.assign({}, post, { comments: [...post.comments, action.comment] }),
+        Object.assign({}, post, { comments: [action.comment, ...post.comments] }),
         ...state.slice(index + 1)
       ]
     case LIKE_POST:

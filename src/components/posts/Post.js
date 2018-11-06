@@ -110,7 +110,7 @@ class Post extends Component {
                 <Icon name='like' onClick={this.handleLike} />
               }
               </Feed.Like>
-              <CommentContainer comments={comments} postId={id} />
+              <CommentContainer comments={comments.slice(0,2)} postId={id} />
             </Feed.Meta>
           </Feed.Content>
           </Card>
