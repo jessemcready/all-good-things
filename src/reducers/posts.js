@@ -30,7 +30,6 @@ export default(state = initialState, action) => {
       index = state.findIndex( post => post.id === action.postId )
       post = state[index]
       likeIndex = post.likes.findIndex( like => like.user_id === action.userId )
-      debugger
       return [
         ...state.slice(0, index),
         Object.assign({}, post, {

@@ -65,7 +65,7 @@ class PostShow extends Component {
   }
 
   render() {
-    const { liked, post : { user, created_at, content } } = this.state
+    const { liked, post : { user, created_at, content, likes } } = this.state
     const { comments } = this.state
     const { id } = this.props.match.params
 
@@ -94,6 +94,11 @@ class PostShow extends Component {
               <Icon name='like' color='red' onClick={this.handleUnlike} /> :
               <Icon name='like' onClick={this.handleLike} />
             }
+            {
+              likes ?
+              likes.length :
+              0
+             } Likes
             </Feed.Like>
             <CommentContainer comments={comments} postId={id} handleSubmit={this.handleSubmit} />
           </Feed.Meta>

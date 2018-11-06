@@ -64,7 +64,7 @@ class Post extends Component {
   }
 
   render() {
-    const { id, content, comments, created_at, user } = this.props
+    const { id, content, comments, created_at, user, likes } = this.props
     const { liked, clicked } = this.state
 
     if( user.name === undefined && content === undefined){
@@ -99,6 +99,11 @@ class Post extends Component {
                 <Icon name='like' color='red' onClick={this.handleUnlike} /> :
                 <Icon name='like' onClick={this.handleLike} />
               }
+              {
+                likes ?
+                likes.length :
+                0
+               } Likes
               </Feed.Like>
               <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} />
             </Feed.Meta>

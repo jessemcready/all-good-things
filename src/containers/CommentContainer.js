@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Comment, Header, Form } from 'semantic-ui-react'
 import PostComment from '../components/posts/PostComment'
 import { connect } from 'react-redux'
-import { createPostComment } from '../actions/posts'
 
 class CommentContainer extends Component {
   state = {
@@ -22,7 +21,7 @@ class CommentContainer extends Component {
   }
 
   render() {
-    const { comments, addComment } = this.props
+    const { comments } = this.props
     const { userInput } = this.state
     return(
       <Comment.Group>
@@ -45,4 +44,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { createPostComment })(CommentContainer);
+export default connect(mapStateToProps)(CommentContainer);
