@@ -14,7 +14,8 @@ class FormContainer extends Component {
 
   handleFormSwitch = () => {
     this.setState({
-      isLoginForm: !this.state.isLoginForm
+      isLoginForm: !this.state.isLoginForm,
+      errors: ''
     })
   }
 
