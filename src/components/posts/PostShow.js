@@ -80,7 +80,7 @@ class PostShow extends Component {
               <Icon name='like' onClick={this.handleLike} />
             }
             </Feed.Like>
-            <CommentContainer comments={comments} postId={id} handleSubmit={this.handleSubmit} />
+            <CommentContainer comments={comments} postId={id} handleSubmit={this.handleSubmit} addComment={true} />
           </Feed.Meta>
         </Feed.Content>
         </Card>

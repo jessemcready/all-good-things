@@ -83,7 +83,7 @@ class Post extends Component {
         clicked ?
         <Redirect to={`/posts/${id}`} /> :
         <Feed.Event>
-          <Card centered raised onClick={this.handlePostPage}>
+          <Card centered raised>
           <Feed.Content>
             <Feed.Summary>
               <Feed.User>
@@ -99,7 +99,7 @@ class Post extends Component {
                 </Feed.Date>
               </Card.Meta>
             </Feed.Summary>
-            <Feed.Extra text>
+            <Feed.Extra text onClick={this.handlePostPage}>
               {content}
             </Feed.Extra>
             <Feed.Meta>
@@ -110,7 +110,7 @@ class Post extends Component {
                 <Icon name='like' onClick={this.handleLike} />
               }
               </Feed.Like>
-              <CommentContainer comments={comments.slice(0,2)} postId={id} />
+              <CommentContainer comments={comments.slice(0,2)} postId={id} addComment={false} />
             </Feed.Meta>
           </Feed.Content>
           </Card>

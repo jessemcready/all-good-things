@@ -99,7 +99,7 @@ class FeedContainer extends Component{
           trigger={
             <Icon name='plus circle' size='huge' style={{position: 'fixed', bottom: '0', right: '0'}} onClick={this.handleOpen} />
           }>
-          <Modal.Header>Create/Edit Post</Modal.Header>
+          <Modal.Header>Create Post</Modal.Header>
           <Modal.Content>
             <Form onSubmit={this.handleSubmit}>
               <TextArea

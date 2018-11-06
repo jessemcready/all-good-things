@@ -21,16 +21,20 @@ class CommentContainer extends Component {
   }
 
   render() {
-    const { comments } = this.props
+    const { comments, addComment } = this.props
     const { userInput } = this.state
     return(
       <Comment.Group>
         <Header as='h3' dividing>
           Comments
         </Header>
-        <Form onSubmit={event => this.handleComment(event, this.state)}>
-          <Form.Input placeholder="Comment" fluid onChange={this.handleChange} value={userInput} />
-        </Form>
+        {
+          addComment ?
+          <Form onSubmit={event => this.handleComment(event, this.state)}>
+            <Form.Input placeholder="Comment" fluid onChange={this.handleChange} value={userInput} />
+          </Form> :
+          null
+        }
         { comments.map( comment => <PostComment key={comment.id} {...comment} />) }
       </Comment.Group>
     );
