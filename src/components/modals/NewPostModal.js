@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Header, Icon, Modal, Form, TextArea, Button, Feed } from 'semantic-ui-react'
+import { Icon, Modal, Form, TextArea, Button } from 'semantic-ui-react'
 import FetchAdapter from '../../adapters/FetchAdapter'
 import { createPost } from '../../actions/posts'
 

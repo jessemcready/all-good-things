@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Post from '../components/posts/Post'
-import { Container, Header, Icon, Modal, Form, TextArea, Button, Feed } from 'semantic-ui-react'
+import { Container, Header, Feed } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { createPost } from '../actions/posts'
-import FetchAdapter from '../adapters/FetchAdapter'
 import NewPostModal from '../components/modals/NewPostModal'
 
 class FeedContainer extends Component{
