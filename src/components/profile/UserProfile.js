@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Header, Card, Button } from 'semantic-ui-react'
 import { usersUrl, followUrl } from '../../constants/fetchUrls'
 import { followUser, unfollowUser } from '../../actions/users'
+import FetchAdapter from '../../adapters/FetchAdapter'
 
 class Profile extends Component {
   state = {
@@ -11,9 +12,7 @@ class Profile extends Component {
 
   componentDidMount(){
     const id = this.props.match.params.id
-    fetch(`${usersUrl}/${id}`)
-    .then( res => res.json() )
-    .then( currentUser => {
+    FetchAdapter.getUser(id).then( currentUser => {
       this.setState( { currentUser } )
     })
   }
@@ -21,19 +20,8 @@ class Profile extends Component {
   handleFollow = () => {
     const { user, followUser } = this.props
     const { currentUser } = this.state
-    fetch(followUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        relationship: {
-          follower_id: user.id,
-          followee_id: currentUser.id
-        }
-      })
-    }).then(res => res.json()).then( relationshipObj => {
+    const relationship = { follower_id: user.id, followee_id: currentUser.id }
+    FetchAdapter.followUser(relationship).then( relationshipObj => {
       followUser(currentUser)
       this.following()
     })
@@ -42,19 +30,8 @@ class Profile extends Component {
   handleUnfollow = () => {
     const { user, unfollowUser } = this.props
     const { currentUser } = this.state
-    fetch(followUrl, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        relationship: {
-          follower_id: user.id,
-          followee_id: currentUser.id
-        }
-      })
-    }).then(res => res.json()).then( relationshipObj => {
+    const relationship = { follower_id: user.id, followee_id: currentUser.id }
+    FetchAdapter.unfollowUser(relationship).then( relationshipObj => {
       unfollowUser(currentUser.id)
       this.following()
     })

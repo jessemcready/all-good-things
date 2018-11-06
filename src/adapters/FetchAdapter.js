@@ -46,6 +46,10 @@ export default class FetchAdapter {
     }).then(res => res.json())
   }
 
+  static getUser(id){
+    return fetch(`${backendUrl}/users/${id}`).then(res => res.json())
+  }
+
   static updateUser(id, user){
     return fetch(`${backendUrl}/users/${id}`, {
       ...patchHeader,
@@ -56,6 +60,20 @@ export default class FetchAdapter {
   static deleteUser(id){
     return fetch(`${backendUrl}/users/${id}`, {
       ...deleteHeader
+    }).then(res => res.json())
+  }
+
+  static followUser(relationship){
+    return fetch(`${backendUrl}/relationships`, {
+      ...postHeader,
+      body: JSON.stringify({ relationship })
+    }).then(res => res.json())
+  }
+
+  static unfollowUser(relationship){
+    return fetch(`${backendUrl}/relationships`, {
+      ...deleteHeader,
+      body: JSON.stringify({ relationship })
     }).then(res => res.json())
   }
 

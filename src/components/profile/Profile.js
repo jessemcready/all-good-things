@@ -93,7 +93,6 @@ class Profile extends Component {
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
         <Header size='huge'>{user.name}'s Profile</Header>
-
         {
           !editing ?
           this.renderCard() :
