@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Header, Card, Button, Confirm } from 'semantic-ui-react'
+import { Container, Header, Card, Button, Confirm, Grid } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
 import { editUser, signout } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
+import Post from '../posts/Post'
 
 class Profile extends Component {
   constructor(props){
@@ -22,23 +23,30 @@ class Profile extends Component {
     const { user } = this.props
     const { open } = this.state
     return (
-      <Card centered>
-        <Card.Content>
-          <Card.Header>{user.name}</Card.Header>
-          <Card.Description>
-            Email: {user.email}
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <Button basic color='green' onClick={this.handleEdit}>Edit</Button>
-          <Button basic color='red' onClick={this.handleDelete}>Delete</Button>
-          <Confirm
-            open={open}
-            onCancel={this.handleCancel}
-            onConfirm={this.handleConfirm}
-          />
-        </Card.Content>
-      </Card>
+      <Grid>
+        <Grid.Column floated='left' width={6}>
+          <Card>
+            <Card.Content>
+              <Card.Header>{user.name}</Card.Header>
+              <Card.Description>
+                Email: {user.email}
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <Button basic color='green' onClick={this.handleEdit}>Edit</Button>
+              <Button basic color='red' onClick={this.handleDelete}>Delete</Button>
+              <Confirm
+                open={open}
+                onCancel={this.handleCancel}
+                onConfirm={this.handleConfirm}
+              />
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column floated='right' width={10}>
+          { user.posts.map( post => <Post key={post.id} {...post} />) }
+        </Grid.Column>
+      </Grid>
     )
   }
 
