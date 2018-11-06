@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { postsUrl } from '../constants/fetchUrls'
 import { createPost } from '../actions/posts'
+import FetchAdapter from '../adapters/FetchAdapter'
 
 class FeedContainer extends Component{
   state = {
@@ -23,19 +24,8 @@ class FeedContainer extends Component{
   handleSubmit = (event) => {
     const { user, createPost } = this.props
     const { userInput } = this.state
-    fetch(postsUrl, {
-      method: 'POST',
-      headers: {
-        'Accept':'application/json',
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify({
-        post: {
-          user_id: user.id,
-          content: userInput
-        }
-      })
-    }).then(res => res.json()).then( postObj => {
+    const post = { user_id: user.id, content: userInput }
+    FetchAdapter.createPost(post).then( postObj => {
       this.setState({
         userInput: '',
         modalOpen: false

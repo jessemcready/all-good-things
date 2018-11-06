@@ -10,7 +10,7 @@ export default(state = initialState, action) => {
   let like
   switch(action.type){
     case CREATE_POST:
-      return [...state, action.post]
+      return [action.post, ...state]
     case CREATE_POST_COMMENT:
       index = state.findIndex( post => post.id === action.comment.post_id)
       post = state[index]

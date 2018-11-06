@@ -77,4 +77,11 @@ export default class FetchAdapter {
     }).then(res => res.json())
   }
 
+  static createPost(post){
+    return fetch(`${backendUrl}/posts`,{
+      ...postHeader,
+      body: JSON.stringify({ post })
+    }).then(res => res.json())
+  }
+
 }
