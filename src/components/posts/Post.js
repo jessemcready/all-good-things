@@ -17,6 +17,9 @@ class Post extends Component {
   componentDidMount(){
     const { id, users } = this.props
     const foundPost = users.likes.find( like => {
+      if(like.post){
+        return like.post.id === id
+      }
       return like.post_id === id
     })
     if(foundPost){
