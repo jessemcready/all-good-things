@@ -1,11 +1,11 @@
 import { backendUrl } from '../constants/fetchUrls'
-import { postHeader, deleteHeader, patchHeader } from '../constants/fetchHeaders'
+import { postHeader, deleteHeader, patchHeader, loginHeader } from '../constants/fetchHeaders'
 
 export default class FetchAdapter {
 
   static loginUser(userData) {
     return fetch(`${backendUrl}/login`,{
-      ...postHeader,
+      ...loginHeader,
       body: JSON.stringify({ user: userData })
     }).then(res => res.json())
   }

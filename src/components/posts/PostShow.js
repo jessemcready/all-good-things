@@ -17,6 +17,7 @@ class PostShow extends Component {
     const { user } = this.props
     const foundPost = user.likes.find( like => {
       if(like.post){
+        debugger
         return like.post.id === parseInt(id)
       }
       return like.post_id === parseInt(id)

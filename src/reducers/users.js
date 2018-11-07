@@ -34,21 +34,29 @@ export default(state = initialState, action) => {
       }
     case LIKE_POST:
       return {
-        ...state,
-        likes: [
-          ...state.likes,
-          action.like
-        ]
+        user: {
+          ...state.user,
+          likes: [
+            ...state.user.likes,
+            action.like
+          ]
+        }
       }
     case UNLIKE_POST:
-      debugger
-      index = state.likes.findIndex( like => like.post_id === action.postId )
+      index = state.user.likes.findIndex( like => {
+        if(like.post){
+          return like.post.id === action.postId
+        }
+        return like.post_id === action.postId
+      })
       return {
-        ...state,
-        likes: [
-          ...state.likes.slice(0, index),
-          ...state.likes.slice(index + 1)
-        ]
+        user: {
+          ...state.user,
+          likes: [
+            ...state.user.likes.slice(0, index),
+            ...state.user.likes.slice(index + 1)
+          ]
+        }
       }
     case EDIT_USER:
       return Object.assign({}, action.user)

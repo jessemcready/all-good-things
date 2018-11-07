@@ -22,6 +22,7 @@ class Post extends Component {
       }
       return like.post_id === id
     })
+    debugger
     if(foundPost){
       this.setState({ liked: true })
     }
