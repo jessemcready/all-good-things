@@ -99,11 +99,6 @@ class Post extends Component {
                 <Icon name='like' color='red' onClick={this.handleUnlike} /> :
                 <Icon name='like' onClick={this.handleLike} />
               }
-              {
-                likes ?
-                likes.length :
-                0
-               } Likes
               </Feed.Like>
               <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} />
             </Feed.Meta>
