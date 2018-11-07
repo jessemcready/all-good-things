@@ -1,11 +1,13 @@
 import { LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST } from '../constants/userActions'
 
 const initialState = {
-  id: null,
-  name: '',
-  email: '',
-  followers: [],
-  likes: []
+  user: {
+    id: null,
+    name: '',
+    email: '',
+    followers: [],
+    likes: []
+  }
 }
 
 export default(state = initialState, action) => {
@@ -39,6 +41,7 @@ export default(state = initialState, action) => {
         ]
       }
     case UNLIKE_POST:
+      debugger
       index = state.likes.findIndex( like => like.post_id === action.postId )
       return {
         ...state,

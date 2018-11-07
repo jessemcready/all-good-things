@@ -44,7 +44,7 @@ class FeedContainer extends Component{
 const mapStateToProps = state => {
   return {
     posts: state.posts,
-    user: state.users
+    user: state.users.user
   }
 }
 

@@ -53,7 +53,7 @@ class DiscoverContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.users
+    user: state.users.user
   }
 }
 

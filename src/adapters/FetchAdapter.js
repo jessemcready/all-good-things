@@ -6,7 +6,7 @@ export default class FetchAdapter {
   static loginUser(userData) {
     return fetch(`${backendUrl}/login`,{
       ...postHeader,
-      body: JSON.stringify(userData)
+      body: JSON.stringify({ user: userData })
     }).then(res => res.json())
   }
 
