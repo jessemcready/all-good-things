@@ -10,7 +10,6 @@ const initialState = {
 
 export default(state = initialState, action) => {
   let index
-  // let like
   switch(action.type){
     case LOGIN_OR_SIGNUP:
       return Object.assign({}, action.user)
