@@ -1,5 +1,5 @@
 import { backendUrl } from '../constants/fetchUrls'
-import { postHeader, deleteHeader, patchHeader, loginHeader } from '../constants/fetchHeaders'
+import { postHeader, deleteHeader, patchHeader, loginHeader, getHeader } from '../constants/fetchHeaders'
 
 export default class FetchAdapter {
 
@@ -18,7 +18,9 @@ export default class FetchAdapter {
   }
 
   static getUsers(){
-    return fetch(`${backendUrl}/users`).then(res => res.json())
+    return fetch(`${backendUrl}/users`,{
+      ...getHeader
+    }).then(res => res.json())
   }
 
   static createLike(like){
@@ -36,7 +38,9 @@ export default class FetchAdapter {
   }
 
   static getPost(id){
-    return fetch(`${backendUrl}/posts/${id}`).then(res => res.json())
+    return fetch(`${backendUrl}/posts/${id}`, {
+      ...getHeader
+    }).then(res => res.json())
   }
 
   static createComment(comment){
@@ -47,7 +51,9 @@ export default class FetchAdapter {
   }
 
   static getUser(id){
-    return fetch(`${backendUrl}/users/${id}`).then(res => res.json())
+    return fetch(`${backendUrl}/users/${id}`, {
+      ...getHeader
+    }).then(res => res.json())
   }
 
   static updateUser(id, user){

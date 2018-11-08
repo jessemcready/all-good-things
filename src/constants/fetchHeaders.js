@@ -32,3 +32,10 @@ export const patchHeader = {
     'Content-Type': 'application/json'
   }
 }
+
+export const getHeader = {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+  }
+}
