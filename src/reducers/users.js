@@ -17,20 +17,24 @@ export default(state = initialState, action) => {
       return Object.assign({}, action.user)
     case FOLLOW_USER:
       return {
-        ...state,
-        followers: [
-          ...state.followers,
-          action.user
-        ]
+        user: {
+          ...state.user,
+          followers: [
+            action.user,
+            ...state.user.followers
+          ]
+        }
       }
     case UNFOLLOW_USER:
-      index = state.followers.findIndex( follower => follower.id === action.userId)
+      index = state.user.followers.findIndex( follower => follower.id === action.userId)
       return {
-        ...state,
-        followers: [
-          ...state.followers.slice(0, index - 1),
-          ...state.followers.slice(index + 1)
-        ]
+        user: {
+          ...state.user,
+          followers: [
+            ...state.user.followers.slice(0, index),
+            ...state.user.followers.slice(index + 1)
+          ]
+        }
       }
     case LIKE_POST:
       return {
