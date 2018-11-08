@@ -22,12 +22,11 @@ class FormContainer extends Component {
   handleLogin = (event, formData) => {
     const { loginOrSignup } = this.props
     FetchAdapter.loginUser(formData).then( user => {
-      if(user.errors){
+      if(user.message){
         this.setState({
-          errors: user.errors
+          errors: user.message
         })
       } else {
-        localStorage.setItem('jwt', user.jwt)
         loginOrSignup(user)
       }
     })
@@ -41,7 +40,6 @@ class FormContainer extends Component {
           errors: user.errors
         })
       } else {
-        localStorage.setItem('jwt', user.jwt)
         loginOrSignup(user)
       }
     })

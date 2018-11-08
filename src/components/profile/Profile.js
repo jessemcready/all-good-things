@@ -60,17 +60,14 @@ class Profile extends Component {
   handleConfirm = () => {
     const { user, signout } = this.props
     FetchAdapter.deleteUser(user.id).then( deletedObj => {
+      debugger
       signout()
     })
   }
 
   handleCancel = () => this.setState({ result: 'cancelled', open: false })
 
-  handleEdit = () => {
-    this.setState({
-      editing: !this.state.editing
-    })
-  }
+  handleEdit = () => this.setState({ editing: !this.state.editing })
 
   handleSubmit = (event, value) => {
     const { user, editUser } = this.props
@@ -89,17 +86,11 @@ class Profile extends Component {
     }
     FetchAdapter.updateUser(user.id, updatedUser).then( updatedUserObj => {
       editUser(updatedUserObj)
-      this.setState({
-        editing: false
-      })
+      this.setState({ editing: false })
     })
   }
 
-  handleDelete = () => {
-    this.setState({
-      open: true
-    })
-  }
+  handleDelete = () => this.setState({ open: true }) 
 
   render(){
     const { user } = this.props
