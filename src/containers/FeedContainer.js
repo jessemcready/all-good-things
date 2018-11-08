@@ -15,11 +15,11 @@ class FeedContainer extends Component{
   }
 
   render() {
-    const { posts, user } = this.props
+    const { posts } = this.props
     let combinedPosts = {}
     Object.assign(combinedPosts, posts)
-    Object.assign(combinedPosts, user.posts)
     combinedPosts = this.orderPosts(posts)
+    debugger
     if(posts.length === 0){
       return (
         <Container textAlign='center' style={{marginTop: '75px'}}>
@@ -43,8 +43,7 @@ class FeedContainer extends Component{
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts,
-    user: state.users.user
+    posts: state.posts
   }
 }
 

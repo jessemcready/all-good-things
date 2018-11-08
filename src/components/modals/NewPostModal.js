@@ -27,7 +27,7 @@ class NewPostModal extends Component {
         userInput: '',
         modalOpen: false
       })
-      createPost(postObj)
+      createPost(postObj.post)
     })
   }
 
