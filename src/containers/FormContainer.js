@@ -27,6 +27,7 @@ class FormContainer extends Component {
           errors: user.message
         })
       } else {
+        localStorage.setItem('jwt', user.jwt)
         loginOrSignup(user)
       }
     })
@@ -40,6 +41,7 @@ class FormContainer extends Component {
           errors: user.errors
         })
       } else {
+        localStorage.setItem('jwt', user.jwt)
         loginOrSignup(user)
       }
     })

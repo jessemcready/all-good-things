@@ -61,6 +61,7 @@ class Profile extends Component {
     const { user, signout } = this.props
     FetchAdapter.deleteUser(user.id).then( deletedObj => {
       debugger
+      localStorage.removeItem('jwt')
       signout()
     })
   }
@@ -90,7 +91,7 @@ class Profile extends Component {
     })
   }
 
-  handleDelete = () => this.setState({ open: true }) 
+  handleDelete = () => this.setState({ open: true })
 
   render(){
     const { user } = this.props

@@ -9,7 +9,7 @@ export const loginHeader = {
 export const postHeader = {
   method: 'POST',
   headers: {
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    'Authorization': `Bearer ${localStorage.jwt}`,
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
@@ -18,7 +18,7 @@ export const postHeader = {
 export const deleteHeader = {
   method: 'DELETE',
   headers: {
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    'Authorization': `Bearer ${localStorage.jwt}`,
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
@@ -27,7 +27,7 @@ export const deleteHeader = {
 export const patchHeader = {
   method: 'PATCH',
   headers: {
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    'Authorization': `Bearer ${localStorage.jwt}`,
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
@@ -36,6 +36,6 @@ export const patchHeader = {
 export const getHeader = {
   method: 'GET',
   headers: {
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    'Authorization': `Bearer ${localStorage.jwt}`
   }
 }

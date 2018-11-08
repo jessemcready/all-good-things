@@ -64,6 +64,7 @@ export default class FetchAdapter {
   }
 
   static deleteUser(id){
+    debugger
     return fetch(`${backendUrl}/users/${id}`, {
       ...deleteHeader
     }).then(res => res.json())

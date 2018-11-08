@@ -14,6 +14,7 @@ class DiscoverContainer extends Component {
   componentDidMount(){
     const { user } = this.props
     FetchAdapter.getUsers().then( userObjs => {
+      debugger
       const users = userObjs.filter( userObj => {
         return user.email !== userObj.email
       })

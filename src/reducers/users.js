@@ -14,7 +14,6 @@ export default(state = initialState, action) => {
   let index
   switch(action.type){
     case LOGIN_OR_SIGNUP:
-      localStorage.setItem('jwt', action.user.jwt)
       return Object.assign({}, action.user)
     case FOLLOW_USER:
       return {
