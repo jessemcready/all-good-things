@@ -53,7 +53,7 @@ export default(state = initialState, action) => {
     case EDIT_USER:
       return Object.assign({}, action.user)
     case SIGNOUT:
-      localStorage.removeItem('jwt')
+      localStorage.clear()
       return initialState
     default:
       return state

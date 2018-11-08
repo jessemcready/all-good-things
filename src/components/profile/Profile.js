@@ -57,7 +57,7 @@ class Profile extends Component {
 
   handleConfirm = () => {
     const { user, signout } = this.props
-    FetchAdapter.deleteUser(user.id).then( deletedObj => signout() )
+    FetchAdapter.deleteUser(user.id).then( deletedObj => { signout() } )
   }
 
   handleCancel = () => this.setState({ result: 'cancelled', open: false })
