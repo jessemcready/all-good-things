@@ -5,8 +5,19 @@ import FormContainer from './containers/FormContainer'
 import MainPage from './containers/MainPage'
 import NavBar from './components/NavBar'
 import { withRouter } from 'react-router-dom'
+import FetchAdapter from './adapters/FetchAdapter'
+import { loginOrSignup } from './actions/users'
 
 class App extends Component {
+  componentDidMount() {
+    const { loginOrSignup } = this.props
+    if(localStorage.jwt){
+      FetchAdapter.getCurrentUser().then( user => {
+        loginOrSignup(user)
+      })
+    }
+  }
+
   render() {
     const { users } = this.props
     return (
@@ -30,4 +41,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, { loginOrSignup })(App));

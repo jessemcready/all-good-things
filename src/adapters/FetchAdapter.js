@@ -91,4 +91,10 @@ export default class FetchAdapter {
     }).then(res => res.json())
   }
 
+  static getCurrentUser(){
+    return fetch(`${backendUrl}/users/current`, {
+      ...getHeader
+    }).then(res => res.json())
+  }
+
 }
