@@ -12,7 +12,7 @@ class Profile extends Component {
   componentDidMount(){
     const id = this.props.match.params.id
     FetchAdapter.getUser(id).then( currentUser => {
-      this.setState( { currentUser } )
+      this.setState( { currentUser: currentUser.user } )
     })
   }
 
