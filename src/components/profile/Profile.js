@@ -73,7 +73,7 @@ class Profile extends Component {
   }
 
   handleSubmit = (event, value) => {
-    const { user } = this.props
+    const { user, editUser } = this.props
     let updatedUser
     if(value.password === ''){
       updatedUser = {
@@ -88,7 +88,7 @@ class Profile extends Component {
       }
     }
     FetchAdapter.updateUser(user.id, updatedUser).then( updatedUserObj => {
-      this.props.editUser(updatedUserObj)
+      editUser(updatedUserObj)
       this.setState({
         editing: false
       })

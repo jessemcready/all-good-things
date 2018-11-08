@@ -67,7 +67,6 @@ class Post extends Component {
   }
 
   render() {
-    debugger
     const { id, content, comments, created_at, users, likes, profile } = this.props
     const { liked, clicked } = this.state
 
