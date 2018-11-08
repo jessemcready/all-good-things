@@ -11,7 +11,8 @@ import FetchAdapter from '../../adapters/FetchAdapter'
 class Post extends Component {
   state = {
     liked : false,
-    clicked: false
+    clicked: false,
+    usernameClick: false
   }
 
   componentDidMount(){
@@ -61,16 +62,18 @@ class Post extends Component {
   }
 
   handlePostPage = () => {
-    this.setState({
-      clicked: true
-    })
+    this.setState({ clicked: true })
+  }
+
+  handleUserClick = () => {
+    this.setState({ usernameClick: true })
   }
 
   render() {
-    const { id, content, comments, created_at, users, likes, profile } = this.props
-    const { liked, clicked } = this.state
+    const { id, content, comments, created_at, user, likes, profile } = this.props
+    const { liked, clicked, usernameClick } = this.state
 
-    if( users.name === undefined && content === undefined ){
+    if( user.name === undefined && content === undefined ){
       return null
     }
 
@@ -83,8 +86,12 @@ class Post extends Component {
           <Card centered raised>
           <Feed.Content>
             <Feed.Summary>
-              <Feed.User>
-              {users.name}
+              <Feed.User onClick={this.handleUserClick}>
+              {
+                usernameClick ?
+                <Redirect to={`/profile/${user.id}`} /> :
+                user.name
+              }
               </Feed.User>
               <Card.Meta>
                 <Feed.Date>

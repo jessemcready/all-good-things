@@ -1,19 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { Container, Header, Card, Button } from 'semantic-ui-react'
 import { followUser, unfollowUser } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 
 class Profile extends Component {
   state = {
-    currentUser: {}
+    currentUser: {},
+    signedInUser: false
   }
 
   componentDidMount(){
+    const { user } = this.props
     const id = this.props.match.params.id
-    FetchAdapter.getUser(id).then( currentUser => {
-      this.setState( { currentUser: currentUser.user } )
-    })
+    if( id == 'undefined' ){
+      this.setState({ signedInUser: true })
+    } else {
+      FetchAdapter.getUser(id).then( currentUser => {
+        this.setState( { currentUser: currentUser.user } )
+      })
+    }
   }
 
   handleFollow = () => {
@@ -49,29 +56,35 @@ class Profile extends Component {
   }
 
   render(){
-    const { currentUser } = this.state
+    const { currentUser, signedInUser } = this.state
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
-        <Header size='huge'>{currentUser.name}'s Profile</Header>
-        <Card centered>
-          <Card.Content>
-            <Card.Header>{currentUser.name}</Card.Header>
-            <Card.Description>
-              Email: {currentUser.email}
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            {
-              this.following() ?
-              <Button basic color='blue' onClick={this.handleFollow}>
-                Follow
-              </Button> :
-              <Button basic color='red' onClick={this.handleUnfollow}>
-                Unfollow
-              </Button>
-            }
-          </Card.Content>
-        </Card>
+        {
+          signedInUser ?
+          <Redirect to='/profile' /> :
+          <Fragment>
+            <Header size='huge'>{currentUser.name}'s Profile</Header>
+            <Card centered>
+              <Card.Content>
+                <Card.Header>{currentUser.name}</Card.Header>
+                <Card.Description>
+                  Email: {currentUser.email}
+                </Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                {
+                  this.following() ?
+                  <Button basic color='blue' onClick={this.handleFollow}>
+                    Follow
+                  </Button> :
+                  <Button basic color='red' onClick={this.handleUnfollow}>
+                    Unfollow
+                  </Button>
+                }
+              </Card.Content>
+            </Card>
+          </Fragment>
+        }
       </Container>
     );
   }
