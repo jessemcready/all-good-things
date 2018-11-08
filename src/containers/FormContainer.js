@@ -13,19 +13,15 @@ class FormContainer extends Component {
   }
 
   handleFormSwitch = () => {
-    this.setState({
-      isLoginForm: !this.state.isLoginForm,
-      errors: ''
-    })
+    const { isLoginForm } = this.state
+    this.setState({ isLoginForm: !isLoginForm, errors: '' })
   }
 
   handleLogin = (event, formData) => {
     const { loginOrSignup } = this.props
     FetchAdapter.loginUser(formData).then( user => {
       if(user.message){
-        this.setState({
-          errors: user.message
-        })
+        this.setState({ errors: user.message })
       } else {
         localStorage.setItem('jwt', user.jwt)
         loginOrSignup(user)
@@ -37,9 +33,7 @@ class FormContainer extends Component {
     const { loginOrSignup } = this.props
     FetchAdapter.signupUser(formData).then(user => {
       if(user.errors){
-        this.setState({
-          errors: user.errors
-        })
+        this.setState({ errors: user.errors })
       } else {
         localStorage.setItem('jwt', user.jwt)
         loginOrSignup(user)

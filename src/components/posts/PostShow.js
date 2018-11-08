@@ -17,7 +17,6 @@ class PostShow extends Component {
     const { user } = this.props
     const foundPost = user.likes.find( like => {
       if(like.post){
-        debugger
         return like.post.id === parseInt(id)
       }
       return like.post_id === parseInt(id)
@@ -34,12 +33,8 @@ class PostShow extends Component {
     const post = posts.find( post => post.id === parseInt(id))
     const comment = { post_id: post.id, user_id: user.id, content: userInput }
     FetchAdapter.createComment(comment).then( commentObj => {
-      createPostComment({
-        id: commentObj.id,
-        post_id: commentObj.post.id,
-        user: commentObj.user,
-        content: commentObj.content
-      })
+      const { id, post, user, content } = commentObj
+      createPostComment({ id, post_id: post.id, user, content })
     })
   }
 

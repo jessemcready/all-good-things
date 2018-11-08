@@ -12,9 +12,7 @@ class NewPostModal extends Component {
 
   handleChange = (event) => {
     if(this.state.userInput.length < 400){
-      this.setState({
-        userInput: event.target.value
-      })
+      this.setState({ userInput: event.target.value })
     }
   }
 
@@ -23,10 +21,7 @@ class NewPostModal extends Component {
     const { userInput } = this.state
     const post = { user_id: user.id, content: userInput }
     FetchAdapter.createPost(post).then( postObj => {
-      this.setState({
-        userInput: '',
-        modalOpen: false
-      })
+      this.setState({ userInput: '', modalOpen: false })
       createPost(postObj.post)
     })
   }

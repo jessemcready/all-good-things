@@ -61,13 +61,9 @@ class Post extends Component {
     })
   }
 
-  handlePostPage = () => {
-    this.setState({ clicked: true })
-  }
+  handlePostPage = () => this.setState({ clicked: true })
 
-  handleUserClick = () => {
-    this.setState({ usernameClick: true })
-  }
+  handleUserClick = () => this.setState({ usernameClick: true })
 
   render() {
     const { id, content, comments, created_at, user, likes, profile } = this.props

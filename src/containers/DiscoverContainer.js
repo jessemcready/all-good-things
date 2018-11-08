@@ -14,7 +14,6 @@ class DiscoverContainer extends Component {
   componentDidMount(){
     const { user } = this.props
     FetchAdapter.getUsers().then( userObjs => {
-      debugger
       const users = userObjs.filter( userObj => {
         return user.email !== userObj.email
       })
@@ -23,9 +22,7 @@ class DiscoverContainer extends Component {
   }
 
   handleChange = event => {
-    this.setState({
-      searchTerm: event.target.value
-    })
+    this.setState({ searchTerm: event.target.value })
   }
 
   usersToShow = () => {

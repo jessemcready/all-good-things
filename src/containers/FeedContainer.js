@@ -9,16 +9,11 @@ import NewPostModal from '../components/modals/NewPostModal'
 class FeedContainer extends Component{
 
   orderPosts = posts => {
-    return posts.sort((a,b) => {
-      return new Date(b.created_at) - new Date(a.created_at)
-    })
+    return posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
   }
 
   render() {
-    const { posts } = this.props
-    let combinedPosts = {}
-    Object.assign(combinedPosts, posts)
-    combinedPosts = this.orderPosts(posts)
+    const posts = this.orderPosts(this.props.posts)
     if(posts.length === 0){
       return (
         <Container textAlign='center' style={{marginTop: '75px'}}>
@@ -33,7 +28,7 @@ class FeedContainer extends Component{
 
     return (
       <Feed size='large' style={{marginTop: '75px'}}>
-        {combinedPosts.map( post => <Post key={post.id} {...post} />)}
+        {posts.map( post => <Post key={post.id} {...post} />)}
         <NewPostModal />
       </Feed>
     )

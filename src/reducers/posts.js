@@ -45,16 +45,10 @@ export default(state = initialState, action) => {
         if(!follower) return null
         return follower.posts
       })
-      return [
-        ...action.user.user.posts,
-        ...posts.flat()
-      ]
+      return [ ...action.user.user.posts, ...posts.flat() ]
     case FOLLOW_USER:
       const { user } = action
-      return [
-        ...state,
-        ...user.posts
-      ]
+      return [ ...state, ...user.posts ]
     case UNFOLLOW_USER:
       const { userId } = action
       const followedUsersPosts = state.filter( post => post.user_id !== userId)

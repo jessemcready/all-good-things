@@ -9,9 +9,7 @@ class User extends Component{
 
   handleClick = () => {
     const { clicked } = this.state
-    this.setState({
-      clicked: !clicked
-    })
+    this.setState({ clicked: !clicked })
   }
 
   render() {

@@ -28,7 +28,6 @@ class Profile extends Component {
     const relationship = { follower_id: user.id, followee_id: currentUser.id }
     FetchAdapter.followUser(relationship).then( relationshipObj => {
       followUser(currentUser)
-      this.following()
     })
   }
 
@@ -38,7 +37,6 @@ class Profile extends Component {
     const relationship = { follower_id: user.id, followee_id: currentUser.id }
     FetchAdapter.unfollowUser(relationship).then( relationshipObj => {
       unfollowUser(currentUser.id)
-      this.following()
     })
   }
 
@@ -48,10 +46,7 @@ class Profile extends Component {
     const foundUser = user.followers.find(follower => {
       return follower.email === currentUser.email
     })
-    if(foundUser === undefined){
-      return true
-    }
-    return false
+    return foundUser === undefined ? true : false
   }
 
   render(){

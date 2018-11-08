@@ -20,9 +20,7 @@ class Profile extends Component {
   }
 
   orderPosts = posts => {
-    return posts.sort((a,b) => {
-      return new Date(b.created_at) - new Date(a.created_at)
-    })
+    return posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
   }
 
   renderCard = () => {
@@ -59,11 +57,7 @@ class Profile extends Component {
 
   handleConfirm = () => {
     const { user, signout } = this.props
-    FetchAdapter.deleteUser(user.id).then( deletedObj => {
-      debugger
-      localStorage.removeItem('jwt')
-      signout()
-    })
+    FetchAdapter.deleteUser(user.id).then( deletedObj => signout() )
   }
 
   handleCancel = () => this.setState({ result: 'cancelled', open: false })
@@ -74,16 +68,11 @@ class Profile extends Component {
     const { user, editUser } = this.props
     let updatedUser
     if(value.password === ''){
-      updatedUser = {
-        name: value.name,
-        email: value.email
-      }
+      const { name, email } = value
+      updatedUser = { name, email }
     } else {
-      updatedUser = {
-        name: value.name,
-        email: value.email,
-        password: value.password
-      }
+      const { name, email, password } = value
+      updatedUser = { name, email, password }
     }
     FetchAdapter.updateUser(user.id, updatedUser).then( updatedUserObj => {
       editUser(updatedUserObj)
