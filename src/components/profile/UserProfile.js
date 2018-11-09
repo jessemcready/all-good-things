@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { Container, Header, Card, Button, Grid } from 'semantic-ui-react'
 import { followUser, unfollowUser } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
+import Post from '../posts/Post'
 
 class Profile extends Component {
   state = {
@@ -51,7 +52,6 @@ class Profile extends Component {
 
   render(){
     const { currentUser, signedInUser } = this.state
-    debugger
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
         {
@@ -82,7 +82,10 @@ class Profile extends Component {
               </Card>
             </Grid.Column>
             <Grid.Column>
-              
+              { currentUser.posts != undefined ?
+                currentUser.posts.map( post => <Post key={post.id} {...post} profile={true} />) :
+                null
+               }
             </Grid.Column>
           </Grid>
           </Fragment>
