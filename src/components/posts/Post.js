@@ -43,6 +43,7 @@ class Post extends Component {
     const { id, users, likePost } = this.props
     const like = { user_id: users.id, post_id: id }
     FetchAdapter.createLike(like).then(likeObj => {
+      debugger
       likePost(likeObj)
       this.setState({ liked: true })
     })
@@ -64,7 +65,6 @@ class Post extends Component {
   render() {
     const { id, content, comments, created_at, user, likes, profile } = this.props
     const { liked, clicked, usernameClick } = this.state
-
     if( user.name === undefined && content === undefined ){
       return null
     }

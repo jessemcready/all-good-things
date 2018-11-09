@@ -50,8 +50,15 @@ class Profile extends Component {
     return foundUser === undefined ? true : false
   }
 
+  usersPosts = () => {
+    const { posts } = this.props
+    const { email } = this.state.currentUser
+    return posts.filter( post => post.user.email === email )
+  }
+
   render(){
     const { currentUser, signedInUser } = this.state
+    const posts = this.usersPosts()
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
         {
@@ -82,8 +89,8 @@ class Profile extends Component {
               </Card>
             </Grid.Column>
             <Grid.Column>
-              { currentUser.posts !== undefined ?
-                currentUser.posts.map( post => <Post key={post.id} {...post} profile={true} />) :
+              { posts !== undefined ?
+                posts.map( post => <Post key={post.id} {...post} profile={true} />) :
                 null
                }
             </Grid.Column>
@@ -97,7 +104,8 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.users.user
+    user: state.users.user,
+    posts: state.posts
   }
 }
 
