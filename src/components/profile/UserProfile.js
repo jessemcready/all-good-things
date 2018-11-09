@@ -82,7 +82,7 @@ class Profile extends Component {
               </Card>
             </Grid.Column>
             <Grid.Column>
-              { currentUser.posts != undefined ?
+              { currentUser.posts !== undefined ?
                 currentUser.posts.map( post => <Post key={post.id} {...post} profile={true} />) :
                 null
                }
