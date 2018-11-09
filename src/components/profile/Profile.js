@@ -19,14 +19,21 @@ class Profile extends Component {
     }
   }
 
-  orderPosts = posts => {
-    return posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+  orderPosts = () => {
+    return this.getUserPosts().sort((a,b) => (
+      new Date(b.created_at) - new Date(a.created_at)
+    ))
+  }
+
+  getUserPosts = () => {
+    const { posts, user } = this.props
+    return posts.filter( post => post.user.email === user.email )
   }
 
   renderCard = () => {
     const { user } = this.props
     const { open } = this.state
-    const posts = this.orderPosts(user.posts)
+    const posts = this.orderPosts()
     return (
       <Grid container columns={2}>
         <Grid.Column>
@@ -64,6 +71,8 @@ class Profile extends Component {
 
   handleEdit = () => this.setState({ editing: !this.state.editing })
 
+  handleDelete = () => this.setState({ open: true })
+
   handleSubmit = (event, value) => {
     const { user, editUser } = this.props
     let updatedUser
@@ -80,7 +89,6 @@ class Profile extends Component {
     })
   }
 
-  handleDelete = () => this.setState({ open: true })
 
   render(){
     const { user } = this.props
@@ -100,7 +108,8 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.users.user
+    user: state.users.user,
+    posts: state.posts
   }
 }
 
