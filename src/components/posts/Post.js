@@ -43,7 +43,6 @@ class Post extends Component {
     const { id, users, likePost } = this.props
     const like = { user_id: users.id, post_id: id }
     FetchAdapter.createLike(like).then(likeObj => {
-      debugger
       likePost(likeObj)
       this.setState({ liked: true })
     })
