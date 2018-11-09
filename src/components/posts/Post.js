@@ -17,12 +17,9 @@ class Post extends Component {
 
   componentDidMount(){
     const { id, users } = this.props
-    const foundPost = users.likes.find( like => {
-      if(like.post){
-        return like.post.id === id
-      }
-      return like.post_id === id
-    })
+    const foundPost = users.likes.find( like => (
+      like.post ? like.post.id === id : like.post_id === id
+    ))
     if(foundPost){
       this.setState({ liked: true })
     }
@@ -64,11 +61,10 @@ class Post extends Component {
   render() {
     const { id, content, comments, created_at, user, likes, profile } = this.props
     const { liked, clicked, usernameClick } = this.state
-    if( user.name === undefined && content === undefined ){
-      return null
-    }
 
-    return (
+    return user.name === undefined && content === undefined ?
+    null :
+    (
       <Fragment>
       {
         clicked ?
