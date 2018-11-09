@@ -19,11 +19,11 @@ class Profile extends Component {
     }
   }
 
-  orderPosts = () => {
-    return this.getUserPosts().sort((a,b) => (
+  orderPosts = () => (
+    this.getUserPosts().sort((a,b) => (
       new Date(b.created_at) - new Date(a.created_at)
     ))
-  }
+  )
 
   getUserPosts = () => {
     const { posts, user } = this.props
