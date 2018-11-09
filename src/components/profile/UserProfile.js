@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Container, Header, Card, Button } from 'semantic-ui-react'
+import { Container, Header, Card, Button, Grid } from 'semantic-ui-react'
 import { followUser, unfollowUser } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 
@@ -51,6 +51,7 @@ class Profile extends Component {
 
   render(){
     const { currentUser, signedInUser } = this.state
+    debugger
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
         {
@@ -58,25 +59,32 @@ class Profile extends Component {
           <Redirect to='/profile' /> :
           <Fragment>
             <Header size='huge'>{currentUser.name}'s Profile</Header>
-            <Card centered>
-              <Card.Content>
-                <Card.Header>{currentUser.name}</Card.Header>
-                <Card.Description>
-                  Email: {currentUser.email}
-                </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                {
-                  this.following() ?
-                  <Button basic color='blue' onClick={this.handleFollow}>
-                    Follow
-                  </Button> :
-                  <Button basic color='red' onClick={this.handleUnfollow}>
-                    Unfollow
-                  </Button>
-                }
-              </Card.Content>
-            </Card>
+            <Grid container columns={2}>
+            <Grid.Column>
+              <Card fluid>
+                <Card.Content>
+                  <Card.Header>{currentUser.name}</Card.Header>
+                  <Card.Description>
+                    Email: {currentUser.email}
+                  </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                  {
+                    this.following() ?
+                    <Button basic color='blue' onClick={this.handleFollow}>
+                      Follow
+                    </Button> :
+                    <Button basic color='red' onClick={this.handleUnfollow}>
+                      Unfollow
+                    </Button>
+                  }
+                </Card.Content>
+              </Card>
+            </Grid.Column>
+            <Grid.Column>
+              
+            </Grid.Column>
+          </Grid>
           </Fragment>
         }
       </Container>
