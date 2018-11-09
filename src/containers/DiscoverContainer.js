@@ -14,10 +14,10 @@ class DiscoverContainer extends Component {
   componentDidMount(){
     const { user } = this.props
     FetchAdapter.getUsers().then( userObjs => {
-      const users = userObjs.filter( userObj => {
-        return user.email !== userObj.email
-      })
-      this.setState({users})
+      const users = userObjs.filter( userObj =>
+        user.email !== userObj.email
+      )
+      this.setState({ users })
     })
   }
 
