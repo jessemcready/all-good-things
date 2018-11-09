@@ -20,7 +20,7 @@ export default(state = initialState, action) => {
         user: {...state.user, followers: [ action.user, ...state.user.followers ]}
       }
     case UNFOLLOW_USER:
-      index = state.user.followers.findIndex( follower => follower.id === action.userId)
+      index = state.user.followers.findIndex( follower => follower.email === action.userEmail)
       return {
         user: {
           ...state.user,
