@@ -52,13 +52,13 @@ class Profile extends Component {
     const { currentUser, signedInUser } = this.state
     const { posts } = this.state.currentUser
     return(
-      <Container style={{marginTop: '75px'}} textAlign='center' text>
+      <Container style={{marginTop: '75px', backgroundColor:'#5F60FF'}} textAlign='center' text>
         {
           signedInUser ?
           <Redirect to='/profile' /> :
           <Fragment>
             <Header size='huge'>{currentUser.name}'s Profile</Header>
-            <Grid container columns={2}>
+            <Grid container columns={2} fluid content>
             <Grid.Column>
               <Card fluid>
                 <Card.Content>

@@ -15,7 +15,7 @@ class FeedContainer extends Component{
     const posts = this.orderPosts(this.props.posts)
     if(posts.length === 0){
       return (
-        <Container textAlign='center' style={{marginTop: '75px'}}>
+        <Container textAlign='center' style={{marginTop: '75px', backgroundColor:'#5F60FF'}}>
           <Header>
             No posts to display. Click Discover above and search for some users!
             Or try creating your first post by clicking on the '+' in the bottom right.
@@ -26,7 +26,7 @@ class FeedContainer extends Component{
     }
 
     return (
-      <Feed size='large' style={{marginTop: '75px'}}>
+      <Feed size='large' style={{marginTop: '75px', backgroundColor:'#5F60FF'}}>
         {posts.map( post => <Post key={post.id} {...post} />)}
         <NewPostModal />
       </Feed>

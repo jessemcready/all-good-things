@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom'
 import { signout } from '../actions/users'
 
 class NavBar extends Component {
-
   render() {
     return (
-        <Menu fixed='top' fluid size='massive' style={{height: '75px'}}>
+        <Menu fixed='top' fluid size='massive' style={{height: '75px', backgroundColor: '#FFE46D'}}>
           <Menu.Item header>All Good Things</Menu.Item>
           <Link to='/'>
             <Menu.Item name='feed' style={{height: '75px'}} />
