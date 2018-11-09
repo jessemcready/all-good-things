@@ -21,9 +21,7 @@ class SignupForm extends React.Component {
     }
   }
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value })
-  }
+  handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
   render(){
     const { name, email, password, preFilled } = this.state
