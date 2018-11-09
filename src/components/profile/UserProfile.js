@@ -48,15 +48,9 @@ class Profile extends Component {
     return foundUser === undefined ? true : false
   }
 
-  usersPosts = () => {
-    const { posts } = this.props
-    const { email } = this.state.currentUser
-    return posts.filter( post => post.user.email === email )
-  }
-
   render(){
     const { currentUser, signedInUser } = this.state
-    const posts = this.usersPosts()
+    const { posts } = this.state.currentUser
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
         {
