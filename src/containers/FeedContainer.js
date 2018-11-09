@@ -8,9 +8,8 @@ import NewPostModal from '../components/modals/NewPostModal'
 
 class FeedContainer extends Component{
 
-  orderPosts = posts => {
-    return posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
-  }
+  orderPosts = posts => 
+    posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
 
   render() {
     const posts = this.orderPosts(this.props.posts)
