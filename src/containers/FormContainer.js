@@ -44,12 +44,21 @@ class FormContainer extends Component {
   render() {
     const { errors, isLoginForm } = this.state
     return (
-      <Grid container columns={3}>
+      <Grid
+        padded
+        columns={3}
+        style={{backgroundColor:'#5F60FF', paddingBottom: '300px'}}>
         <Grid.Row centered stretched verticalAlign='middle' style={{ marginTop: '15%'}}>
           {
             isLoginForm ?
-            <LoginForm handleLinkClick={this.handleFormSwitch} handleLogin={this.handleLogin} errors={errors} /> :
-            <SignupForm handleLinkClick={this.handleFormSwitch} handleSignup={this.handleSignup} errors={errors} />
+            <LoginForm
+              handleLinkClick={this.handleFormSwitch}
+              handleLogin={this.handleLogin}
+              errors={errors} /> :
+            <SignupForm
+              handleLinkClick={this.handleFormSwitch}
+              handleSignup={this.handleSignup}
+              errors={errors} />
           }
         </Grid.Row>
       </Grid>

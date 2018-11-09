@@ -8,16 +8,16 @@ class NavBar extends Component {
 
   render() {
     return (
-        <Menu fixed='top' fluid size='massive'>
+        <Menu fixed='top' fluid size='massive' style={{height: '75px'}}>
           <Menu.Item header>All Good Things</Menu.Item>
           <Link to='/'>
-            <Menu.Item name='feed' />
+            <Menu.Item name='feed' style={{height: '75px'}} />
           </Link>
           <Link to='/profile'>
-            <Menu.Item name='profile' />
+            <Menu.Item name='profile' style={{height: '75px'}} />
           </Link>
           <Link to='/discover'>
-            <Menu.Item name='discover' />
+            <Menu.Item name='discover' style={{height: '75px'}} />
           </Link>
           <Menu.Item
             name='signOut'

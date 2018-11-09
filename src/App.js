@@ -21,13 +21,13 @@ class App extends Component {
   render() {
     const { user } = this.props
     return (
-      <Container fluid>
+      <Container fluid content>
           {
             user.email === '' ?
             <FormContainer /> :
             <div>
-              <NavBar />
-              <MainPage />
+              <NavBar style={{backgroundColor: 'FFE46D'}} />
+              <MainPage style={{backgroundColor:'#5F60FF'}} />
             </div>
           }
       </Container>
