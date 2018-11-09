@@ -2,11 +2,9 @@ import React from 'react';
 import { Comment } from 'semantic-ui-react'
 
 const PostComment = ({ id, user, content }) => {
-  if( content === ''){
-    return null
-  }
-  
-  return(
+  return content === '' ?
+  null :
+  (
     <Comment>
       <Comment.Content>
         <Comment.Author>{user.name}</Comment.Author>
