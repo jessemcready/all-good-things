@@ -19,11 +19,11 @@ class App extends Component {
   }
 
   render() {
-    const { users } = this.props
+    const { user } = this.props
     return (
       <Container fluid>
           {
-            users.email === '' ?
+            user.email === '' ?
             <FormContainer /> :
             <div>
               <NavBar />
@@ -35,10 +35,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    users: state.users.user
-  }
-}
+const mapStateToProps = ({ users: { user } }) => ({ user })
 
 export default withRouter(connect(mapStateToProps, { loginOrSignup })(App));
