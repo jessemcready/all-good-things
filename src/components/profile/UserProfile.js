@@ -14,13 +14,11 @@ class Profile extends Component {
 
   componentDidMount(){
     const id = this.props.match.params.id
-    if( id === 'undefined' ){
-      this.setState({ signedInUser: true })
-    } else {
-      FetchAdapter.getUser(id).then( currentUser => {
+
+    id === 'undefined' ? this.setState({ signedInUser: true }) :
+    FetchAdapter.getUser(id).then( currentUser => {
         this.setState( { currentUser: currentUser.user } )
       })
-    }
   }
 
   handleFollow = () => {
@@ -44,9 +42,9 @@ class Profile extends Component {
   following = () => {
     const { user } = this.props
     const { currentUser } = this.state
-    const foundUser = user.followers.find(follower => {
-      return follower.email === currentUser.email
-    })
+    const foundUser = user.followers.find(follower => (
+      follower.email === currentUser.email
+    ))
     return foundUser === undefined ? true : false
   }
 
