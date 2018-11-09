@@ -20,9 +20,9 @@ class Profile extends Component {
   }
 
   orderPosts = () => (
-    this.getUserPosts().sort((a,b) => (
+    this.getUserPosts().sort((a,b) =>
       new Date(b.created_at) - new Date(a.created_at)
-    ))
+    )
   )
 
   getUserPosts = () => {
@@ -106,11 +106,6 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.users.user,
-    posts: state.posts
-  }
-}
+const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
 
 export default connect(mapStateToProps, { editUser, signout })(Profile);
