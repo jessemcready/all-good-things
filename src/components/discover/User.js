@@ -7,10 +7,7 @@ class User extends Component{
     clicked: false
   }
 
-  handleClick = () => {
-    const { clicked } = this.state
-    this.setState({ clicked: !clicked })
-  }
+  handleClick = () => this.setState({ clicked: !this.state.clicked })
 
   render() {
     const { clicked } = this.state
