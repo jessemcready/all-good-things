@@ -13,14 +13,11 @@ class PostShow extends Component {
   }
 
   componentDidMount(){
-    const { id } = this.props.match.params
+    const id = parseInt(this.props.match.params.id)
     const { user } = this.props
-    const foundPost = user.likes.find( like => {
-      if(like.post){
-        return like.post.id === parseInt(id)
-      }
-      return like.post_id === parseInt(id)
-    })
+    const foundPost = user.likes.find( like => (
+      like.post ? like.post.id === id : like.post_id === id
+    ))
     if(foundPost){
       this.setState({ liked: true })
     }
@@ -28,9 +25,9 @@ class PostShow extends Component {
 
   handleSubmit = (event, input) => {
     const { userInput } = input
-    const { id } = this.props.match.params
+    const id = parseInt(this.props.match.params.id)
     const { posts, user, createPostComment } = this.props
-    const post = posts.find( post => post.id === parseInt(id))
+    const post = posts.find( post => post.id === id)
     const comment = { post_id: post.id, user_id: user.id, content: userInput }
     FetchAdapter.createComment(comment).then( commentObj => {
       const { id, post, user, content } = commentObj
@@ -40,8 +37,8 @@ class PostShow extends Component {
 
   handleLike = () => {
     const { user, likePost } = this.props
-    const { id } = this.props.match.params
-    const like = { user_id: user.id, post_id: parseInt(id) }
+    const id = parseInt(this.props.match.params.id)
+    const like = { user_id: user.id, post_id: id }
     FetchAdapter.createLike(like).then(likeObj => {
       likePost(likeObj)
       this.setState({ liked: true })
@@ -50,25 +47,23 @@ class PostShow extends Component {
 
   handleUnlike = () => {
     const { unlikePost, user } = this.props
-    const { id } = this.props.match.params
-    const like = { user_id: user.id, post_id: parseInt(id) }
+    const id = parseInt(this.props.match.params.id)
+    const like = { user_id: user.id, post_id: id }
     FetchAdapter.deleteLike(like).then( deletedObj => {
-      unlikePost(parseInt(id), user.id, user.email)
+      unlikePost(id, user.id, user.email)
       this.setState({ liked: false })
     })
   }
 
   render() {
     const { liked } = this.state
-    const { id } = this.props.match.params
+    const id = parseInt(this.props.match.params.id)
     const { posts } = this.props
-    const post = posts.find( post => post.id === parseInt(id))
-
-    if(post.user === undefined){
-      return null
-    }
-
-    return (
+    const post = posts.find( post => post.id === id)
+    
+    return post.user === undefined ?
+    null :
+    (
       <Feed.Event style={{marginTop: '75px'}}>
         <Card centered raised onClick={this.handlePostPage}>
         <Feed.Content>
