@@ -17,8 +17,8 @@ class Profile extends Component {
 
     id === 'undefined' ? this.setState({ signedInUser: true }) :
     FetchAdapter.getUser(id).then( currentUser => {
-        this.setState( { currentUser: currentUser.user } )
-      })
+      this.setState( { currentUser: currentUser.user } )
+    })
   }
 
   handleFollow = () => {
@@ -42,9 +42,9 @@ class Profile extends Component {
   following = () => {
     const { user } = this.props
     const { currentUser } = this.state
-    const foundUser = user.followers.find(follower => (
+    const foundUser = user.followers.find(follower =>
       follower.email === currentUser.email
-    ))
+    )
     return foundUser === undefined ? true : false
   }
 
@@ -100,11 +100,6 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.users.user,
-    posts: state.posts
-  }
-}
+const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
 
 export default connect(mapStateToProps, { followUser, unfollowUser })(Profile);
