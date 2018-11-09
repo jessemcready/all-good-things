@@ -15,9 +15,9 @@ class PostShow extends Component {
   componentDidMount(){
     const id = parseInt(this.props.match.params.id)
     const { user } = this.props
-    const foundPost = user.likes.find( like => (
+    const foundPost = user.likes.find( like =>
       like.post ? like.post.id === id : like.post_id === id
-    ))
+    )
     if(foundPost){
       this.setState({ liked: true })
     }
@@ -60,7 +60,7 @@ class PostShow extends Component {
     const id = parseInt(this.props.match.params.id)
     const { posts } = this.props
     const post = posts.find( post => post.id === id)
-    
+
     return post.user === undefined ?
     null :
     (
@@ -101,11 +101,6 @@ class PostShow extends Component {
 
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.users.user,
-    posts: state.posts
-  }
-}
+const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
 
 export default connect(mapStateToProps, { createPostComment, likePost, unlikePost })(PostShow);
