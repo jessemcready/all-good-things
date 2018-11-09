@@ -34,12 +34,8 @@ class Post extends Component {
     const comment = { post_id: id, user_id: users.id, content: userInput }
     FetchAdapter.createComment(comment).then( commentObj => {
       this.setState({ comments: [commentObj, ...comments] })
-      createPostComment({
-        id: commentObj.id,
-        post_id: commentObj.post.id,
-        user: commentObj.user,
-        content: commentObj.content
-      })
+      const { id, post, user, content } = commentObj
+      createPostComment({ id, post_id: post.id, user, content })
     })
   }
 
