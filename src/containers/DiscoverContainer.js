@@ -49,10 +49,6 @@ class DiscoverContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.users.user
-  }
-}
+const mapStateToProps = ({ users: { user }}) => ({ user })
 
 export default connect(mapStateToProps)(DiscoverContainer);

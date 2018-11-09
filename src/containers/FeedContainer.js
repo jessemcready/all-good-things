@@ -8,7 +8,7 @@ import NewPostModal from '../components/modals/NewPostModal'
 
 class FeedContainer extends Component{
 
-  orderPosts = posts => 
+  orderPosts = posts =>
     posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
 
   render() {
@@ -34,10 +34,6 @@ class FeedContainer extends Component{
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    posts: state.posts
-  }
-}
+const mapStateToProps = ({ posts }) => ({ posts })
 
 export default withRouter(connect(mapStateToProps, { createPost })(FeedContainer));

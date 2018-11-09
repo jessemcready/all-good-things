@@ -39,11 +39,6 @@ class MainPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.users.user,
-    posts: state.posts
-  }
-}
+const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
 
 export default withRouter(connect(mapStateToProps)(MainPage));
