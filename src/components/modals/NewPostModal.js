@@ -55,10 +55,6 @@ class NewPostModal extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.users.user
-  }
-}
+const mapStateToProps = ({ users: { user }}) => ({ user })
 
 export default connect(mapStateToProps, { createPost })(NewPostModal);
