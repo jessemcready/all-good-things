@@ -35,7 +35,7 @@ class Profile extends Component {
     const { currentUser } = this.state
     const relationship = { follower_id: user.id, followee_id: currentUser.id }
     FetchAdapter.unfollowUser(relationship).then( relationshipObj => {
-      unfollowUser(currentUser.id)
+      unfollowUser(currentUser.email)
     })
   }
 

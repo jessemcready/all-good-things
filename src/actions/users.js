@@ -12,7 +12,7 @@ export const loginOrSignup = user => ({ type: LOGIN_OR_SIGNUP, user })
 
 export const followUser = user => ({ type: FOLLOW_USER, user })
 
-export const unfollowUser = userId => ({ type: UNFOLLOW_USER, userId })
+export const unfollowUser = userEmail => ({ type: UNFOLLOW_USER, userEmail })
 
 export const signout = () => ({ type: SIGNOUT })
 
