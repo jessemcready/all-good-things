@@ -14,6 +14,13 @@ class FlaggedPosts extends Component {
     })
   }
 
+  handleDelete = id => {
+    const { deletePost } = this.props
+    FetchAdapter.deletePost(id).then( deletedObj => {
+      deletePost(id)
+    })
+  }
+
   render() {
     const { user, posts } = this.props
     const flaggedPosts = posts.filter( post => post.flagged)

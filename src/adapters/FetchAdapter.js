@@ -104,4 +104,8 @@ export default class FetchAdapter {
     return fetch(`${backendUrl}/unreport/${id}`, postHeader)
     .then(res => res.json())
   }
+
+  static deletePost(id){
+    return fetch(`${backendUrl}/posts/${id}`, deleteHeader).then(res=>res.json())
+  }
 }

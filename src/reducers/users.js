@@ -1,4 +1,7 @@
-import { LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST } from '../constants/userActions'
+import {
+  LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST
+} from '../constants/userActions'
+import { DELETE_POST } from '../constants/postActions'
 
 const initialState = {
   user: {
@@ -6,7 +9,8 @@ const initialState = {
     name: '',
     email: '',
     followers: [],
-    likes: []
+    likes: [],
+    posts: []
   }
 }
 
@@ -48,6 +52,21 @@ export default(state = initialState, action) => {
             ...state.user.likes.slice(0, index),
             ...state.user.likes.slice(index + 1)
           ]
+        }
+      }
+    case DELETE_POST:
+      index = state.user.posts.findIndex( post => post.id === action.postId )
+      if( index === -1 ){
+        return state
+      } else {
+        return {
+          user: {
+            ...state.user,
+            posts: [
+              ...state.user.posts.slice(0, index),
+              ...state.user.posts.slice(index + 1)
+            ]
+          }
         }
       }
     case EDIT_USER:
