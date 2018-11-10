@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { Card, Feed, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
-import { createPostComment, deletePost } from '../../actions/posts'
+import { createPostComment, reportPost } from '../../actions/posts'
 import Moment from 'react-moment'
 import CommentContainer from '../../containers/CommentContainer'
 import FetchAdapter from '../../adapters/FetchAdapter'
@@ -59,11 +59,16 @@ class Post extends Component {
   handleUserClick = () => this.setState({ usernameClick: true })
 
   handleReport = () => {
-
+    const { id, reportPost } = this.props
+    FetchAdapter.reportPost(id).then( postObj => {
+      reportPost(id)
+    })
   }
 
   render() {
-    const { id, content, comments, created_at, user, likes, profile } = this.props
+    const {
+      id, content, comments, created_at, user, likes, profile, flagged
+    } = this.props
     const { liked, clicked, usernameClick } = this.state
 
     return user.name === undefined && content === undefined ?
@@ -106,7 +111,11 @@ class Post extends Component {
                 0
                } Likes
               </Feed.Like>
-              <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
+              {
+                flagged ?
+                <Icon name='warning' disabled style={{position: 'absolute', right: '0'}} onClick={this.handleReport} /> :
+                <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
+              }
               <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} />
             </Feed.Meta>
           </Feed.Content>
@@ -120,4 +129,6 @@ class Post extends Component {
 
 const mapStateToProps = ({ posts, users: { user }}) => ({ posts, users: user })
 
-export default connect(mapStateToProps, { likePost, unlikePost, createPostComment })(Post);
+export default connect(mapStateToProps, {
+   likePost, unlikePost, createPostComment, reportPost
+ })(Post);
