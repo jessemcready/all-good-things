@@ -1,5 +1,9 @@
-import { CREATE_POST, CREATE_POST_COMMENT, DELETE_POST } from '../constants/postActions'
-import { LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER, LIKE_POST, UNLIKE_POST } from '../constants/userActions'
+import {
+  CREATE_POST, CREATE_POST_COMMENT, DELETE_POST, REPORT_POST, UNREPORT_POST
+} from '../constants/postActions'
+import {
+  LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER, LIKE_POST, UNLIKE_POST
+} from '../constants/userActions'
 
 const initialState = []
 
@@ -22,6 +26,22 @@ export default(state = initialState, action) => {
       index = state.findIndex( post => post.id === action.postId)
       return [
         ...state.slice(0, index),
+        ...state.slice(index + 1)
+      ]
+    case REPORT_POST:
+      index = state.findIndex( post => post.id === action.postId)
+      post = state[index]
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, post, { flagged: true }),
+        ...state.slice(index + 1)
+      ]
+    case UNREPORT_POST:
+      index = state.findIndex( post => post.id === action.postId)
+      post = state[index]
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, post, { flagged: false }),
         ...state.slice(index + 1)
       ]
     case LIKE_POST:
