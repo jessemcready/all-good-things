@@ -55,10 +55,10 @@ class PostShow extends Component {
     })
   }
 
-  handleReport = () => {
-    const { id, reportPost } = this.props
-    FetchAdapter.reportPost(id).then( postObj => {
-      reportPost(id)
+  handleReport = postId => {
+    const { reportPost } = this.props
+    FetchAdapter.reportPost(postId).then( postObj => {
+      reportPost(postId)
     })
   }
 
@@ -101,7 +101,7 @@ class PostShow extends Component {
             {
               post.flagged ?
               <Icon name='warning' disabled style={{position: 'absolute', right: '0'}} /> :
-              <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
+              <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={() => this.handleReport(post.id)} />
             }
             <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} />
           </Feed.Meta>
