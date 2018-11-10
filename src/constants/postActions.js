@@ -1,2 +1,3 @@
 export const CREATE_POST = 'CREATE_POST'
 export const CREATE_POST_COMMENT = 'CREATE_POST_COMMENT'
+export const DELETE_POST = 'DELETE_POST'

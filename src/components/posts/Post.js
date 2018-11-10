@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { Card, Feed, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
-import { createPostComment } from '../../actions/posts'
+import { createPostComment, deletePost } from '../../actions/posts'
 import Moment from 'react-moment'
 import CommentContainer from '../../containers/CommentContainer'
 import FetchAdapter from '../../adapters/FetchAdapter'
@@ -17,7 +17,7 @@ class Post extends Component {
 
   componentDidMount(){
     const { id, users } = this.props
-    const foundPost = users.likes.find( like => 
+    const foundPost = users.likes.find( like =>
       like.post ? like.post.id === id : like.post_id === id
     )
     if(foundPost){
@@ -57,6 +57,10 @@ class Post extends Component {
   handlePostPage = () => this.setState({ clicked: true })
 
   handleUserClick = () => this.setState({ usernameClick: true })
+
+  handleReport = () => {
+
+  }
 
   render() {
     const { id, content, comments, created_at, user, likes, profile } = this.props
@@ -102,6 +106,7 @@ class Post extends Component {
                 0
                } Likes
               </Feed.Like>
+              <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
               <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} />
             </Feed.Meta>
           </Feed.Content>
