@@ -100,4 +100,8 @@ export default class FetchAdapter {
     return fetch(`${backendUrl}/report/${id}`, postHeader).then(res => res.json())
   }
 
+  static unreportPost(id){
+    return fetch(`${backendUrl}/unreport/${id}`, postHeader)
+    .then(res => res.json())
+  }
 }

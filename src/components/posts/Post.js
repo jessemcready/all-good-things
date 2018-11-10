@@ -113,7 +113,7 @@ class Post extends Component {
               </Feed.Like>
               {
                 flagged ?
-                <Icon name='warning' disabled style={{position: 'absolute', right: '0'}} onClick={this.handleReport} /> :
+                <Icon name='warning' disabled style={{position: 'absolute', right: '0'}} /> :
                 <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
               }
               <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} />

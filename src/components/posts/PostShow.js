@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Feed, Card, Icon } from 'semantic-ui-react'
 import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
-import { createPostComment } from '../../actions/posts'
+import { createPostComment, reportPost } from '../../actions/posts'
 import { likePost, unlikePost } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 
@@ -55,6 +55,13 @@ class PostShow extends Component {
     })
   }
 
+  handleReport = () => {
+    const { id, reportPost } = this.props
+    FetchAdapter.reportPost(id).then( postObj => {
+      reportPost(id)
+    })
+  }
+
   render() {
     const { liked } = this.state
     const id = parseInt(this.props.match.params.id)
@@ -91,6 +98,11 @@ class PostShow extends Component {
               0
              } Likes
             </Feed.Like>
+            {
+              post.flagged ?
+              <Icon name='warning' disabled style={{position: 'absolute', right: '0'}} /> :
+              <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
+            }
             <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} />
           </Feed.Meta>
         </Feed.Content>
@@ -103,4 +115,6 @@ class PostShow extends Component {
 
 const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
 
-export default connect(mapStateToProps, { createPostComment, likePost, unlikePost })(PostShow);
+export default connect(mapStateToProps, {
+  createPostComment, likePost, unlikePost, reportPost
+})(PostShow);
