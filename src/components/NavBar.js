@@ -7,6 +7,7 @@ import { signout } from '../actions/users'
 class NavBar extends Component {
 
   render() {
+    const { user: { admin } } = this.props
     return (
         <Menu fixed='top' fluid size='massive'>
           <Menu.Item header>All Good Things</Menu.Item>
@@ -19,6 +20,13 @@ class NavBar extends Component {
           <Link to='/discover'>
             <Menu.Item name='discover' />
           </Link>
+          {
+            admin ?
+            <Link to='/flagged'>
+              <Menu.Item name='flagged' />
+            </Link> :
+            null
+          }
           <Menu.Item
             name='signOut'
             position='right'
@@ -29,4 +37,6 @@ class NavBar extends Component {
   }
 }
 
-export default connect(null, { signout } )(NavBar);
+const mapStateToProps = ({ users: { user }}) => ({ user })
+
+export default connect(mapStateToProps, { signout } )(NavBar);

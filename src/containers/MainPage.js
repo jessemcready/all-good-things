@@ -5,6 +5,7 @@ import DiscoverContainer from './DiscoverContainer'
 import Profile from '../components/profile/Profile'
 import UserProfile from '../components/profile/UserProfile'
 import PostShow from '../components/posts/PostShow'
+import FlaggedPosts from '../components/posts/FlaggedPosts'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 class MainPage extends Component {
@@ -32,6 +33,10 @@ class MainPage extends Component {
             <Route
               exact path='/discover'
               component={DiscoverContainer}
+            />
+            <Route
+              exact path='/flagged'
+              component={FlaggedPosts}
             />
           </Switch>
         </div>

@@ -14,7 +14,7 @@ class Profile extends Component {
 
   componentDidMount(){
     const id = this.props.match.params.id
-
+    
     id === 'undefined' ? this.setState({ signedInUser: true }) :
     FetchAdapter.getUser(id).then( currentUser => {
       this.setState( { currentUser: currentUser.user } )
