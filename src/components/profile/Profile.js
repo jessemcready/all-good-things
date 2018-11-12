@@ -47,8 +47,8 @@ class Profile extends Component {
             </Card.Content>
             <Card.Content extra>
               <Button.Group fluid>
-                <Button basic color='teal' onClick={this.handleEdit}>Edit Account</Button>
-                <Button basic color='red' onClick={this.handleDelete}>Delete Account</Button>
+                <Button inverted color='teal' onClick={this.handleEdit}>Edit Account</Button>
+                <Button inverted color='red' onClick={this.handleDelete}>Delete Account</Button>
               </Button.Group>
               <Confirm
                 open={open}

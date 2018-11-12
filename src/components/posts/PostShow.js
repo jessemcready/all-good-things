@@ -81,7 +81,7 @@ class PostShow extends Component {
                 post.flagged ?
                 <Popup
                 trigger={
-                  <Button basic color='red' disabled icon='warning' size='small' style={{ width: '50px', position: 'absolute', right: '0' }}/>
+                  <Button inverted color='red' disabled icon='warning' size='small' style={{ width: '50px', position: 'absolute', right: '0' }}/>
                 }
                 content='Post Reported!'
                 on='click'
@@ -89,7 +89,7 @@ class PostShow extends Component {
                 /> :
                 <Popup
                 trigger={
-                  <Button basic color='red' onClick={() => this.handleReport.post(id)} icon='warning'  style={{ width: '50px', position: 'absolute', right: '0' }} size='small' />
+                  <Button inverted color='red' onClick={() => this.handleReport.post(id)} icon='warning'  style={{ width: '50px', position: 'absolute', right: '0' }} size='small' />
                 }
                 content='Post Reported!'
                 on='click'

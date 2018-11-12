@@ -78,10 +78,10 @@ class Profile extends Component {
                 <Card.Content extra>
                   {
                     this.following() ?
-                    <Button basic color='teal' onClick={this.handleFollow}>
+                    <Button inverted color='teal' onClick={this.handleFollow}>
                       Follow
                     </Button> :
-                    <Button basic color='red' onClick={this.handleUnfollow}>
+                    <Button inverted color='red' onClick={this.handleUnfollow}>
                       Unfollow
                     </Button>
                   }
