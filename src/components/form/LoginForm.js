@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Header, Card, Message } from 'semantic-ui-react'
+import { Form, Input, Button, Header, Message, Segment } from 'semantic-ui-react'
 
 class LoginForm extends Component {
   state = {
@@ -15,8 +15,7 @@ class LoginForm extends Component {
     const { email, password } = this.state
     const { handleLogin, handleLinkClick, errors } = this.props
     return(
-      <Card>
-        <Card.Content>
+      <Segment raised>
           <Form error onSubmit={(event) => handleLogin(event, this.state)} >
             <Header style={{fontFamily: 'Roboto'}}>Login</Header>
             <Form.Field>
@@ -44,8 +43,7 @@ class LoginForm extends Component {
               <h3 style={{fontFamily: 'Roboto'}}>Need an account? Sign Up</h3>
             </Message>
           </Form>
-        </Card.Content>
-      </Card>
+      </Segment>
     )
   }
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Header, Card, Message } from 'semantic-ui-react'
+import { Form, Input, Button, Header, Segment, Message } from 'semantic-ui-react'
 
 class SignupForm extends Component {
   constructor(props){
@@ -31,8 +31,7 @@ class SignupForm extends Component {
       originalName = this.props.user.name
     }
     return(
-      <Card centered>
-        <Card.Content>
+      <Segment centered raised>
           <Form error onSubmit={event => handleSignup(event, this.state)}>
             {
               preFilled ?
@@ -76,8 +75,7 @@ class SignupForm extends Component {
               </div>
             }
           </Form>
-        </Card.Content>
-      </Card>
+      </Segment>
     )
   }
 }
