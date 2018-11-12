@@ -37,7 +37,7 @@ class NewPostModal extends Component {
         position: 'fixed',
         bottom: '0',
         right: '0',
-        color: '#3502ee'
+        color: '#02bbee'
     }
 
     return (
@@ -47,15 +47,16 @@ class NewPostModal extends Component {
         trigger={
           <Icon name='plus circle' onClick={this.handleOpen} style={styles} size='huge' />
         }>
-        <Modal.Header>Create Post</Modal.Header>
+        <Modal.Header style={{fontFamily:'Roboto'}}>Create Post</Modal.Header>
         <Modal.Content>
           <Form onSubmit={this.handleSubmit}>
             <TextArea
+            style={{fontFamily:'Roboto'}}
             placeholder='Put down some thoughts'
             onChange={this.handleChange}
             value={userInput}
             />
-            <Button>Submit</Button>
+            <Button style={{fontFamily:'Roboto', marginTop: '1em'}} color='teal'>Submit</Button>
           </Form>
         </Modal.Content>
       </Modal>

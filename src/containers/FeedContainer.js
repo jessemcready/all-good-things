@@ -26,7 +26,7 @@ class FeedContainer extends Component{
     }
 
     return (
-      <Feed size='large' style={{marginTop: '75px'}}>
+      <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
         {posts.map( post => <Post key={post.id} {...post} />)}
         <NewPostModal />
       </Feed>

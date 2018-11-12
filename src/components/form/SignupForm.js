@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, Input, Button, Header, Card, Message } from 'semantic-ui-react'
 
-class SignupForm extends React.Component {
+class SignupForm extends Component {
   constructor(props){
     super(props)
     if(props.user){
@@ -36,23 +36,23 @@ class SignupForm extends React.Component {
           <Form error onSubmit={event => handleSignup(event, this.state)}>
             {
               preFilled ?
-              <Header>Edit {originalName}</Header> :
-              <Header>Sign Up</Header> }
-            <Form.Field>
+              <Header style={{fontFamily: 'Roboto'}}>Edit {originalName}</Header> :
+              <Header style={{fontFamily: 'Roboto'}}>Sign Up</Header> }
+            <Form.Field style={{fontFamily: 'Roboto'}}>
               <Input
                 placeholder='Name'
                 name='name'
                 value={name}
                 onChange={this.handleChange} />
             </Form.Field>
-            <Form.Field>
+            <Form.Field style={{fontFamily: 'Roboto'}}>
               <Input
                 placeholder='Email'
                 name='email'
                 value={email}
                 onChange={this.handleChange} />
             </Form.Field>
-            <Form.Field>
+            <Form.Field style={{fontFamily: 'Roboto'}}>
               <Input
                 placeholder='Password'
                 name='password'
@@ -62,16 +62,16 @@ class SignupForm extends React.Component {
             </Form.Field>
             {
               errors !== '' ?
-              <Message error header='Sign Up Failed' content={errors} /> :
+              <Message error header='Sign Up Failed' content={errors} style={{fontFamily: 'Roboto'}} /> :
               null
             }
             {
               this.props.user ?
-              <Button fluid color='green' basic>Edit</Button> :
+              <Button fluid color='teal' basic style={{fontFamily: 'Roboto'}}>Edit</Button> :
               <div>
-                <Button fluid>Sign Up</Button>
+                <Button fluid color='blue' style={{fontFamily: 'Roboto'}}>Sign Up</Button>
                 <Message onClick={handleLinkClick}>
-                <h3>Already have an account? Login</h3>
+                <h3 style={{fontFamily: 'Roboto'}}>Already have an account? Login</h3>
                 </Message>
               </div>
             }

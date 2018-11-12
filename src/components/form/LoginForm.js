@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, Input, Button, Header, Card, Message } from 'semantic-ui-react'
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
   state = {
     email: '',
     password: ''
@@ -17,8 +17,8 @@ class LoginForm extends React.Component {
     return(
       <Card>
         <Card.Content>
-          <Form error onSubmit={(event) => handleLogin(event, this.state)}>
-            <Header>Login</Header>
+          <Form error onSubmit={(event) => handleLogin(event, this.state)} >
+            <Header style={{fontFamily: 'Roboto'}}>Login</Header>
             <Form.Field>
               <Input
                 placeholder='Email'
@@ -36,12 +36,12 @@ class LoginForm extends React.Component {
             </Form.Field>
             {
               errors !== '' ?
-              <Message error header='Login Failed' content={errors} /> :
+              <Message error header='Login Failed' content={errors} style={{fontFamily: 'Roboto'}} /> :
               null
             }
-            <Button fluid>Log In</Button>
+            <Button fluid color='blue'>Log In</Button>
             <Message onClick={handleLinkClick}>
-              <h3>Need an account? Sign Up</h3>
+              <h3 style={{fontFamily: 'Roboto'}}>Need an account? Sign Up</h3>
             </Message>
           </Form>
         </Card.Content>

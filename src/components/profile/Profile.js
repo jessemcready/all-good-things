@@ -47,8 +47,8 @@ class Profile extends Component {
             </Card.Content>
             <Card.Content extra>
               <Button.Group fluid>
-                <Button basic color='violet' onClick={this.handleEdit}>Edit</Button>
-                <Button basic color='red' onClick={this.handleDelete}>Delete</Button>
+                <Button basic color='teal' onClick={this.handleEdit}>Edit Account</Button>
+                <Button basic color='red' onClick={this.handleDelete}>Delete Account</Button>
               </Button.Group>
               <Confirm
                 open={open}
@@ -101,7 +101,7 @@ class Profile extends Component {
     const { editing } = this.state
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
-        <Header size='huge'>{user.name}'s Profile</Header>
+        <Header style={{fontFamily:'Roboto'}} size='huge'>{user.name}'s Profile</Header>
         {
           !editing ?
           this.renderCard() :

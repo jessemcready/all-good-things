@@ -48,7 +48,7 @@ class FormContainer extends Component {
         <Grid.Row centered stretched verticalAlign='middle' style={{ marginTop: '15%'}}>
           {
             isLoginForm ?
-            <LoginForm handleLinkClick={this.handleFormSwitch} handleLogin={this.handleLogin} errors={errors} /> :
+            <LoginForm handleLinkClick={this.handleFormSwitch} handleLogin={this.handleLogin} errors={errors} style={{fontFamily:'Roboto'}} /> :
             <SignupForm handleLinkClick={this.handleFormSwitch} handleSignup={this.handleSignup} errors={errors} />
           }
         </Grid.Row>
