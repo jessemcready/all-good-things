@@ -9,6 +9,7 @@ class SignupForm extends Component {
         name: props.user.name,
         email: props.user.email,
         password: '',
+        profileUrl: props.user.profileUrl,
         preFilled: true
       }
     } else {
@@ -16,6 +17,7 @@ class SignupForm extends Component {
         name: '',
         email: '',
         password: '',
+        profileUrl: '',
         preFilled: false
       }
     }
@@ -23,8 +25,10 @@ class SignupForm extends Component {
 
   handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
+  handleImage = event => this.setState({ profileUrl: event.target.files[0] })
+
   render(){
-    const { name, email, password, preFilled } = this.state
+    const { name, email, password, preFilled, profileUrl } = this.state
     const { handleSignup, handleLinkClick, errors } = this.props
     let originalName
     if(preFilled){
@@ -58,6 +62,13 @@ class SignupForm extends Component {
                 value={password}
                 type='password'
                 onChange={this.handleChange} />
+            </Form.Field>
+            <Form.Field style={{fontFamily: 'Roboto'}}>
+              <Input
+                placeholder='Profile Image'
+                name='profileUrl'
+                type='file'
+                onChange={this.handleImage} />
             </Form.Field>
             {
               errors !== '' ?
