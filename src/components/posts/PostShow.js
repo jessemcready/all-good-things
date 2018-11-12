@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Feed, Card, Icon, Button, Label, Popup } from 'semantic-ui-react'
+import { Feed, Card, Icon, Button, Label, Popup, Image } from 'semantic-ui-react'
 import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
 import { createPostComment, reportPost } from '../../actions/posts'
@@ -75,6 +75,7 @@ class PostShow extends Component {
         <Card centered raised onClick={this.handlePostPage}>
         <Feed.Content>
           <Feed.Summary>
+            <Image src={post.user.profile_url} size="tiny" floated='left' circular />
             <Feed.User>
               <span style={{fontFamily:'Roboto'}}>{ post.user.name }</span>
               {
@@ -103,6 +104,7 @@ class PostShow extends Component {
               </Feed.Date>
             </Card.Meta>
           </Feed.Summary>
+          <br />
           <Feed.Extra text style={{fontFamily:'Roboto'}}>
             {post.content}
           </Feed.Extra>

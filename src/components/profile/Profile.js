@@ -90,10 +90,29 @@ class Profile extends Component {
       const { name, email, password } = value
       updatedUser = { name, email, password }
     }
-    FetchAdapter.updateUser(user.id, updatedUser).then( updatedUserObj => {
-      editUser(updatedUserObj)
-      this.setState({ editing: false })
-    })
+    if(value.profileUrl !== undefined){
+      const cloudUrl = 'https://api.cloudinary.com/v1_1/jessemcready/image/upload'
+      const upload_preset = 'wshmuzkt'
+      const file = value.profileUrl
+      const formInfo = new FormData()
+      formInfo.append('file', file)
+      formInfo.append('upload_preset', upload_preset)
+      fetch(cloudUrl, {
+          method: 'POST',
+          body: formInfo
+        }).then( res => res.json()).then( data => {
+          updatedUser = {...updatedUser, profile_url: data.secure_url}
+          FetchAdapter.updateUser(user.id, updatedUser, data.secure_url).then( updatedUserObj => {
+            editUser(updatedUserObj)
+            this.setState({ editing: false })
+          })
+        })
+    } else {
+      FetchAdapter.updateUser(user.id, updatedUser).then( updatedUserObj => {
+        editUser(updatedUserObj)
+        this.setState({ editing: false })
+      })
+    }
   }
 
 

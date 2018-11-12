@@ -77,7 +77,7 @@ class SignupForm extends Component {
             }
             {
               this.props.user ?
-              <Button fluid color='teal' basic style={{fontFamily: 'Roboto'}}>Edit</Button> :
+              <Button fluid color='teal' basic style={{fontFamily: 'Roboto'}}>Confirm Edit</Button> :
               <div>
                 <Button fluid color='blue' style={{fontFamily: 'Roboto'}}>Sign Up</Button>
                 <Message onClick={handleLinkClick}>

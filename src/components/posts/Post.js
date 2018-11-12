@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom'
-import { Card, Feed, Icon, Button, Label, Popup } from 'semantic-ui-react'
+import { Card, Feed, Icon, Button, Label, Popup, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
 import { createPostComment, reportPost } from '../../actions/posts'
@@ -70,7 +70,7 @@ class Post extends Component {
       id, content, comments, created_at, user, likes, profile, flagged
     } = this.props
     const { liked, clicked, usernameClick } = this.state
-
+    debugger
     return user.name === undefined && content === undefined ?
     null :
     (
@@ -82,6 +82,7 @@ class Post extends Component {
           <Card centered raised>
           <Feed.Content>
             <Feed.Summary>
+              <Image src={user.profile_url} size="tiny" floated='left' circular />
               <Feed.User>
               {
                 usernameClick ?
@@ -114,6 +115,7 @@ class Post extends Component {
                 </Feed.Date>
               </Card.Meta>
             </Feed.Summary>
+            <br />
             <Feed.Extra text onClick={this.handlePostPage}>
               {content}
             </Feed.Extra>
