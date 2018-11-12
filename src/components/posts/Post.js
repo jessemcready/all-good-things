@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom'
-import { Card, Feed, Icon } from 'semantic-ui-react'
+import { Card, Feed, Icon, Button, Label } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
 import { createPostComment, reportPost } from '../../actions/posts'
@@ -80,6 +80,11 @@ class Post extends Component {
         <Redirect to={`/posts/${id}`} /> :
         <Feed.Event>
           <Card centered raised>
+          {
+            flagged ?
+            <Icon name='warning' disabled style={{position: 'absolute', right: '0', marginTop:'1em'}} /> :
+            <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
+          }
           <Feed.Content>
             <Feed.Summary>
               <Feed.User onClick={this.handleUserClick}>
@@ -98,24 +103,31 @@ class Post extends Component {
             <Feed.Extra text onClick={this.handlePostPage}>
               {content}
             </Feed.Extra>
+            <br />
             <Feed.Meta>
               <Feed.Like>
               {
                 liked ?
-                <Icon name='like' color='red' onClick={this.handleUnlike} /> :
-                <Icon name='like' onClick={this.handleLike} />
+                <Button as='div' labelPosition='right' onClick={this.handleUnlike}>
+                  <Button color='red'>
+                    <Icon name='heart' color='red' inverted />
+                    Unlike
+                  </Button>
+                  <Label as='a' basic color='red' pointing='left'>
+                    {likes.length}
+                  </Label>
+                </Button>:
+                <Button as='div' labelPosition='right' onClick={this.handleLike}>
+                  <Button color='red'>
+                    <Icon name='heart' color='red' inverted />
+                    Like
+                  </Button>
+                  <Label as='a' basic color='red' pointing='left'>
+                    {likes.length}
+                  </Label>
+                </Button>
               }
-              {
-                likes ?
-                likes.length :
-                0
-               } Likes
               </Feed.Like>
-              {
-                flagged ?
-                <Icon name='warning' disabled style={{position: 'absolute', right: '0'}} /> :
-                <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
-              }
               <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} />
             </Feed.Meta>
           </Feed.Content>

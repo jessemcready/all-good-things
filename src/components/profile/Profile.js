@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { Container, Header, Card, Button, Confirm, Grid } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
@@ -34,6 +34,7 @@ class Profile extends Component {
     const { user } = this.props
     const { open } = this.state
     const posts = this.orderPosts()
+
     return (
       <Grid container columns={2}>
         <Grid.Column>
@@ -45,8 +46,10 @@ class Profile extends Component {
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
-              <Button basic color='green' onClick={this.handleEdit}>Edit</Button>
-              <Button basic color='red' onClick={this.handleDelete}>Delete</Button>
+              <Button.Group fluid>
+                <Button basic color='violet' onClick={this.handleEdit}>Edit</Button>
+                <Button basic color='red' onClick={this.handleDelete}>Delete</Button>
+              </Button.Group>
               <Confirm
                 open={open}
                 onCancel={this.handleCancel}
@@ -72,6 +75,8 @@ class Profile extends Component {
   handleEdit = () => this.setState({ editing: !this.state.editing })
 
   handleDelete = () => this.setState({ open: true })
+
+  cancelEdit = () => this.setState( { editing: false })
 
   handleSubmit = (event, value) => {
     const { user, editUser } = this.props
@@ -99,7 +104,10 @@ class Profile extends Component {
         {
           !editing ?
           this.renderCard() :
-          <SignupForm handleSignup={this.handleSubmit} user={user} errors='' />
+          <Fragment>
+            <SignupForm handleSignup={this.handleSubmit} user={user} errors='' />
+            <Button onClick={this.cancelEdit}>Cancel</Button>
+          </Fragment>
         }
       </Container>
     );

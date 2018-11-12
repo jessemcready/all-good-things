@@ -55,7 +55,12 @@ export default(state = initialState, action) => {
     case UNLIKE_POST:
       index = state.findIndex( post => post.id === action.postId )
       post = state[index]
-      likeIndex = post.likes.findIndex( like => like.user.email === action.userEmail )
+      likeIndex = post.likes.findIndex( like => {
+        if(like.user) {
+          return like.user.email === action.userEmail
+        }
+        return like.user_id === action.userId
+      })
       return [
         ...state.slice(0, index),
         Object.assign({}, post, {
