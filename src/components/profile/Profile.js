@@ -36,8 +36,8 @@ class Profile extends Component {
     const posts = this.orderPosts()
 
     return (
-      <Grid container columns={2}>
-        <Grid.Column>
+      <Grid container columns={3}>
+        <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
           <Card fluid>
             <Card.Content>
               <Card.Header>{user.name}</Card.Header>
@@ -58,9 +58,10 @@ class Profile extends Component {
             </Card.Content>
           </Card>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column width={9} style={{marginLeft: '10em'}}>
           { posts.map( post => <Post key={post.id} {...post} profile={true} />) }
         </Grid.Column>
+        <Grid.Column width={3} floated='right'></Grid.Column>
       </Grid>
     )
   }

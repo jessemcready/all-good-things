@@ -51,7 +51,6 @@ class Profile extends Component {
   getPosts = () => {
     const { posts } = this.props
     const { currentUser } = this.state
-    debugger
     return posts.filter(post => post.user.email === currentUser.email)
   }
 
@@ -59,14 +58,14 @@ class Profile extends Component {
     const { currentUser, signedInUser } = this.state
     const posts = this.getPosts()
     return(
-      <Container style={{marginTop: '75px'}} textAlign='center' text>
+      <Container style={{marginTop: '75px'}} textAlign='center' text fluid>
         {
           signedInUser ?
           <Redirect to='/profile' /> :
           <Fragment>
             <Header size='huge'>{currentUser.name}'s Profile</Header>
-            <Grid container columns={2}>
-            <Grid.Column>
+            <Grid container fluid>
+            <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
               <Card fluid>
                 <Card.Content>
                   <Card.Header>{currentUser.name}</Card.Header>
@@ -87,12 +86,13 @@ class Profile extends Component {
                 </Card.Content>
               </Card>
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column width={9} style={{marginLeft:'10em'}}>
               { posts !== undefined ?
                 posts.map( post => <Post key={post.id} {...post} profile={true} />) :
                 null
                }
             </Grid.Column>
+            <Grid.Column width={3} floated='right'></Grid.Column>
           </Grid>
           </Fragment>
         }
