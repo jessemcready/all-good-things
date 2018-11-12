@@ -79,11 +79,11 @@ class Post extends Component {
         clicked ?
         <Redirect to={`/posts/${id}`} /> :
         <Feed.Event>
-          <Card centered raised>
+          <Card centered raised style={{fontFamily:'Roboto'}}>
           {
             flagged ?
             <Icon name='warning' disabled style={{position: 'absolute', right: '0', marginTop:'1em'}} /> :
-            <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={this.handleReport} />
+            <Icon name='warning' style={{position: 'absolute', right: '0', marginTop:'1em'}} onClick={this.handleReport} />
           }
           <Feed.Content>
             <Feed.Summary>

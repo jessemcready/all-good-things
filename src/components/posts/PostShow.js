@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Feed, Card, Icon } from 'semantic-ui-react'
+import { Feed, Card, Icon, Button, Label } from 'semantic-ui-react'
 import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
 import { createPostComment, reportPost } from '../../actions/posts'
@@ -72,7 +72,12 @@ class PostShow extends Component {
     null :
     (
       <Feed.Event style={{marginTop: '75px'}}>
-        <Card centered raised onClick={this.handlePostPage}>
+        <Card centered raised onClick={this.handlePostPage} style={{fontFamily:'Roboto'}}>
+        {
+          post.flagged ?
+          <Icon name='warning' disabled style={{position: 'absolute', right: '0', marginTop:'1em'}} /> :
+          <Icon name='warning' style={{position: 'absolute', right: '0', marginTop:'1em'}} onClick={() => this.handleReport(post.id)} />
+        }
         <Feed.Content>
           <Feed.Summary>
             <Feed.User>{ post.user.name }</Feed.User>
@@ -86,23 +91,30 @@ class PostShow extends Component {
             {post.content}
           </Feed.Extra>
           <Feed.Meta>
+          <br />
             <Feed.Like>
             {
               liked ?
-              <Icon name='like' color='red' onClick={this.handleUnlike} /> :
-              <Icon name='like' onClick={this.handleLike} />
+              <Button as='div' labelPosition='right' onClick={this.handleUnlike}>
+                <Button color='red'>
+                  <Icon name='heart' color='red' inverted />
+                  Unlike
+                </Button>
+                <Label as='a' basic color='red' pointing='left'>
+                  {post.likes.length}
+                </Label>
+              </Button>:
+              <Button as='div' labelPosition='right' onClick={this.handleLike}>
+                <Button color='red'>
+                  <Icon name='heart' color='red' inverted />
+                  Like
+                </Button>
+                <Label as='a' basic color='red' pointing='left'>
+                  {post.likes.length}
+                </Label>
+              </Button>
             }
-            {
-              post.likes ?
-              post.likes.length :
-              0
-             } Likes
             </Feed.Like>
-            {
-              post.flagged ?
-              <Icon name='warning' disabled style={{position: 'absolute', right: '0'}} /> :
-              <Icon name='warning' style={{position: 'absolute', right: '0'}} onClick={() => this.handleReport(post.id)} />
-            }
             <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} />
           </Feed.Meta>
         </Feed.Content>

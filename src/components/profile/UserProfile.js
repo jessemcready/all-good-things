@@ -14,7 +14,7 @@ class Profile extends Component {
 
   componentDidMount(){
     const id = this.props.match.params.id
-    
+
     id === 'undefined' ? this.setState({ signedInUser: true }) :
     FetchAdapter.getUser(id).then( currentUser => {
       this.setState( { currentUser: currentUser.user } )
@@ -48,9 +48,16 @@ class Profile extends Component {
     return foundUser === undefined ? true : false
   }
 
+  getPosts = () => {
+    const { posts } = this.props
+    const { currentUser } = this.state
+    debugger
+    return posts.filter(post => post.user.email === currentUser.email)
+  }
+
   render(){
     const { currentUser, signedInUser } = this.state
-    const { posts } = this.state.currentUser
+    const posts = this.getPosts()
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
         {
