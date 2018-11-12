@@ -26,7 +26,7 @@ class App extends Component {
             user.email === '' ?
             <FormContainer /> :
             <div>
-              <NavBar />
+              <NavBar style={{color:'#FFFFFF', fontFamily:'Roboto'}} />
               <MainPage />
             </div>
           }

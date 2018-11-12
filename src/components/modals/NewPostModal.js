@@ -32,12 +32,18 @@ class NewPostModal extends Component {
 
   render() {
     const { userInput } = this.state
+    const styles = {
+      position: 'fixed',
+      bottom: '0',
+      right: '0',
+      color: '#02bbee'
+    }
     return (
       <Modal
         open={this.state.modalOpen}
         onClose={this.handleClose}
         trigger={
-          <Icon name='plus circle' size='huge' style={{position: 'fixed', bottom: '0', right: '0'}} onClick={this.handleOpen} />
+          <Icon name='plus circle' size='huge' style={styles} fitted onClick={this.handleOpen} />
         }>
         <Modal.Header>Create Post</Modal.Header>
         <Modal.Content>
