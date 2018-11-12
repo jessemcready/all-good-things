@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Container, Card, Button, Grid } from 'semantic-ui-react'
+import { Container, Card, Button, Grid, Image } from 'semantic-ui-react'
 import { followUser, unfollowUser } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 import Post from '../posts/Post'
@@ -15,7 +15,6 @@ class Profile extends Component {
   componentDidMount(){
     const id = this.props.match.params.id
     const { user } = this.props
-    debugger
 
     id === 'undefined' || parseInt(id) === user.id ? this.setState({ signedInUser: true }) :
     FetchAdapter.getUser(id).then( currentUser => {
@@ -71,6 +70,7 @@ class Profile extends Component {
             <Grid container>
             <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
               <Card fluid>
+                <Image src={currentUser.profile_url} />
                 <Card.Content>
                   <Card.Header>{currentUser.name}</Card.Header>
                   <Card.Description>

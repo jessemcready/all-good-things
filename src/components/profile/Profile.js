@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import { Container, Card, Button, Confirm, Grid } from 'semantic-ui-react'
+import { Container, Card, Button, Confirm, Grid, Image } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
 import { editUser, signout } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
@@ -39,6 +39,7 @@ class Profile extends Component {
       <Grid container columns={3}>
         <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
           <Card fluid>
+            <Image src={user.profile_url} />
             <Card.Content>
               <Card.Header>{user.name}</Card.Header>
               <Card.Description>
