@@ -101,7 +101,6 @@ class Profile extends Component {
     const { editing } = this.state
     return(
       <Container style={{marginTop: '75px'}} textAlign='center' text>
-        <Header style={{fontFamily:'Roboto'}} size='huge'>{user.name}'s Profile</Header>
         {
           !editing ?
           this.renderCard() :
