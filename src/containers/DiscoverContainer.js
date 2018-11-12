@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react'
+import { Container, Grid } from 'semantic-ui-react'
 import Search from '../components/discover/Search'
 import UserList from '../components/discover/UserList'
 import { connect } from 'react-redux'
@@ -43,7 +43,9 @@ class DiscoverContainer extends Component {
     return (
       <Container style={{ marginTop: '75px', fontFamily:'Roboto' }} textAlign='center'>
         <Search handleChange={this.handleChange} value={searchTerm} />
-        <UserList users={this.usersToShow()} />
+        <Grid columns={3} style={{marginTop:'10px'}}>
+          <UserList users={this.usersToShow()} />
+        </Grid>
       </Container>
     );
   }
