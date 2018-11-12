@@ -113,7 +113,7 @@ class Post extends Component {
                     <Icon name='heart' color='red' inverted />
                     Unlike
                   </Button>
-                  <Label as='a' basic color='red' pointing='left'>
+                  <Label basic color='red' pointing='left'>
                     {likes.length}
                   </Label>
                 </Button>:
@@ -122,7 +122,7 @@ class Post extends Component {
                     <Icon name='heart' color='red' inverted />
                     Like
                   </Button>
-                  <Label as='a' basic color='red' pointing='left'>
+                  <Label basic color='red' pointing='left'>
                     {likes.length}
                   </Label>
                 </Button>

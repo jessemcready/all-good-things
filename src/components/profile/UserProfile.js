@@ -64,7 +64,7 @@ class Profile extends Component {
           <Redirect to='/profile' /> :
           <Fragment>
             <Header size='huge'>{currentUser.name}'s Profile</Header>
-            <Grid container fluid>
+            <Grid container>
             <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
               <Card fluid>
                 <Card.Content>
