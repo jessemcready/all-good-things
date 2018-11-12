@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Menu } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { signout } from '../actions/users'
 
 class NavBar extends Component {
   state = { activeItem: 'feed' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  componentDidMount() {
+    const activeItem = this.props.location.pathname.split('/')[1]
+    if(activeItem === ''){
+      this.setState({ activeItem: 'feed' })
+    } else {  
+      this.setState({ activeItem })
+    }
+  }
 
   render() {
     const { user: { admin } } = this.props
@@ -71,4 +80,4 @@ class NavBar extends Component {
 
 const mapStateToProps = ({ users: { user }}) => ({ user })
 
-export default connect(mapStateToProps, { signout } )(NavBar);
+export default withRouter(connect(mapStateToProps, { signout } )(NavBar));
