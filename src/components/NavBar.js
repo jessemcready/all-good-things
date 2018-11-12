@@ -13,7 +13,7 @@ class NavBar extends Component {
     const activeItem = this.props.location.pathname.split('/')[1]
     if(activeItem === ''){
       this.setState({ activeItem: 'feed' })
-    } else {  
+    } else {
       this.setState({ activeItem })
     }
   }
@@ -32,7 +32,7 @@ class NavBar extends Component {
           fluid
           size='massive'
           inverted
-          secondary
+          compact
           style={{backgroundColor: '#0245ee', opacity: '0.8'}}>
           <Menu.Item header style={styles} >All Good Things</Menu.Item>
           <Link to='/'>
