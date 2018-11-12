@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom'
-import { Card, Feed, Icon, Button, Label } from 'semantic-ui-react'
+import { Card, Feed, Icon, Button, Label, Popup } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
 import { createPostComment, reportPost } from '../../actions/posts'
@@ -80,18 +80,32 @@ class Post extends Component {
         <Redirect to={`/posts/${id}`} /> :
         <Feed.Event>
           <Card centered raised>
-          {
-            flagged ?
-            <Icon name='warning' disabled style={{position: 'absolute', right: '0', marginTop:'1em'}} /> :
-            <Icon name='warning' style={{position: 'absolute', right: '0', marginTop:'1em'}} onClick={this.handleReport} />
-          }
           <Feed.Content>
             <Feed.Summary>
-              <Feed.User onClick={this.handleUserClick}>
+              <Feed.User>
               {
                 usernameClick ?
                 <Redirect to={`/profile/${user.id}`} /> :
-                user.name
+                <span onClick={this.handleUserClick}>{user.name}</span>
+              }
+              {
+                flagged ?
+                <Popup
+                trigger={
+                  <Button basic color='red' disabled icon='warning' size='small' style={{ width: '50px', position: 'absolute', right: '0' }}/>
+                }
+                content='Post Reported!'
+                on='click'
+                position='top center'
+                /> :
+                <Popup
+                trigger={
+                  <Button basic color='red' onClick={this.handleReport} icon='warning'  style={{ width: '50px', position: 'absolute', right: '0' }} size='small' />
+                }
+                content='Post Reported!'
+                on='click'
+                position='top center'
+                />
               }
               </Feed.User>
               <Card.Meta>

@@ -12,10 +12,10 @@ class NavBar extends Component {
       color: '#FFFFFF',
       fontFamily: 'Roboto'
     }
-    
+
     return (
         <Menu fixed='top' fluid size='massive'
-        style={{backgroundColor: '#0245ee'}}>
+        style={{backgroundColor: '#0245ee', opacity: '0.8'}}>
           <Menu.Item header style={styles} >All Good Things</Menu.Item>
           <Link to='/'>
             <Menu.Item name='feed' style={styles} />

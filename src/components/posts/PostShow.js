@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Feed, Card, Icon, Button, Label } from 'semantic-ui-react'
+import { Feed, Card, Icon, Button, Label, Popup } from 'semantic-ui-react'
 import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
 import { createPostComment, reportPost } from '../../actions/posts'
@@ -73,14 +73,30 @@ class PostShow extends Component {
     (
       <Feed.Event style={{marginTop: '75px'}}>
         <Card centered raised onClick={this.handlePostPage} style={{fontFamily:'Roboto'}}>
-        {
-          post.flagged ?
-          <Icon name='warning' disabled style={{position: 'absolute', right: '0', marginTop:'1em'}} /> :
-          <Icon name='warning' style={{position: 'absolute', right: '0', marginTop:'1em'}} onClick={() => this.handleReport(post.id)} />
-        }
         <Feed.Content>
           <Feed.Summary>
-            <Feed.User>{ post.user.name }</Feed.User>
+            <Feed.User>
+              { post.user.name }
+              {
+                post.flagged ?
+                <Popup
+                trigger={
+                  <Button basic color='red' disabled icon='warning' size='small' style={{ width: '50px', position: 'absolute', right: '0' }}/>
+                }
+                content='Post Reported!'
+                on='click'
+                position='top center'
+                /> :
+                <Popup
+                trigger={
+                  <Button basic color='red' onClick={() => this.handleReport.post(id)} icon='warning'  style={{ width: '50px', position: 'absolute', right: '0' }} size='small' />
+                }
+                content='Post Reported!'
+                on='click'
+                position='top center'
+                />
+              }
+            </Feed.User>
             <Card.Meta>
               <Feed.Date>
                 <Moment fromNow ago>{post.created_at}</Moment> ago
