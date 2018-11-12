@@ -20,10 +20,12 @@ class NewPostModal extends Component {
     const { user, createPost } = this.props
     const { userInput } = this.state
     const post = { user_id: user.id, content: userInput }
-    FetchAdapter.createPost(post).then( postObj => {
-      this.setState({ userInput: '', modalOpen: false })
-      createPost(postObj.post)
-    })
+    if( userInput.length > 0){
+      FetchAdapter.createPost(post).then( postObj => {
+        this.setState({ userInput: '', modalOpen: false })
+        createPost(postObj.post)
+      })
+    }
   }
 
   handleOpen = () => this.setState({ modalOpen: true })

@@ -10,7 +10,7 @@ class NavBar extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    const { user } = this.props
+    const { user: { admin } } = this.props
     const { activeItem } = this.state
     const styles = {
       color: '#FFFFFF',
@@ -20,7 +20,6 @@ class NavBar extends Component {
     return (
         <Menu
           fixed='top'
-          tabular
           fluid
           size='massive'
           inverted
@@ -49,7 +48,7 @@ class NavBar extends Component {
               onClick={this.handleItemClick} />
           </Link>
           {
-            user.admin ?
+            admin ?
             <Link to='/flagged'>
               <Menu.Item
                 name='flagged'

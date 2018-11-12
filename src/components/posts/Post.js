@@ -78,7 +78,7 @@ class Post extends Component {
       {
         clicked ?
         <Redirect to={`/posts/${id}`} /> :
-        <Feed.Event>
+        <Feed.Event style={{margin: '20px'}}>
           <Card centered raised>
           <Feed.Content>
             <Feed.Summary>
