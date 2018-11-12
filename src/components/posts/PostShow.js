@@ -72,11 +72,11 @@ class PostShow extends Component {
     null :
     (
       <Feed.Event style={{marginTop: '75px'}}>
-        <Card centered raised onClick={this.handlePostPage} style={{fontFamily:'Roboto'}}>
+        <Card centered raised onClick={this.handlePostPage}>
         <Feed.Content>
           <Feed.Summary>
             <Feed.User>
-              { post.user.name }
+              <span style={{fontFamily:'Roboto'}}>{ post.user.name }</span>
               {
                 post.flagged ?
                 <Popup
@@ -103,7 +103,7 @@ class PostShow extends Component {
               </Feed.Date>
             </Card.Meta>
           </Feed.Summary>
-          <Feed.Extra text>
+          <Feed.Extra text style={{fontFamily:'Roboto'}}>
             {post.content}
           </Feed.Extra>
           <Feed.Meta>
@@ -131,7 +131,7 @@ class PostShow extends Component {
               </Button>
             }
             </Feed.Like>
-            <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} />
+            <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} style={{fontFamily:'Roboto'}} />
           </Feed.Meta>
         </Feed.Content>
         </Card>

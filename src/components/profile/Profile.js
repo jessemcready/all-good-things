@@ -100,7 +100,7 @@ class Profile extends Component {
     const { user } = this.props
     const { editing } = this.state
     return(
-      <Container style={{marginTop: '75px'}} textAlign='center' text>
+      <Container style={{marginTop: '75px'}} text fluid>
         {
           !editing ?
           this.renderCard() :
