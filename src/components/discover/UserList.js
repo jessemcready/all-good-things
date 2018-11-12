@@ -1,11 +1,11 @@
 import React from 'react';
-import { List } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import User from './User'
 
 const UserList = ({ users }) => (
-  <List>
+  <Grid columns={3} style={{margin: '10px'}} relaxed container text>
     { users.map(user => <User key={user.id} {...user} /> ) }
-  </List>
+  </Grid>
 )
 
 export default UserList;

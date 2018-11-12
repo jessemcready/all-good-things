@@ -49,9 +49,12 @@ class Profile extends Component {
   }
 
   getPosts = () => {
-    const { posts } = this.props
-    const { currentUser } = this.state
-    return posts.filter(post => post.user.email === currentUser.email)
+    if( !this.following() ){
+      const { posts } = this.props
+      const { currentUser } = this.state
+      return posts.filter(post => post.user.email === currentUser.email)
+    }
+    return this.state.currentUser.posts
   }
 
   render(){

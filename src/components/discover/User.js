@@ -16,11 +16,10 @@ class User extends Component{
       <Fragment>
         {
           !clicked ?
-          <Card centered onClick={this.handleClick}>
+          <Card centered onClick={this.handleClick} style={{height: '75px'}}>
             <Card.Content>
               <Card.Header>{name}</Card.Header>
               <Card.Description>
-                <p>Name: { name }</p>
                 <p>Email: { email }</p>
               </Card.Description>
             </Card.Content>
