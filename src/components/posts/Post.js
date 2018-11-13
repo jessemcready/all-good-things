@@ -70,7 +70,7 @@ class Post extends Component {
       id, content, comments, created_at, user, likes, profile, flagged
     } = this.props
     const { liked, clicked, usernameClick } = this.state
-    debugger
+    
     return user.name === undefined && content === undefined ?
     null :
     (

@@ -60,7 +60,7 @@ class Profile extends Component {
           </Card>
         </Grid.Column>
         <Grid.Column width={9} style={{marginLeft: '10em'}}>
-          { posts.map( post => <Post key={post.id} {...post} profile={true} />) }
+          { user.posts.map( post => <Post key={post.id} {...post} profile={true} />) }
         </Grid.Column>
         <Grid.Column width={3} floated='right'></Grid.Column>
       </Grid>
