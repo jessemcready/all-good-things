@@ -49,16 +49,16 @@ class NewPostModal extends Component {
         trigger={
           <Icon name='plus circle' onClick={this.handleOpen} style={styles} size='huge' />
         }>
-        <Modal.Header style={{fontFamily:'Roboto'}}>Create Post</Modal.Header>
+        <Modal.Header className='robotoFam'>Create Post</Modal.Header>
         <Modal.Content>
           <Form onSubmit={this.handleSubmit}>
             <TextArea
-            style={{fontFamily:'Roboto'}}
+            className='robotoFam'
             placeholder='Put down some thoughts'
             onChange={this.handleChange}
             value={userInput}
             />
-            <Button style={{fontFamily:'Roboto', marginTop: '1em'}} color='teal'>Submit</Button>
+            <Button className='modalButton' color='teal'>Submit</Button>
           </Form>
         </Modal.Content>
       </Modal>

@@ -71,18 +71,18 @@ class PostShow extends Component {
     return post.user === undefined ?
     null :
     (
-      <Feed.Event style={{marginTop: '75px'}}>
+      <Feed.Event className='underNav'>
         <Card centered raised onClick={this.handlePostPage}>
         <Feed.Content>
           <Feed.Summary>
             <Image src={post.user.profile_url} size="mini" floated='left' circular />
             <Feed.User>
-              <span style={{fontFamily:'Roboto'}}>{ post.user.name }</span>
+              <span className='robotoFam'>{ post.user.name }</span>
               {
                 post.flagged ?
                 <Popup
                 trigger={
-                  <Button inverted color='red' disabled icon='warning' size='small' style={{ width: '50px', position: 'absolute', right: '0' }}/>
+                  <Button inverted color='red' disabled icon='warning' size='small' className='popupButton' />
                 }
                 content='Post Reported!'
                 on='click'
@@ -90,7 +90,7 @@ class PostShow extends Component {
                 /> :
                 <Popup
                 trigger={
-                  <Button inverted color='red' onClick={() => this.handleReport.post(id)} icon='warning'  style={{ width: '50px', position: 'absolute', right: '0' }} size='small' />
+                  <Button inverted color='red' onClick={() => this.handleReport.post(id)} icon='warning'  className='popupButton' size='small' />
                 }
                 content='Post Reported!'
                 on='click'
@@ -105,7 +105,7 @@ class PostShow extends Component {
             </Card.Meta>
           </Feed.Summary>
           <br />
-          <Feed.Extra text style={{fontFamily:'Roboto'}}>
+          <Feed.Extra text className='robotoFam'>
             {post.content}
           </Feed.Extra>
           <Feed.Meta>
@@ -133,7 +133,7 @@ class PostShow extends Component {
               </Button>
             }
             </Feed.Like>
-            <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} style={{fontFamily:'Roboto'}} />
+            <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} className='robotoFam' />
           </Feed.Meta>
         </Feed.Content>
         </Card>

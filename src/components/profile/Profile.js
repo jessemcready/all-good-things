@@ -119,7 +119,7 @@ class Profile extends Component {
     const { user } = this.props
     const { editing } = this.state
     return(
-      <Container style={{marginTop: '75px'}} text fluid>
+      <Container className='underNav' text fluid>
         {
           !editing ?
           this.renderCard() :

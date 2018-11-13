@@ -62,7 +62,7 @@ class Profile extends Component {
     const { currentUser, signedInUser } = this.state
     const posts = this.getPosts()
     return(
-      <Container style={{marginTop: '75px'}} text fluid>
+      <Container className='underNav' text fluid>
         {
           signedInUser ?
           <Redirect to='/profile' /> :

@@ -70,7 +70,7 @@ class Post extends Component {
       id, content, comments, created_at, user, likes, profile, flagged
     } = this.props
     const { liked, clicked, usernameClick } = this.state
-    
+
     return user.name === undefined && content === undefined ?
     null :
     (
@@ -93,7 +93,7 @@ class Post extends Component {
                 flagged ?
                 <Popup
                 trigger={
-                  <Button inverted color='red' disabled icon='warning' size='small' style={{ width: '50px', position: 'absolute', right: '0' }}/>
+                  <Button inverted color='red' disabled icon='warning' size='small' className='popupButton'/>
                 }
                 content='Post Reported!'
                 on='click'
@@ -101,7 +101,7 @@ class Post extends Component {
                 /> :
                 <Popup
                 trigger={
-                  <Button inverted color='red' onClick={this.handleReport} icon='warning'  style={{ width: '50px', position: 'absolute', right: '0' }} size='small' />
+                  <Button inverted color='red' onClick={this.handleReport} icon='warning' className='popupButton' size='small' />
                 }
                 content='Post Reported!'
                 on='click'

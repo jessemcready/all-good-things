@@ -27,7 +27,7 @@ class FlaggedPosts extends Component {
     return !user.admin ?
     <Redirect to='/' /> :
     (
-      <Container style={{marginTop: '75px'}}>
+      <Container className='underNav'>
         {flaggedPosts.map( post => (
           <Message>
             <h3>{post.content}</h3>
