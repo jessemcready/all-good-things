@@ -17,7 +17,12 @@ io.on('connection', socket => {
 
   socket.on('here', () => socket.emit('user connected', { message: 'Hello'}))
 
-  socket.on('addUser', userObj => users.push(userObj))
+  socket.on('addUser', userObj => {
+    const foundUser = users.find( user => user.email === userObj.email )
+    if(!foundUser){
+      users.push(userObj)
+    }
+  })
 
   socket.on('disconnect', () => {
     console.log('User disconnected')
