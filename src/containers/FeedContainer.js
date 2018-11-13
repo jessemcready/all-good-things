@@ -34,6 +34,6 @@ class FeedContainer extends Component{
   }
 }
 
-const mapStateToProps = ({ posts }) => ({ posts })
+const mapStateToProps = ({ posts, users: { user } }) => ({ posts, user })
 
 export default withRouter(connect(mapStateToProps, { createPost })(FeedContainer));

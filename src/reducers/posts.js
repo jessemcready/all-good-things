@@ -2,7 +2,7 @@ import {
   CREATE_POST, CREATE_POST_COMMENT, DELETE_POST, REPORT_POST, UNREPORT_POST
 } from '../constants/postActions'
 import {
-  LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER, LIKE_POST, UNLIKE_POST
+  LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER, LIKE_POST, UNLIKE_POST, EDIT_USER
 } from '../constants/userActions'
 
 const initialState = []
@@ -84,6 +84,15 @@ export default(state = initialState, action) => {
       const { userEmail } = action
       const followedUsersPosts = state.filter( post => post.user.email !== userEmail)
       return [...followedUsersPosts]
+    case EDIT_USER:
+      const updatedUser = action.user.user
+      const userPosts = state.filter( post => post.user.email === updatedUser.email )
+      const nonUserPosts = state.filter(post => post.user.email !== updatedUser.email)
+      const updatedUserPosts = userPosts.map( post => ({...post, user: updatedUser}))
+      return [
+        ...updatedUserPosts,
+        ...nonUserPosts
+      ]
     case SIGNOUT:
       return initialState
     default:
