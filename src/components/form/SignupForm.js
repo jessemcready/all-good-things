@@ -39,23 +39,23 @@ class SignupForm extends Component {
           <Form error onSubmit={event => handleSignup(event, this.state)}>
             {
               preFilled ?
-              <Header style={{fontFamily: 'Roboto'}}>Edit {originalName}</Header> :
-              <Header style={{fontFamily: 'Roboto'}}>Sign Up</Header> }
-            <Form.Field style={{fontFamily: 'Roboto'}}>
+              <Header className='robotoFam'>Edit {originalName}</Header> :
+              <Header className='robotoFam'>Sign Up</Header> }
+            <Form.Field className='robotoFam'>
               <Input
                 placeholder='Name'
                 name='name'
                 value={name}
                 onChange={this.handleChange} />
             </Form.Field>
-            <Form.Field style={{fontFamily: 'Roboto'}}>
+            <Form.Field className='robotoFam'>
               <Input
                 placeholder='Email'
                 name='email'
                 value={email}
                 onChange={this.handleChange} />
             </Form.Field>
-            <Form.Field style={{fontFamily: 'Roboto'}}>
+            <Form.Field className='robotoFam'>
               <Input
                 placeholder='Password'
                 name='password'
@@ -63,7 +63,7 @@ class SignupForm extends Component {
                 type='password'
                 onChange={this.handleChange} />
             </Form.Field>
-            <Form.Field style={{fontFamily: 'Roboto'}}>
+            <Form.Field className='robotoFam'>
               <Input
                 placeholder='Profile Image'
                 name='profileUrl'
@@ -72,16 +72,16 @@ class SignupForm extends Component {
             </Form.Field>
             {
               errors !== '' ?
-              <Message error header='Sign Up Failed' content={errors} style={{fontFamily: 'Roboto'}} /> :
+              <Message error header='Sign Up Failed' content={errors} className='robotoFam' /> :
               null
             }
             {
               this.props.user ?
-              <Button fluid color='teal' basic style={{fontFamily: 'Roboto'}}>Confirm Edit</Button> :
+              <Button fluid color='teal' basic className='robotoFam'>Confirm Edit</Button> :
               <div>
-                <Button fluid color='blue' style={{fontFamily: 'Roboto'}}>Sign Up</Button>
+                <Button fluid color='blue' className='robotoFam'>Sign Up</Button>
                 <Message onClick={handleLinkClick}>
-                <h3 style={{fontFamily: 'Roboto'}}>Already have an account? Login</h3>
+                <h3 className='robotoFam'>Already have an account? Login</h3>
                 </Message>
               </div>
             }

@@ -7,6 +7,7 @@ import NavBar from './components/NavBar'
 import { withRouter } from 'react-router-dom'
 import FetchAdapter from './adapters/FetchAdapter'
 import { loginOrSignup } from './actions/users'
+import './App.css'
 
 class App extends Component {
   componentDidMount() {
@@ -27,7 +28,7 @@ class App extends Component {
             user.email === '' ?
             <FormContainer /> :
             <div>
-              <NavBar style={{color:'#FFFFFF', fontFamily:'Roboto'}} />
+              <NavBar />
               <MainPage />
             </div>
           }

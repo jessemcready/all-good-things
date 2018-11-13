@@ -7,7 +7,7 @@ class FriendsList extends Component {
   render() {
     const { user: { followers }, onUserSelect, socket } = this.props
     return (
-      <Segment style={{fontFamily: 'Roboto'}}>
+      <Segment className='robotoFam'>
         <Header>Friends</Header>
         <List divided>
           {followers.map( follower => (

@@ -37,7 +37,7 @@ class ChatBox extends Component {
 
     return (
       <Segment>
-        <List style={{overflow: 'scroll', height: '200px'}}>
+        <List className='friendList'>
           {messages.map(messageObj => (
             <List.Item>{messageObj.name}: {messageObj.content}</List.Item>
           ))}

@@ -18,7 +18,7 @@ class LoginForm extends Component {
     return(
       <Segment raised>
           <Form error onSubmit={(event) => handleLogin(event, this.state)} >
-            <Header style={{fontFamily: 'Roboto'}}>Login</Header>
+            <Header className='robotoFam'>Login</Header>
             <Form.Field>
               <Input
                 placeholder='Email'
@@ -36,12 +36,12 @@ class LoginForm extends Component {
             </Form.Field>
             {
               errors !== '' ?
-              <Message error header='Login Failed' content={errors} style={{fontFamily: 'Roboto'}} /> :
+              <Message error header='Login Failed' content={errors} className='robotoFam' /> :
               null
             }
             <Button fluid color='blue'>Log In</Button>
             <Message onClick={handleLinkClick}>
-              <h3 style={{fontFamily: 'Roboto'}}>Need an account? Sign Up</h3>
+              <h3 className='robotoFam'>Need an account? Sign Up</h3>
             </Message>
           </Form>
       </Segment>

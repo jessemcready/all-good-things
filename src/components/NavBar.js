@@ -19,7 +19,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const { user: { admin } } = this.props
+    const { user: { name, admin } } = this.props
     const { activeItem } = this.state
     const styles = {
       color: '#FFFFFF',
@@ -33,27 +33,27 @@ class NavBar extends Component {
           size='massive'
           inverted
           compact
-          style={{backgroundColor: '#0245ee', opacity: '0.8'}}>
-          <Menu.Item header style={styles} >All Good Things</Menu.Item>
+          style={{ backgroundColor: '#0245ee', opacity: '0.8' }} >
+          <Menu.Item header className='navBarItem' >All Good Things</Menu.Item>
           <Link to='/'>
             <Menu.Item
               name='feed'
               active={ activeItem === 'feed' }
-              style={styles}
+              className='navBarItem'
               onClick={this.handleItemClick} />
           </Link>
           <Link to='/profile'>
             <Menu.Item
               name='profile'
               active={activeItem === 'profile'}
-              style={styles}
+              className='navBarItem'
               onClick={this.handleItemClick} />
           </Link>
           <Link to='/discover'>
             <Menu.Item
               name='discover'
               active={activeItem === 'discover'}
-              style={styles}
+              className='navBarItem'
               onClick={this.handleItemClick} />
           </Link>
           {
@@ -62,15 +62,15 @@ class NavBar extends Component {
               <Menu.Item
                 name='flagged'
                 active={activeItem === 'flagged'}
-                style={styles}
+                className='navBarItem'
                 onClick={this.handleItemClick} />
             </Link> :
             null
           }
           <Menu.Item
-            name='signOut'
+            content={`Sign Out of ${name}`}
             position='right'
-            style={styles}
+            className='navBarItem'
             onClick={() => this.props.signout()}
           />
         </Menu>
