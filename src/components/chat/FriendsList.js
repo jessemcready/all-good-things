@@ -19,6 +19,7 @@ class FriendsList extends Component {
                     <List.Header as='a' onClick={() => onUserSelect(follower)}>{follower.name}</List.Header>
                   }
                   content={<ChatBox user={follower} socket={socket} />}
+                  hideOnScroll
                   on='click'
                   position='right center'
                   />

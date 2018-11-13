@@ -3,9 +3,20 @@ import { connect } from 'react-redux';
 import { Segment, List, Input, Form } from 'semantic-ui-react'
 
 class ChatBox extends Component {
-  state = {
-    message: '',
-    messages: []
+  constructor(props){
+    super(props)
+    this.state = {
+      message: '',
+      messages: []
+    }
+  }
+
+  componentDidMount() {
+    const { socket } = this.props
+
+    socket.on('new message', messageObj => {
+      this.setState({ messages: [...this.state.messages, messageObj]})
+    })
   }
 
   handleChange = e => this.setState({ message: e.target.value })
@@ -17,18 +28,19 @@ class ChatBox extends Component {
       content: message,
       email: user.email
     }
-    this.setState({ messages: [messageObj, ...this.state.messages], message: '' })
+    this.setState({ messages: [...this.state.messages, messageObj], message: '' })
     socket.emit('message', messageObj)
   }
 
   render() {
-    const { user } = this.props
     const { message, messages } = this.state
-    debugger
+
     return (
       <Segment>
         <List style={{overflow: 'scroll', height: '200px'}}>
-          {messages.map(message => <List.Item>{message.name}: {message.content}</List.Item>)}
+          {messages.map(messageObj => (
+            <List.Item>{messageObj.name}: {messageObj.content}</List.Item>
+          ))}
         </List>
         <Form onSubmit={event => this.handleSubmit(message)}>
           <Input onChange={this.handleChange} name='message' value={message} />

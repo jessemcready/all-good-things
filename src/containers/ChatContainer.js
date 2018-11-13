@@ -32,7 +32,6 @@ class ChatContainer extends Component {
   }
 
   render() {
-    const { response, selectedUser } = this.state
     const { user } = this.props
     const styles = { position: 'fixed', bottom: '0', left: '0' }
 
