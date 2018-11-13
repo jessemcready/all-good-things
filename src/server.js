@@ -19,9 +19,13 @@ io.on('connection', socket => {
 
   socket.on('addUser', userObj => users.push(userObj))
 
-  socket.on('disconnect', () => console.log('disconnected'))
+  socket.on('disconnect', () => {
+    console.log('User disconnected')
+    console.log(users)
+    const index = users.findIndex( userObj => userObj.socketId === socket.id )
+    users = [...users.slice(0, index), ...users.slice(index + 1)]
+    console.log(users)
+  })
 })
-
-console.log(io.clients)
 
 server.listen( port, () => console.log(`listening on port ${port}`))
