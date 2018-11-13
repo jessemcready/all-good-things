@@ -14,6 +14,7 @@ class LoginForm extends Component {
   render(){
     const { email, password } = this.state
     const { handleLogin, handleLinkClick, errors } = this.props
+
     return(
       <Segment raised>
           <Form error onSubmit={(event) => handleLogin(event, this.state)} >

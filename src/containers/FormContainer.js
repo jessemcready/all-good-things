@@ -54,6 +54,7 @@ class FormContainer extends Component {
 
   render() {
     const { errors, isLoginForm } = this.state
+
     return (
       <Grid container columns={3}>
         <Grid.Row centered stretched verticalAlign='middle' style={{ marginTop: '15%'}}>
