@@ -21,10 +21,6 @@ class NavBar extends Component {
   render() {
     const { user: { name, admin } } = this.props
     const { activeItem } = this.state
-    const styles = {
-      color: '#FFFFFF',
-      fontFamily: 'Roboto'
-    }
 
     return (
         <Menu
