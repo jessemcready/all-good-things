@@ -33,7 +33,7 @@ class Profile extends Component {
   renderCard = () => {
     const { user } = this.props
     const { open } = this.state
-
+    const posts = this.getUserPosts()
     return (
       <Grid container columns={3}>
         <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
@@ -59,7 +59,7 @@ class Profile extends Component {
           </Card>
         </Grid.Column>
         <Grid.Column width={9} style={{marginLeft: '10em'}}>
-          { user.posts.map( post => <Post key={post.id} {...post} profile={true} />) }
+          { posts.map( post => <Post key={post.id} {...post} profile={true} />) }
         </Grid.Column>
         <Grid.Column width={3} floated='right'></Grid.Column>
       </Grid>
