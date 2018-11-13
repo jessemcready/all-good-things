@@ -75,7 +75,7 @@ class PostShow extends Component {
         <Card centered raised onClick={this.handlePostPage}>
         <Feed.Content>
           <Feed.Summary>
-            <Image src={post.user.profile_url} size="tiny" floated='left' circular />
+            <Image src={post.user.profile_url} size="mini" floated='left' circular />
             <Feed.User>
               <span style={{fontFamily:'Roboto'}}>{ post.user.name }</span>
               {

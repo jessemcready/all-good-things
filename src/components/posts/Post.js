@@ -82,7 +82,7 @@ class Post extends Component {
           <Card centered raised>
           <Feed.Content>
             <Feed.Summary>
-              <Image src={user.profile_url} size="tiny" floated='left' circular />
+              <Image src={user.profile_url} size="mini" floated='left' circular />
               <Feed.User>
               {
                 usernameClick ?
