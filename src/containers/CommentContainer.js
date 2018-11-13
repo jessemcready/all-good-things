@@ -25,7 +25,7 @@ class CommentContainer extends Component {
     const { userInput } = this.state
     return(
       <Comment.Group>
-        <Header as='h3' dividing style={{fontFamily:'Roboto'}}>
+        <Header as='h3' dividing className='robotoFam'>
           Comments
         </Header>
         {

@@ -41,7 +41,7 @@ class DiscoverContainer extends Component {
   render() {
     const { searchTerm } = this.state
     return (
-      <Container style={{ marginTop: '75px', fontFamily:'Roboto' }} textAlign='center'>
+      <Container className='underNav robotoFam' textAlign='center'>
         <Search handleChange={this.handleChange} value={searchTerm} />
         <Grid columns={3} style={{marginTop:'10px'}}>
           <UserList users={this.usersToShow()} />
