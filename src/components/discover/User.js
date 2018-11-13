@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Card, Grid } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 

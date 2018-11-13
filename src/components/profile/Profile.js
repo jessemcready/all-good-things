@@ -33,7 +33,6 @@ class Profile extends Component {
   renderCard = () => {
     const { user } = this.props
     const { open } = this.state
-    const posts = this.orderPosts()
 
     return (
       <Grid container columns={3}>

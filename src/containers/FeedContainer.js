@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { createPost } from '../actions/posts'
 import NewPostModal from '../components/modals/NewPostModal'
+import ChatContainer from './ChatContainer'
 
 class FeedContainer extends Component{
-
   orderPosts = posts =>
     posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
 
@@ -29,6 +29,7 @@ class FeedContainer extends Component{
       <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
         {posts.map( post => <Post key={post.id} {...post} />)}
         <NewPostModal />
+        <ChatContainer />
       </Feed>
     )
   }

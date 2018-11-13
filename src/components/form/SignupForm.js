@@ -28,7 +28,7 @@ class SignupForm extends Component {
   handleImage = event => this.setState({ profileUrl: event.target.files[0] })
 
   render(){
-    const { name, email, password, preFilled, profileUrl } = this.state
+    const { name, email, password, preFilled } = this.state
     const { handleSignup, handleLinkClick, errors } = this.props
     let originalName
     if(preFilled){
