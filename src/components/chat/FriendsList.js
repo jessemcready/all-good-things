@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { List, Image, Segment, Header } from 'semantic-ui-react'
+import { List, Image, Segment, Header, Popup } from 'semantic-ui-react'
+import ChatBox from './ChatBox'
 
 class FriendsList extends Component {
 
   render() {
-    const { user: { followers }, onUserSelect } = this.props
+    const { user: { followers }, onUserSelect, socket } = this.props
     return (
       <Segment style={{fontFamily: 'Roboto'}}>
         <Header>Friends</Header>
@@ -13,7 +14,14 @@ class FriendsList extends Component {
             <List.Item>
               <Image avatar src={follower.profile_url} />
               <List.Content>
-                <List.Header as='a' onClick={() => onUserSelect(follower)}>{follower.name}</List.Header>
+                <Popup
+                  trigger={
+                    <List.Header as='a' onClick={() => onUserSelect(follower)}>{follower.name}</List.Header>
+                  }
+                  content={<ChatBox user={follower} socket={socket} />}
+                  on='click'
+                  position='right center'
+                  />
               </List.Content>
             </List.Item>
           ))}

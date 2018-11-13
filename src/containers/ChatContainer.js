@@ -8,9 +8,7 @@ class ChatContainer extends Component {
     super(props)
     this.state = {
       response: '',
-      selectedUser: {},
-      message: '',
-      messages: []
+      selectedUser: {}
     }
     this.socket = socketIOClient('http://127.0.0.1:4001')
   }
@@ -34,13 +32,13 @@ class ChatContainer extends Component {
   }
 
   render() {
-    const { response } = this.state
+    const { response, selectedUser } = this.state
     const { user } = this.props
     const styles = { position: 'fixed', bottom: '0', left: '0' }
-    debugger
+
     return (
       <div style={styles}>
-        <FriendsList user={user} onUserSelect={this.handleUserSelect} />
+        <FriendsList user={user} onUserSelect={this.handleUserSelect} socket={this.socket} />
       </div>
     );
   }

@@ -24,6 +24,14 @@ io.on('connection', socket => {
     }
   })
 
+  socket.on('message', messageObj => {
+    console.log('message obj= ', messageObj)
+    const foundUser = users.find( user => user.email === messageObj.email)
+    if(foundUser){
+      io.to(`${foundUser.socketId}`).emit('new message', messageObj)
+    }
+  })
+
   socket.on('disconnect', () => {
     console.log('User disconnected')
     console.log(users)
