@@ -1,26 +1,24 @@
-import React from 'react';
-import { Form, Input, Button, Header, Card } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Form, Input, Button, Header, Message, Segment } from 'semantic-ui-react'
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
   state = {
     email: '',
     password: ''
   }
 
   handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   render(){
     const { email, password } = this.state
-    const { handleLogin, handleLinkClick } = this.props
+    const { handleLogin, handleLinkClick, errors } = this.props
+
     return(
-      <Card>
-        <Card.Content>
-          <Form onSubmit={(event) => handleLogin(event, this.state)}>
-            <Header>Login</Header>
+      <Segment raised>
+          <Form error onSubmit={(event) => handleLogin(event, this.state)} >
+            <Header className='robotoFam'>Login</Header>
             <Form.Field>
               <Input
                 placeholder='Email'
@@ -36,13 +34,17 @@ class LoginForm extends React.Component {
                 value={password}
                 onChange={this.handleChange} />
             </Form.Field>
-            <Button fluid>Log In</Button>
-            <div onClick={handleLinkClick}>
-              <h3>Need an account? Sign Up</h3>
-            </div>
+            {
+              errors !== '' ?
+              <Message error header='Login Failed' content={errors} className='robotoFam' /> :
+              null
+            }
+            <Button fluid color='blue'>Log In</Button>
+            <Message onClick={handleLinkClick}>
+              <h3 className='robotoFam'>Need an account? Sign Up</h3>
+            </Message>
           </Form>
-        </Card.Content>
-      </Card>
+      </Segment>
     )
   }
 };

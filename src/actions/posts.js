@@ -1,22 +1,13 @@
-import { CREATE_POST, LIKE_POST, CREATE_POST_COMMENT } from '../constants/postActions'
+import {
+  CREATE_POST, CREATE_POST_COMMENT, DELETE_POST, REPORT_POST, UNREPORT_POST
+} from '../constants/postActions'
 
-export const createPost = post => {
-  return {
-    type: CREATE_POST,
-    post
-  }
-}
+export const createPost = post => ({ type: CREATE_POST, post })
 
-export const likePost = postId => {
-  return {
-    type: LIKE_POST,
-    postId
-  }
-}
+export const createPostComment = comment => ({ type: CREATE_POST_COMMENT, comment})
 
-export const createPostComment = comment => {
-  return {
-    type: CREATE_POST_COMMENT,
-    comment
-  }
-}
+export const deletePost = postId => ({ type: DELETE_POST, postId })
+
+export const reportPost = postId => ({ type: REPORT_POST, postId })
+
+export const unreportPost = postId => ({ type: UNREPORT_POST, postId })

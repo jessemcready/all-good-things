@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react'
-import { usersUrl } from '../constants/fetchUrls'
+import { Container, Grid } from 'semantic-ui-react'
 import Search from '../components/discover/Search'
 import UserList from '../components/discover/UserList'
 import { connect } from 'react-redux'
+import FetchAdapter from '../adapters/FetchAdapter'
 
 class DiscoverContainer extends Component {
   state = {
@@ -13,18 +13,16 @@ class DiscoverContainer extends Component {
 
   componentDidMount(){
     const { user } = this.props
-    fetch(usersUrl).then(res => res.json()).then( userObjs => {
-      const users = userObjs.filter( userObj => {
-        return user.email !== userObj.email
-      })
-      this.setState({users})
+    FetchAdapter.getUsers().then( userObjs => {
+      const users = userObjs.filter( userObj =>
+        user.email !== userObj.email
+      )
+      this.setState({ users })
     })
   }
 
   handleChange = event => {
-    this.setState({
-      searchTerm: event.target.value
-    })
+    this.setState({ searchTerm: event.target.value })
   }
 
   usersToShow = () => {
@@ -41,20 +39,18 @@ class DiscoverContainer extends Component {
   }
 
   render() {
-    const { users, searchTerm } = this.state
+    const { searchTerm } = this.state
     return (
-      <Container style={{ marginTop: '75px' }} textAlign='center'>
+      <Container className='underNav robotoFam' textAlign='center'>
         <Search handleChange={this.handleChange} value={searchTerm} />
-        <UserList users={this.usersToShow()} />
+        <Grid columns={3} style={{marginTop:'10px'}}>
+          <UserList users={this.usersToShow()} />
+        </Grid>
       </Container>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.users
-  }
-}
+const mapStateToProps = ({ users: { user }}) => ({ user })
 
 export default connect(mapStateToProps)(DiscoverContainer);

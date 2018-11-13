@@ -1,94 +1,110 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import { Container, Header, Card, Button, Confirm } from 'semantic-ui-react'
-import { usersUrl, followUrl } from '../../constants/fetchUrls'
+import { Redirect } from 'react-router-dom'
+import { Container, Card, Button, Grid, Image } from 'semantic-ui-react'
 import { followUser, unfollowUser } from '../../actions/users'
+import FetchAdapter from '../../adapters/FetchAdapter'
+import Post from '../posts/Post'
 
 class Profile extends Component {
   state = {
-    currentUser: {}
+    currentUser: {},
+    signedInUser: false
   }
 
   componentDidMount(){
     const id = this.props.match.params.id
-    fetch(`${usersUrl}/${id}`)
-    .then( res => res.json() )
-    .then( currentUser => {
-      this.setState( { currentUser } )
+    const { user } = this.props
+
+    id === 'undefined' || parseInt(id) === user.id ? this.setState({ signedInUser: true }) :
+    FetchAdapter.getUser(id).then( currentUser => {
+      this.setState( { currentUser: currentUser.user } )
     })
   }
 
   handleFollow = () => {
     const { user, followUser } = this.props
     const { currentUser } = this.state
-    fetch(followUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        relationship: {
-          follower_id: user.id,
-          followee_id: currentUser.id
-        }
-      })
-    }).then(res => res.json()).then( relationshipObj => {
+    const relationship = { follower_id: user.id, followee_id: currentUser.id }
+    FetchAdapter.followUser(relationship).then( relationshipObj => {
       followUser(currentUser)
-      this.following()
     })
   }
 
   handleUnfollow = () => {
-
+    const { user, unfollowUser } = this.props
+    const { currentUser } = this.state
+    const relationship = { follower_id: user.id, followee_id: currentUser.id }
+    FetchAdapter.unfollowUser(relationship).then( relationshipObj => {
+      unfollowUser(currentUser.email)
+    })
   }
 
   following = () => {
     const { user } = this.props
-    const { currentUser, following } = this.state
-    const foundUser = user.followers.find(follower => {
-      return follower.email === currentUser.email
-    })
-    if(foundUser === undefined){
-      return true
+    const { currentUser } = this.state
+    const foundUser = user.followers.find(follower =>
+      follower.email === currentUser.email
+    )
+    return foundUser === undefined ? true : false
+  }
+
+  getPosts = () => {
+    if( !this.following() ){
+      const { posts } = this.props
+      const { currentUser } = this.state
+      return posts.filter(post => post.user.email === currentUser.email)
     }
-    return false
+    return this.state.currentUser.posts
   }
 
   render(){
-    const { user } = this.props
-    const { currentUser, following } = this.state
+    const { currentUser, signedInUser } = this.state
+    const posts = this.getPosts()
     return(
-      <Container style={{marginTop: '75px'}} textAlign='center' text>
-        <Header size='huge'>{currentUser.name}'s Profile</Header>
-        <Card centered>
-          <Card.Content>
-            <Card.Header>{currentUser.name}</Card.Header>
-            <Card.Description>
-              Email: {currentUser.email}
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            {
-              this.following() ?
-              <Button basic color='blue' onClick={this.handleFollow}>
-                Follow
-              </Button> :
-              <Button basic color='red' onClick={this.handleUnfollow}>
-                Unfollow
-              </Button>
-            }
-          </Card.Content>
-        </Card>
+      <Container className='underNav' text fluid>
+        {
+          signedInUser ?
+          <Redirect to='/profile' /> :
+          <Fragment>
+            <Grid container>
+            <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
+              <Card fluid>
+                <Image src={currentUser.profile_url} />
+                <Card.Content>
+                  <Card.Header>{currentUser.name}</Card.Header>
+                  <Card.Description>
+                    Email: {currentUser.email}
+                  </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                  {
+                    this.following() ?
+                    <Button inverted color='teal' onClick={this.handleFollow}>
+                      Follow
+                    </Button> :
+                    <Button inverted color='red' onClick={this.handleUnfollow}>
+                      Unfollow
+                    </Button>
+                  }
+                </Card.Content>
+              </Card>
+            </Grid.Column>
+            <Grid.Column width={9} style={{marginLeft:'10em'}}>
+              { posts !== undefined ?
+                posts.map( post => <Post key={post.id} {...post} profile={true} />) :
+                null
+               }
+            </Grid.Column>
+            <Grid.Column width={3} floated='right'></Grid.Column>
+          </Grid>
+          </Fragment>
+        }
       </Container>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.users
-  }
-}
+const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
 
 export default connect(mapStateToProps, { followUser, unfollowUser })(Profile);

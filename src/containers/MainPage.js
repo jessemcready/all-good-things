@@ -4,6 +4,8 @@ import FeedContainer from './FeedContainer'
 import DiscoverContainer from './DiscoverContainer'
 import Profile from '../components/profile/Profile'
 import UserProfile from '../components/profile/UserProfile'
+import PostShow from '../components/posts/PostShow'
+import FlaggedPosts from '../components/posts/FlaggedPosts'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 class MainPage extends Component {
@@ -25,8 +27,16 @@ class MainPage extends Component {
               component={UserProfile}
             />
             <Route
+              exact path='/posts/:id'
+              component={PostShow}
+            />
+            <Route
               exact path='/discover'
               component={DiscoverContainer}
+            />
+            <Route
+              exact path='/flagged'
+              component={FlaggedPosts}
             />
           </Switch>
         </div>
@@ -34,11 +44,6 @@ class MainPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.users,
-    posts: state.posts
-  }
-}
+const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
 
 export default withRouter(connect(mapStateToProps)(MainPage));

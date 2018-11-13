@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { Card } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Card, Grid, Image } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 
 class User extends Component{
@@ -7,25 +7,20 @@ class User extends Component{
     clicked: false
   }
 
-  handleClick = () => {
-    const { clicked } = this.state
-    this.setState({
-      clicked: !clicked
-    })
-  }
+  handleClick = () => this.setState({ clicked: !this.state.clicked })
 
   render() {
     const { clicked } = this.state
-    const { id, name, email } = this.props
+    const { id, name, email, profile_url } = this.props
     return(
-      <Fragment>
+      <Grid.Column>
         {
           !clicked ?
-          <Card centered onClick={this.handleClick}>
+          <Card centered onClick={this.handleClick} className='userCard'>
             <Card.Content>
+              <Image circular src={profile_url} size='tiny' />
               <Card.Header>{name}</Card.Header>
               <Card.Description>
-                <p>Name: { name }</p>
                 <p>Email: { email }</p>
               </Card.Description>
             </Card.Content>
@@ -33,7 +28,7 @@ class User extends Component{
           <Redirect to={`/profile/${id}`} />
         }
 
-      </Fragment>
+      </Grid.Column>
 
     )
   }

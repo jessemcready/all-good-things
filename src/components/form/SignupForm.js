@@ -1,7 +1,7 @@
-import React from 'react';
-import { Form, Input, Button, Header, Card } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Form, Input, Button, Header, Segment, Message } from 'semantic-ui-react'
 
-class SignupForm extends React.Component {
+class SignupForm extends Component {
   constructor(props){
     super(props)
     if(props.user){
@@ -9,6 +9,7 @@ class SignupForm extends React.Component {
         name: props.user.name,
         email: props.user.email,
         password: '',
+        profileUrl: props.user.profileUrl,
         preFilled: true
       }
     } else {
@@ -16,47 +17,45 @@ class SignupForm extends React.Component {
         name: '',
         email: '',
         password: '',
+        profileUrl: '',
         preFilled: false
       }
     }
   }
 
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
+  handleChange = event => this.setState({ [event.target.name]: event.target.value })
+
+  handleImage = event => this.setState({ profileUrl: event.target.files[0] })
 
   render(){
     const { name, email, password, preFilled } = this.state
-    const { handleSignup, handleLinkClick } = this.props
+    const { handleSignup, handleLinkClick, errors } = this.props
     let originalName
     if(preFilled){
       originalName = this.props.user.name
     }
     return(
-      <Card centered>
-        <Card.Content>
-          <Form onSubmit={event => handleSignup(event, this.state)}>
+      <Segment centered raised>
+          <Form error onSubmit={event => handleSignup(event, this.state)}>
             {
               preFilled ?
-              <Header>Edit {originalName}</Header> :
-              <Header>Sign Up</Header> }
-            <Form.Field>
+              <Header className='robotoFam'>Edit {originalName}</Header> :
+              <Header className='robotoFam'>Sign Up</Header> }
+            <Form.Field className='robotoFam'>
               <Input
                 placeholder='Name'
                 name='name'
                 value={name}
                 onChange={this.handleChange} />
             </Form.Field>
-            <Form.Field>
+            <Form.Field className='robotoFam'>
               <Input
                 placeholder='Email'
                 name='email'
                 value={email}
                 onChange={this.handleChange} />
             </Form.Field>
-            <Form.Field>
+            <Form.Field className='robotoFam'>
               <Input
                 placeholder='Password'
                 name='password'
@@ -64,19 +63,30 @@ class SignupForm extends React.Component {
                 type='password'
                 onChange={this.handleChange} />
             </Form.Field>
+            <Form.Field className='robotoFam'>
+              <Input
+                placeholder='Profile Image'
+                name='profileUrl'
+                type='file'
+                onChange={this.handleImage} />
+            </Form.Field>
+            {
+              errors !== '' ?
+              <Message error header='Sign Up Failed' content={errors} className='robotoFam' /> :
+              null
+            }
             {
               this.props.user ?
-              <Button fluid color='green' basic>Edit</Button> :
+              <Button fluid color='teal' basic className='robotoFam'>Confirm Edit</Button> :
               <div>
-                <Button fluid>Sign Up</Button>
-                <div onClick={handleLinkClick}>
-                <h3>Already have an account? Login</h3>
-                </div>
+                <Button fluid color='blue' className='robotoFam'>Sign Up</Button>
+                <Message onClick={handleLinkClick}>
+                <h3 className='robotoFam'>Already have an account? Login</h3>
+                </Message>
               </div>
             }
           </Form>
-        </Card.Content>
-      </Card>
+      </Segment>
     )
   }
 }
