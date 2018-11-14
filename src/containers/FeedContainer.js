@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Post from '../components/posts/Post'
-import { Container, Header, Feed, Grid, Rail, Segment, Sticky } from 'semantic-ui-react'
+import { Container, Header, Feed, Grid, Rail, Sticky } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { createPost } from '../actions/posts'
@@ -16,11 +16,6 @@ class FeedContainer extends Component{
     posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
 
   render() {
-    // const styles = {
-    //     position: 'fixed',
-    //     bottom: '0',
-    //     right: '0'
-    // }
 
     const posts = this.orderPosts(this.props.posts)
     const { contextRef } = this.state

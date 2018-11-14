@@ -67,8 +67,8 @@ class Profile extends Component {
           signedInUser ?
           <Redirect to='/profile' /> :
           <Fragment>
-            <Grid container>
-            <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
+            <Grid container centered columns={3}>
+            <Grid.Column style={{position: 'absolute', left: '0'}}>
               <Card fluid>
                 <Image src={currentUser.profile_url} />
                 <Card.Content>
@@ -90,13 +90,13 @@ class Profile extends Component {
                 </Card.Content>
               </Card>
             </Grid.Column>
-            <Grid.Column width={9} style={{marginLeft:'10em'}}>
+            <Grid.Column style={{marginLeft:'10em'}}>
               { posts !== undefined ?
                 posts.map( post => <Post key={post.id} {...post} profile={true} />) :
                 null
                }
             </Grid.Column>
-            <Grid.Column width={3} floated='right'></Grid.Column>
+            <Grid.Column floated='right'></Grid.Column>
           </Grid>
           </Fragment>
         }
