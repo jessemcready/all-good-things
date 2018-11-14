@@ -9,7 +9,8 @@ import FetchAdapter from '../../adapters/FetchAdapter'
 
 class PostShow extends Component {
   state = {
-    liked: false
+    liked: false,
+    errors: ''
   }
 
   componentDidMount(){
@@ -30,8 +31,13 @@ class PostShow extends Component {
     const post = posts.find( post => post.id === id)
     const comment = { post_id: post.id, user_id: user.id, content: userInput }
     FetchAdapter.createComment(comment).then( commentObj => {
-      const { id, post, user, content } = commentObj
-      createPostComment({ id, post_id: post.id, user, content })
+      if( commentObj.errors ){
+        this.setState({ errors: commentObj.errors[0] })
+      } else {
+        const { id, post, user, content } = commentObj
+        createPostComment({ id, post_id: post.id, user, content })
+        this.setState({ errors: '' })
+      }
     })
   }
 
@@ -63,7 +69,7 @@ class PostShow extends Component {
   }
 
   render() {
-    const { liked } = this.state
+    const { liked, errors } = this.state
     const id = parseInt(this.props.match.params.id)
     const { posts } = this.props
     const post = posts.find( post => post.id === id)
@@ -133,7 +139,7 @@ class PostShow extends Component {
               </Button>
             }
             </Feed.Like>
-            <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} className='robotoFam' />
+            <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} className='robotoFam' errors={errors} />
           </Feed.Meta>
         </Feed.Content>
         </Card>

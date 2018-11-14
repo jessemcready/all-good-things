@@ -12,7 +12,8 @@ class Post extends Component {
   state = {
     liked : false,
     clicked: false,
-    usernameClick: false
+    usernameClick: false,
+    errors: ''
   }
 
   componentDidMount(){
@@ -30,9 +31,13 @@ class Post extends Component {
     const { userInput } = input
     const comment = { post_id: id, user_id: users.id, content: userInput }
     FetchAdapter.createComment(comment).then( commentObj => {
-      this.setState({ comments: [commentObj, ...comments] })
-      const { id, post, user, content } = commentObj
-      createPostComment({ id, post_id: post.id, user, content })
+      if( commentObj.errors ){
+        this.setState({ errors: commentObj.errors })
+      } else {
+        this.setState({ comments: [commentObj, ...comments], errors: '' })
+        const { id, post, user, content } = commentObj
+        createPostComment({ id, post_id: post.id, user, content })
+      }
     })
   }
 
@@ -69,7 +74,7 @@ class Post extends Component {
     const {
       id, content, comments, created_at, user, likes, profile, flagged
     } = this.props
-    const { liked, clicked, usernameClick } = this.state
+    const { liked, clicked, usernameClick, errors } = this.state
 
     return user.name === undefined && content === undefined ?
     null :
@@ -144,7 +149,7 @@ class Post extends Component {
                 </Button>
               }
               </Feed.Like>
-              <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} />
+              <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} errors={errors} />
             </Feed.Meta>
           </Feed.Content>
           </Card>

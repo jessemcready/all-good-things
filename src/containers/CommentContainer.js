@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Comment, Header, Form } from 'semantic-ui-react'
+import { Comment, Header, Form, Message } from 'semantic-ui-react'
 import PostComment from '../components/posts/PostComment'
 import { connect } from 'react-redux'
 
@@ -21,7 +21,7 @@ class CommentContainer extends Component {
   }
 
   render() {
-    const { comments, profile } = this.props
+    const { comments, profile, errors } = this.props
     const { userInput } = this.state
     return(
       <Comment.Group>
@@ -30,8 +30,13 @@ class CommentContainer extends Component {
         </Header>
         {
           !profile ?
-          <Form onSubmit={event => this.handleComment(event, this.state)}>
+          <Form error onSubmit={event => this.handleComment(event, this.state)}>
             <Form.Input placeholder="Comment" fluid onChange={this.handleChange} value={userInput} />
+            {
+              errors !== '' ?
+              <Message error header='Comment failed' content={errors} className='robotoFam' /> :
+              null
+            }
           </Form> :
           null
         }
