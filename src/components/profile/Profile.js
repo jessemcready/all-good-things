@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import { Container, Card, Button, Confirm, Grid, Image } from 'semantic-ui-react'
+import { Container, Card, Button, Confirm, Grid, Image, Message } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
 import { editUser, signout } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
@@ -15,7 +15,8 @@ class Profile extends Component {
       email: props.user.email,
       password: '',
       result: '',
-      open: false
+      open: false,
+      errors: ''
     }
   }
 
@@ -102,14 +103,22 @@ class Profile extends Component {
         }).then( res => res.json()).then( data => {
           updatedUser = {...updatedUser, profile_url: data.secure_url}
           FetchAdapter.updateUser(user.id, updatedUser, data.secure_url).then( updatedUserObj => {
-            editUser(updatedUserObj)
-            this.setState({ editing: false })
+            if( updatedUserObj.errors ){
+              this.setState({ errors: updatedUserObj.errors[0] })
+            } else {
+              editUser(updatedUserObj)
+              this.setState({ editing: false, errors: '' })
+            }
           })
         })
     } else {
       FetchAdapter.updateUser(user.id, updatedUser).then( updatedUserObj => {
-        editUser(updatedUserObj)
-        this.setState({ editing: false })
+        if( updatedUserObj.errors ){
+          this.setState({ errors: updatedUserObj.errors[0] })
+        } else {
+          editUser(updatedUserObj)
+          this.setState({ editing: false, errors: '' })
+        }
       })
     }
   }
@@ -117,7 +126,7 @@ class Profile extends Component {
 
   render(){
     const { user } = this.props
-    const { editing } = this.state
+    const { editing, errors } = this.state
     return(
       <Container className='underNav' text fluid>
         {
@@ -126,6 +135,11 @@ class Profile extends Component {
           <Fragment>
             <SignupForm handleSignup={this.handleSubmit} user={user} errors='' />
             <Button onClick={this.cancelEdit}>Cancel</Button>
+            {
+              errors !== '' ?
+              <Message error header='User update failed' content={errors} className='robotoFam' /> :
+              null
+            }
           </Fragment>
         }
       </Container>
