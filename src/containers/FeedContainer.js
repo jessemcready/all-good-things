@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Post from '../components/posts/Post'
-import { Container, Header, Feed, Grid } from 'semantic-ui-react'
+import { Container, Header, Feed, Grid, Rail, Segment, Sticky } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { createPost } from '../actions/posts'
@@ -8,11 +8,23 @@ import NewPostModal from '../components/modals/NewPostModal'
 import ChatContainer from './ChatContainer'
 
 class FeedContainer extends Component{
+  state = {}
+
+  handleRef = contextRef => this.setState({ contextRef })
+
   orderPosts = posts =>
     posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
 
   render() {
+    // const styles = {
+    //     position: 'fixed',
+    //     bottom: '0',
+    //     right: '0'
+    // }
+
     const posts = this.orderPosts(this.props.posts)
+    const { contextRef } = this.state
+
     if(posts.length === 0){
       return (
         <Container textAlign='center' className='underNav'>
@@ -26,17 +38,23 @@ class FeedContainer extends Component{
     }
 
     return (
-      <Grid>
-        <Grid.Column width={3}>
-          <ChatContainer />
-        </Grid.Column>
-        <Grid.Column width={10}>
-          <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-            {posts.map( post => <Post key={post.id} {...post} />)}
-          </Feed>
-        </Grid.Column>
-        <Grid.Column width={3}>
-          <NewPostModal />
+      <Grid centered columns={3}>
+        <Grid.Column>
+          <div ref={this.handleRef}>
+              <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
+                {posts.map( post => <Post key={post.id} {...post} />)}
+              </Feed>
+              <Rail attached position='left'>
+                <Sticky context={contextRef} offset={150}>
+                  <ChatContainer />
+                </Sticky>
+              </Rail>
+              <Rail attached position='right'>
+                <Sticky context={contextRef} offset={850}>
+                  <NewPostModal />
+                </Sticky>
+              </Rail>
+          </div>
         </Grid.Column>
       </Grid>
     )

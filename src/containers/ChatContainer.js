@@ -35,7 +35,7 @@ class ChatContainer extends Component {
     const { user } = this.props
 
     return (
-      <div className='friendListDiv'>
+      <div>
         <FriendsList user={user} onUserSelect={this.handleUserSelect} socket={this.socket} />
       </div>
     );

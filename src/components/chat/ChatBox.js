@@ -91,9 +91,9 @@ class ChatBox extends Component {
     const { message } = this.state
     const { user } = this.props
     const messages = this.messagesToDisplay()
-    
+
     return (
-      <Segment>
+      <Segment size='big' style={{ width: '25vw' }}>
         <Header>Chat with {user.name}</Header>
         <List className='friendList'>
           { messages.length !== 0 ?
@@ -103,7 +103,7 @@ class ChatBox extends Component {
         }
         </List>
         <Form onSubmit={event => this.handleSubmit(message)}>
-          <Input onChange={this.handleChange} name='message' value={message} />
+          <Input onChange={this.handleChange} name='message' value={message} fluid placeholder='Send Message' />
         </Form>
       </Segment>
     );

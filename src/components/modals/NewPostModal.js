@@ -42,9 +42,9 @@ class NewPostModal extends Component {
     const { userInput, errors } = this.state
 
     const styles = {
-        position: 'fixed',
-        bottom: '0',
-        right: '0',
+        // position: 'fixed',
+        // bottom: '0',
+        // right: '0',
         color: '#02bbee'
     }
 
