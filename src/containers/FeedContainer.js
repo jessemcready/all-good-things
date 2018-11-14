@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Post from '../components/posts/Post'
-import { Container, Header, Feed } from 'semantic-ui-react'
+import { Container, Header, Feed, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { createPost } from '../actions/posts'
@@ -26,11 +26,19 @@ class FeedContainer extends Component{
     }
 
     return (
-      <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-        {posts.map( post => <Post key={post.id} {...post} />)}
-        <NewPostModal />
-        <ChatContainer />
-      </Feed>
+      <Grid>
+        <Grid.Column width={3}>
+          <ChatContainer />
+        </Grid.Column>
+        <Grid.Column width={10}>
+          <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
+            {posts.map( post => <Post key={post.id} {...post} />)}
+          </Feed>
+        </Grid.Column>
+        <Grid.Column width={3}>
+          <NewPostModal />
+        </Grid.Column>
+      </Grid>
     )
   }
 }

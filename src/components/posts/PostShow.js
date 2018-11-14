@@ -78,7 +78,7 @@ class PostShow extends Component {
     null :
     (
       <Feed.Event className='underNav'>
-        <Card centered raised onClick={this.handlePostPage}>
+        <Card centered raised onClick={this.handlePostPage} style={{ width: '25vw' }}>
         <Feed.Content>
           <Feed.Summary>
             <Image src={post.user.profile_url} size="mini" floated='left' circular />

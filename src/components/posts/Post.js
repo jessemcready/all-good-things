@@ -84,7 +84,7 @@ class Post extends Component {
         clicked ?
         <Redirect to={`/posts/${id}`} /> :
         <Feed.Event style={{margin: '20px'}}>
-          <Card centered raised>
+          <Card centered raised style={{ width: '25vw' }}>
           <Feed.Content>
             <Feed.Summary>
               <Image src={user.profile_url} size="mini" floated='left' circular />
