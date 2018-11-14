@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Icon, Modal, Form, TextArea, Button } from 'semantic-ui-react'
+import { Icon, Modal, Form, TextArea, Button, Message } from 'semantic-ui-react'
 import FetchAdapter from '../../adapters/FetchAdapter'
 import { createPost } from '../../actions/posts'
 
 class NewPostModal extends Component {
   state = {
     userInput: '',
-    modalOpen: false
+    modalOpen: false,
+    errors: ''
   }
 
   handleChange = (event) => {
@@ -22,8 +23,13 @@ class NewPostModal extends Component {
     const post = { user_id: user.id, content: userInput }
     if( userInput.length > 0){
       FetchAdapter.createPost(post).then( postObj => {
-        this.setState({ userInput: '', modalOpen: false })
-        createPost(postObj.post)
+        debugger
+        if( postObj.errors ){
+          this.setState({ errors: postObj.errors[0] })
+        } else {
+          this.setState({ userInput: '', modalOpen: false })
+          createPost(postObj.post)
+        }
       })
     }
   }
@@ -33,7 +39,7 @@ class NewPostModal extends Component {
   handleClose = () => this.setState({ modalOpen: false })
 
   render() {
-    const { userInput } = this.state
+    const { userInput, errors } = this.state
 
     const styles = {
         position: 'fixed',
@@ -51,7 +57,7 @@ class NewPostModal extends Component {
         }>
         <Modal.Header className='robotoFam'>Create Post</Modal.Header>
         <Modal.Content>
-          <Form onSubmit={this.handleSubmit}>
+          <Form error onSubmit={this.handleSubmit}>
             <TextArea
             className='robotoFam'
             placeholder='Put down some thoughts'
@@ -59,6 +65,11 @@ class NewPostModal extends Component {
             value={userInput}
             />
             <Button className='modalButton' color='teal'>Submit</Button>
+            {
+              errors !== '' ?
+              <Message error header='Failed to create post' content={errors} className='robotoFam' /> :
+              null
+            }
           </Form>
         </Modal.Content>
       </Modal>
