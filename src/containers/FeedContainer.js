@@ -45,7 +45,7 @@ class FeedContainer extends Component{
                 </Sticky>
               </Rail>
               <Rail attached position='right'>
-                <Sticky context={contextRef} offset={850}>
+                <Sticky context={contextRef} offset={200}>
                   <NewPostModal />
                 </Sticky>
               </Rail>
