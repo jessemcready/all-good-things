@@ -29,7 +29,7 @@ class NavBar extends Component {
           size='massive'
           inverted
           compact
-          style={{ backgroundColor: '#0245ee' }} >
+          style={{ backgroundColor: '#0245ee', padding: '0 17vw 0 17vw' }} >
           <Menu.Item header className='navBarItem' >All Good Things</Menu.Item>
           <Link to='/'>
             <Menu.Item
