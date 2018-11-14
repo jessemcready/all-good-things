@@ -38,13 +38,6 @@ class NavBar extends Component {
               className='navBarItem'
               onClick={this.handleItemClick} />
           </Link>
-          <Link to='/profile'>
-            <Menu.Item
-              name='profile'
-              active={activeItem === 'profile'}
-              className='navBarItem'
-              onClick={this.handleItemClick} />
-          </Link>
           <Link to='/discover'>
             <Menu.Item
               name='discover'
@@ -63,12 +56,22 @@ class NavBar extends Component {
             </Link> :
             null
           }
-          <Menu.Item
-            content={`Sign Out of ${name}`}
-            position='right'
-            className='navBarItem'
-            onClick={() => this.props.signout()}
-          />
+          <Menu.Menu position='right'>
+            <Link to='/profile'>
+              <Menu.Item
+                icon='user circle'
+                content={name}
+                active={activeItem === 'profile'}
+                className='navBarItem'
+                onClick={this.handleItemClick} />
+            </Link>
+            <Menu.Item
+              content='Log Out'
+              position='right'
+              className='navBarItem'
+              onClick={() => this.props.signout()}
+            />
+          </Menu.Menu>
         </Menu>
     );
   }
