@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, List, Input, Form } from 'semantic-ui-react'
+import { Segment, List, Input, Form, Header } from 'semantic-ui-react'
+
+let state = {
+  message: '',
+  messages: []
+}
 
 class ChatBox extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      message: '',
-      messages: []
-    }
+    this.state = state
   }
 
   componentDidMount() {
@@ -17,6 +19,10 @@ class ChatBox extends Component {
     socket.on('new message', messageObj => {
       this.setState({ messages: [...this.state.messages, messageObj]})
     })
+  }
+
+  componentWillUnmount(){
+    state = this.state
   }
 
   handleChange = e => this.setState({ message: e.target.value })
@@ -34,9 +40,11 @@ class ChatBox extends Component {
 
   render() {
     const { message, messages } = this.state
+    const { user } = this.props
 
     return (
       <Segment>
+        <Header>Chat with {user.name}</Header>
         <List className='friendList'>
           {messages.map(messageObj => (
             <List.Item>{messageObj.name}: {messageObj.content}</List.Item>
