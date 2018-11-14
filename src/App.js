@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react'
 import FormContainer from './containers/FormContainer'
@@ -26,7 +26,10 @@ class App extends Component {
       <Container fluid>
           {
             user.email === '' ?
-            <FormContainer /> :
+            <Fragment>
+              <div className='backgroundPortion'></div>
+              <FormContainer />
+            </Fragment> :
             <div>
               <NavBar />
               <MainPage />

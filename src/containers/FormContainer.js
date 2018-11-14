@@ -54,12 +54,9 @@ class FormContainer extends Component {
 
   render() {
     const { errors, isLoginForm } = this.state
-    document.getElementById("root").style.backgroundImage =
-    "url('https://images.unsplash.com/photo-1491331606314-1d15535360fa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4043f16f3326ded0982882ac7e4fe7a6&auto=format&fit=crop&w=1050&q=80')"
-    document.getElementById("root").style.opacity = '0.8'
     return (
       <Fragment>
-        <Grid container columns={3}>
+        <Grid container columns={3} className='formGrid'>
           <Grid.Row centered stretched verticalAlign='middle' className='formContainer'>
             {
               isLoginForm ?

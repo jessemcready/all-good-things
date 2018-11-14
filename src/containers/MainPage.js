@@ -11,8 +11,6 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 class MainPage extends Component {
 
   render() {
-    document.getElementById("root").style.backgroundImage = 'none'
-    document.getElementById("root").style.opacity = '1'
     return (
         <div>
           <Switch>
