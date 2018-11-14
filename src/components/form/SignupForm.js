@@ -30,6 +30,7 @@ class SignupForm extends Component {
   render(){
     const { name, email, password, preFilled } = this.state
     const { handleSignup, handleLinkClick, errors } = this.props
+
     let originalName
     if(preFilled){
       originalName = this.props.user.name
@@ -72,7 +73,7 @@ class SignupForm extends Component {
             </Form.Field>
             {
               errors !== '' ?
-              <Message error header='Sign Up Failed' content={errors} className='robotoFam' /> :
+              <Message error header='Sign Up Failed' content={errors[0]} className='robotoFam' /> :
               null
             }
             {

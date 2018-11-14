@@ -36,7 +36,7 @@ class LoginForm extends Component {
             </Form.Field>
             {
               errors !== '' ?
-              <Message error header='Login Failed' content={errors} className='robotoFam' /> :
+              <Message error header='Login Failed' content={errors[0]} className='robotoFam' /> :
               null
             }
             <Button fluid color='blue'>Log In</Button>
