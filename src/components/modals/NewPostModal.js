@@ -38,13 +38,13 @@ class NewPostModal extends Component {
 
   handleClose = () => this.setState({ modalOpen: false })
 
+  handleMouseOut = () => { document.body.style.cursor = 'default' }
+  handleMouseOver = () => { document.body.style.cursor = 'pointer' }
+
   render() {
     const { userInput, errors } = this.state
 
     const styles = {
-        // position: 'fixed',
-        // bottom: '0',
-        // right: '0',
         color: '#02bbee'
     }
 
@@ -53,7 +53,8 @@ class NewPostModal extends Component {
         open={this.state.modalOpen}
         onClose={this.handleClose}
         trigger={
-          <Icon name='plus circle' onClick={this.handleOpen} style={styles} size='huge' />
+          <Icon name='plus circle' onClick={this.handleOpen} onMouseOver={this.handleMouseOver}
+          onMouseOut={this.handleMouseOut} style={styles} size='massive' />
         }>
         <Modal.Header className='robotoFam'>Create Post</Modal.Header>
         <Modal.Content>
