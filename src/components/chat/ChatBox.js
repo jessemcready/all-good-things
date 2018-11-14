@@ -14,10 +14,28 @@ class ChatBox extends Component {
   }
 
   componentDidMount() {
-    const { socket } = this.props
+    const { socket, user } = this.props
+    const { messages } = this.state
 
     socket.on('new message', messageObj => {
-      this.setState({ messages: [...this.state.messages, messageObj]})
+      const index = messages.findIndex( userObj => userObj.email === user.email )
+      if( index !== -1 ){
+        const userMessages = messages[index]
+        this.setState({
+          messages: [
+            ...this.state.messages.slice(0, index),
+            Object.assign({}, userMessages, { messages: [...userMessages.messages, messageObj]}),
+            ...this.state.messages.slice(index + 1)
+          ]
+        })
+      } else {
+        this.setState({
+          messages: [
+            ...this.state.messages,
+            { email: user.email, messages: [messageObj] }
+          ]
+        })
+      }
     })
   }
 
@@ -29,26 +47,60 @@ class ChatBox extends Component {
 
   handleSubmit = message => {
     const { socket, currentUser, user } = this.props
+    const { messages } = this.state
     const messageObj = {
       name: currentUser.name,
       content: message,
       email: user.email
     }
-    this.setState({ messages: [...this.state.messages, messageObj], message: '' })
-    socket.emit('message', messageObj)
+    const index = messages.findIndex( userObj => userObj.email === user.email )
+    if( index !== -1 ){
+      const userMessages = messages[index]
+      debugger
+      this.setState({
+        messages: [
+          ...this.state.messages.slice(0, index),
+          Object.assign({}, userMessages, { messages: [...userMessages.messages, messageObj]}),
+          ...this.state.messages.slice(index + 1)
+        ],
+        message: ''
+      })
+      socket.emit('message', messageObj)
+    } else {
+      this.setState({
+        messages: [
+          ...this.state.messages,
+          { email: user.email, messages: [messageObj] }
+        ],
+        message: ''
+      })
+      socket.emit('message', messageObj)
+    }
+  }
+
+  messagesToDisplay = () => {
+    const { user } = this.props
+    const { messages } = this.state
+
+    const filtered =  messages.filter( message => message.email === user.email )
+
+    return filtered.map( message => message.messages ).flat()
   }
 
   render() {
-    const { message, messages } = this.state
+    const { message } = this.state
     const { user } = this.props
-
+    const messages = this.messagesToDisplay()
+    
     return (
       <Segment>
         <Header>Chat with {user.name}</Header>
         <List className='friendList'>
-          {messages.map(messageObj => (
+          { messages.length !== 0 ?
+            messages.map(messageObj => (
             <List.Item>{messageObj.name}: {messageObj.content}</List.Item>
-          ))}
+          )) : null
+        }
         </List>
         <Form onSubmit={event => this.handleSubmit(message)}>
           <Input onChange={this.handleChange} name='message' value={message} />
