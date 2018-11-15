@@ -18,7 +18,7 @@ class LoginForm extends Component {
     return(
       <Segment raised>
           <Form error onSubmit={(event) => handleLogin(event, this.state)} >
-            <Header className='robotoFam'>Login</Header>
+            <Header className='robotoFam'>Log In</Header>
             <Form.Field>
               <Input
                 placeholder='Email'
