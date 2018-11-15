@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Container, Card, Button, Grid, Image, Feed, Rail, Sticky } from 'semantic-ui-react'
+import { Card, Button, Grid, Image, Feed, Rail, Sticky } from 'semantic-ui-react'
 import { followUser, unfollowUser } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 import Post from '../posts/Post'

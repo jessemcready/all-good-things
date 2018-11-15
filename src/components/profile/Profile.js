@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Card, Button, Confirm, Grid, Image, Message, Rail, Sticky, Feed } from 'semantic-ui-react'
+import { Card, Button, Confirm, Grid, Image, Message, Rail, Sticky, Feed } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
 import { editUser, signout } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
