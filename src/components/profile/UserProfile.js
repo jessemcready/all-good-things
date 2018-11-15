@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { Container, Card, Button, Grid, Image } from 'semantic-ui-react'
+import { Container, Card, Button, Grid, Image, Feed, Rail, Sticky } from 'semantic-ui-react'
 import { followUser, unfollowUser } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 import Post from '../posts/Post'
@@ -58,49 +58,55 @@ class Profile extends Component {
     return this.state.currentUser.posts
   }
 
+  handleRef = contextRef => this.setState({ contextRef })
+
   render(){
-    const { currentUser, signedInUser } = this.state
+    const { currentUser, signedInUser, contextRef } = this.state
     const posts = this.getPosts()
     return(
-      <Container className='underNav' text fluid>
+      <Grid centered columns={3} className='underNav'>
         {
           signedInUser ?
           <Redirect to='/profile' /> :
           <Fragment>
-            <Grid container>
-            <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
-              <Card fluid>
-                <Image src={currentUser.profile_url} />
-                <Card.Content>
-                  <Card.Header>{currentUser.name}</Card.Header>
-                  <Card.Description>
-                    Email: {currentUser.email}
-                  </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                  {
-                    this.following() ?
-                    <Button inverted color='teal' onClick={this.handleFollow}>
-                      Follow
-                    </Button> :
-                    <Button inverted color='red' onClick={this.handleUnfollow}>
-                      Unfollow
-                    </Button>
-                  }
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={9} style={{marginLeft:'10em'}}>
-              { posts !== undefined ?
-                posts.map( post => <Post key={post.id} {...post} profile={true} />) :
-                null
-               }
-            </Grid.Column>
-            <Grid.Column width={3} floated='right'></Grid.Column>
-          </Grid>
+              <Grid.Column>
+                { posts !== undefined ?
+                  <div ref={this.handleRef}>
+                    <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
+                      {posts.map( post => <Post key={post.id} {...post} profile={true} />)}
+                    </Feed>
+                    <Rail position='left' attached>
+                      <Sticky context={contextRef} style={{marginTop: '90px'}}>
+                      <Card fluid>
+                        <Image src={currentUser.profile_url} />
+                        <Card.Content>
+                          <Card.Header>{currentUser.name}</Card.Header>
+                          <Card.Description>
+                            Email: {currentUser.email}
+                          </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          {
+                            this.following() ?
+                            <Button inverted color='teal' onClick={this.handleFollow}>
+                              Follow
+                            </Button> :
+                            <Button inverted color='red' onClick={this.handleUnfollow}>
+                              Unfollow
+                            </Button>
+                          }
+                        </Card.Content>
+                      </Card>
+                      </Sticky>
+                    </Rail>
+                  </div>
+                   :
+                  null
+                 }
+              </Grid.Column>
           </Fragment>
         }
-      </Container>
+      </Grid>
     );
   }
 }
