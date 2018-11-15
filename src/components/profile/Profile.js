@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import { Container, Card, Button, Confirm, Grid, Image, Message } from 'semantic-ui-react'
+import { Container, Card, Button, Confirm, Grid, Image, Message, Rail, Sticky, Feed } from 'semantic-ui-react'
 import SignupForm from '../form/SignupForm'
 import { editUser, signout } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
@@ -31,39 +31,44 @@ class Profile extends Component {
     return posts.filter( post => post.user.email === user.email )
   }
 
+  handleRef = contextRef => this.setState({ contextRef })
+
   renderCard = () => {
     const { user } = this.props
-    const { open } = this.state
+    const { open, contextRef } = this.state
     const posts = this.getUserPosts()
     return (
-      <Grid container columns={3}>
-        <Grid.Column width={4} style={{position: 'absolute', left: '0'}}>
-          <Card fluid>
-            <Image src={user.profile_url} />
-            <Card.Content>
-              <Card.Header>{user.name}</Card.Header>
-              <Card.Description>
-                Email: {user.email}
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <Button.Group fluid>
-                <Button inverted color='teal' onClick={this.handleEdit}>Edit Account</Button>
-                <Button inverted color='red' onClick={this.handleDelete}>Delete Account</Button>
-              </Button.Group>
-              <Confirm
-                open={open}
-                onCancel={this.handleCancel}
-                onConfirm={this.handleConfirm}
-              />
-            </Card.Content>
-          </Card>
+        <Grid.Column>
+          <div ref={this.handleRef}>
+            <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
+              { posts.map( post => <Post key={post.id} {...post} profile={true} />) }
+            </Feed>
+            <Rail attached position='left'>
+              <Sticky context={contextRef} style={{marginTop: '90px'}}>
+                <Card fluid>
+                  <Image src={user.profile_url} />
+                  <Card.Content>
+                    <Card.Header>{user.name}</Card.Header>
+                    <Card.Description>
+                      Email: {user.email}
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Button.Group fluid>
+                      <Button inverted color='teal' onClick={this.handleEdit}>Edit Account</Button>
+                      <Button inverted color='red' onClick={this.handleDelete}>Delete Account</Button>
+                    </Button.Group>
+                    <Confirm
+                      open={open}
+                      onCancel={this.handleCancel}
+                      onConfirm={this.handleConfirm}
+                    />
+                  </Card.Content>
+                </Card>
+              </Sticky>
+            </Rail>
+          </div>
         </Grid.Column>
-        <Grid.Column width={9} style={{marginLeft: '10em'}}>
-          { posts.map( post => <Post key={post.id} {...post} profile={true} />) }
-        </Grid.Column>
-        <Grid.Column width={3} floated='right'></Grid.Column>
-      </Grid>
     )
   }
 
@@ -128,11 +133,11 @@ class Profile extends Component {
     const { user } = this.props
     const { editing, errors } = this.state
     return(
-      <Container className='underNav' text fluid>
+      <Grid centered columns={3}>
         {
           !editing ?
           this.renderCard() :
-          <Fragment>
+          <Grid.Column>
             <SignupForm handleSignup={this.handleSubmit} user={user} errors='' />
             <Button onClick={this.cancelEdit}>Cancel</Button>
             {
@@ -140,9 +145,9 @@ class Profile extends Component {
               <Message error header='User update failed' content={errors} className='robotoFam' /> :
               null
             }
-          </Fragment>
+          </Grid.Column>
         }
-      </Container>
+      </Grid>
     );
   }
 }
