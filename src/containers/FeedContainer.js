@@ -3,7 +3,7 @@ import Post from '../components/posts/Post'
 import { Container, Header, Feed, Grid, Rail, Sticky } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { createPost } from '../actions/posts'
+import { createPost, getFeed } from '../actions/posts'
 import NewPostModal from '../components/modals/NewPostModal'
 import ChatContainer from './ChatContainer'
 
@@ -14,6 +14,11 @@ class FeedContainer extends Component{
 
   orderPosts = posts =>
     posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+
+  componentDidMount() {
+    const { getFeed } = this.props
+    getFeed()
+  }
 
   render() {
 
@@ -58,4 +63,4 @@ class FeedContainer extends Component{
 
 const mapStateToProps = ({ posts, users: { user } }) => ({ posts, user })
 
-export default withRouter(connect(mapStateToProps, { createPost })(FeedContainer));
+export default withRouter(connect(mapStateToProps, { createPost, getFeed })(FeedContainer));

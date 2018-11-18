@@ -2,6 +2,7 @@ import React from 'react';
 import { Comment } from 'semantic-ui-react'
 
 const PostComment = ({ id, user, content }) => {
+  debugger
   return content === '' ?
   null :
   (

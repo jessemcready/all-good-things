@@ -1,9 +1,10 @@
 import {
-  CREATE_POST, CREATE_POST_COMMENT, DELETE_POST, REPORT_POST, UNREPORT_POST
+  CREATE_POST, CREATE_POST_COMMENT, DELETE_POST, REPORT_POST, UNREPORT_POST, FETCHED_FEED
 } from '../constants/postActions'
 import {
   LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER, LIKE_POST, UNLIKE_POST, EDIT_USER
 } from '../constants/userActions'
+import FetchAdapter from '../adapters/FetchAdapter'
 
 const initialState = []
 
@@ -71,12 +72,15 @@ export default(state = initialState, action) => {
         }),
         ...state.slice(index + 1)
       ]
-    case LOGIN_OR_SIGNUP:
-      const posts = action.user.user.followers.map( follower => {
-        if(!follower) return null
-        return follower.posts
-      })
-      return [ ...action.user.user.posts, ...posts.flat() ]
+    // case LOGIN_OR_SIGNUP:
+    //   const posts = action.user.user.followers.map( follower => {
+    //     if(!follower) return null
+    //     return follower.posts
+    //   })
+    //   return [ ...action.user.user.posts, ...posts.flat() ]
+    case FETCHED_FEED:
+      debugger
+      return [...action.posts.flat()]
     case FOLLOW_USER:
       const { user } = action
       return [ ...state, ...user.posts ]
