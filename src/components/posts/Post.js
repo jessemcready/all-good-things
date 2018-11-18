@@ -73,11 +73,11 @@ class Post extends Component {
 
   render() {
     const {
-      id, content, comments, created_at, user, likes, profile, flagged
+      id, content, comments, created_at, users, likes, profile, flagged
     } = this.props
     const { liked, clicked, usernameClick, errors } = this.state
-
-    return user.name === undefined && content === undefined ?
+    debugger
+    return users.name === undefined && content === undefined ?
     null :
     (
       <Fragment>
@@ -88,12 +88,12 @@ class Post extends Component {
           <Card centered raised style={{ width: '25vw' }}>
           <Feed.Content>
             <Feed.Summary>
-              <Image src={user.profile_url} size="mini" floated='left' circular />
+              <Image src={users.profile_url} size="mini" floated='left' circular />
               <Feed.User>
               {
                 usernameClick ?
-                <Redirect to={`/profile/${user.id}`} /> :
-                <span onClick={this.handleUserClick}>{user.name}</span>
+                <Redirect to={`/profile/${users.id}`} /> :
+                <span onClick={this.handleUserClick}>{users.name}</span>
               }
               {
                 flagged ?

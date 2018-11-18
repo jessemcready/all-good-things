@@ -53,8 +53,10 @@ class Profile extends Component {
     if( !this.following() ){
       const { posts } = this.props
       const { currentUser } = this.state
+      debugger
       return posts.filter(post => post.user.email === currentUser.email)
     }
+    debugger
     return this.state.currentUser.posts
   }
 
