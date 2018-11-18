@@ -10,22 +10,22 @@ class ChatContainer extends Component {
       response: '',
       selectedUser: {}
     }
-    this.socket = socketIOClient('http://127.0.0.1:4001')
+    // this.socket = socketIOClient('http://127.0.0.1:4001')
   }
 
-  componentDidMount(){
-    this.socket.emit('here')
-    this.socket.on('user connected', data => this.setState({ response: data }))
-  }
-
-  componentDidUpdate(){
-    const { user } = this.props
-    this.socket.emit('addUser', {
-      name: user.name,
-      email: user.email,
-      socketId: this.socket.id
-    })
-  }
+  // componentDidMount(){
+  //   this.socket.emit('here')
+  //   this.socket.on('user connected', data => this.setState({ response: data }))
+  // }
+  //
+  // componentDidUpdate(){
+  //   const { user } = this.props
+  //   this.socket.emit('addUser', {
+  //     name: user.name,
+  //     email: user.email,
+  //     socketId: this.socket.id
+  //   })
+  // }
 
   handleUserSelect = follower => {
     this.setState({ selectedUser: follower })
@@ -36,7 +36,7 @@ class ChatContainer extends Component {
 
     return (
       <div>
-        <FriendsList user={user} onUserSelect={this.handleUserSelect} socket={this.socket} />
+        <FriendsList user={user} onUserSelect={this.handleUserSelect} />
       </div>
     );
   }

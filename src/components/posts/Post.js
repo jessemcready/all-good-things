@@ -36,6 +36,7 @@ class Post extends Component {
       } else {
         this.setState({ comments: [commentObj, ...comments], errors: '' })
         const { id, post, user, content } = commentObj
+        debugger
         createPostComment({ id, post_id: post.id, user, content })
       }
     })

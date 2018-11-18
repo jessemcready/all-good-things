@@ -6,6 +6,7 @@ class FriendsList extends Component {
 
   render() {
     const { user: { followers }, onUserSelect, socket } = this.props
+    debugger
     return (
       <Segment className='robotoFam'>
         <Header>Friends</Header>

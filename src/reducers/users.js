@@ -18,6 +18,7 @@ export default(state = initialState, action) => {
   let index
   switch(action.type){
     case LOGIN_OR_SIGNUP:
+      debugger
       return Object.assign({}, action.user)
     case FOLLOW_USER:
       return {
