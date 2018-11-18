@@ -20,6 +20,6 @@ export const editUser = user => ({ type: EDIT_USER, user })
 
 export const likePost = like => ({ type: LIKE_POST, like })
 
-export const unlikePost = (postId, userId, userEmail) => {
-  return { type: UNLIKE_POST, postId, userId, userEmail }
+export const unlikePost = (postId, userId, userEmail, likeId) => {
+  return { type: UNLIKE_POST, postId, userId, userEmail, likeId }
 }

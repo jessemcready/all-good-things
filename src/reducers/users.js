@@ -18,7 +18,6 @@ export default(state = initialState, action) => {
   let index
   switch(action.type){
     case LOGIN_OR_SIGNUP:
-      debugger
       return Object.assign({}, action.user)
     case FOLLOW_USER:
       return {
@@ -40,12 +39,8 @@ export default(state = initialState, action) => {
         user: {...state.user, likes: [ ...state.user.likes, action.like ]}
       }
     case UNLIKE_POST:
-      index = state.user.likes.findIndex( like => {
-        if(like.post){
-          return like.post.id === action.postId
-        }
-        return like.post_id === action.postId
-      })
+      index = state.user.likes.findIndex( like => like.id === action.likeId)
+      debugger
       return {
         user: {
           ...state.user,

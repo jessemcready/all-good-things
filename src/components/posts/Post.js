@@ -17,12 +17,12 @@ class Post extends Component {
   }
 
   componentDidMount(){
-    const { id, users } = this.props
+    const { id, users, likes } = this.props
     const foundPost = users.likes.find( like =>
-      like.post ? like.post.id === id : like.post_id === id
+      likes.some(postLike => postLike.id === like.id)
     )
     if(foundPost){
-      this.setState({ liked: true })
+      this.setState({ liked: true, likeId: foundPost.id })
     }
   }
 
@@ -36,7 +36,6 @@ class Post extends Component {
       } else {
         this.setState({ comments: [commentObj, ...comments], errors: '' })
         const { id, post, user, content } = commentObj
-        debugger
         createPostComment({ id, post_id: post.id, user, content })
       }
     })
@@ -47,15 +46,16 @@ class Post extends Component {
     const like = { user_id: users.id, post_id: id }
     FetchAdapter.createLike(like).then(likeObj => {
       likePost(likeObj)
-      this.setState({ liked: true })
+      this.setState({ liked: true, likeId: likeObj.id })
     })
   }
 
   handleUnlike = () => {
     const { id, unlikePost, users } = this.props
+    const { likeId } = this.state
     const like = { user_id: users.id, post_id: id }
     FetchAdapter.deleteLike(like).then( deletedObj => {
-      unlikePost(id, users.id, users.email)
+      unlikePost(id, users.id, users.email, likeId)
       this.setState({ liked: false })
     })
   }
@@ -76,7 +76,6 @@ class Post extends Component {
       id, content, comments, created_at, user, likes, profile, flagged
     } = this.props
     const { liked, clicked, usernameClick, errors } = this.state
-    debugger
 
     return user.name === undefined && content === undefined ?
     null :
@@ -151,7 +150,7 @@ class Post extends Component {
                 </Button>
               }
               </Feed.Like>
-              <CommentContainer comments={comments.slice(0,2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} errors={errors} />
+              <CommentContainer comments={comments.slice(0, 2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} errors={errors} />
             </Feed.Meta>
           </Feed.Content>
           </Card>

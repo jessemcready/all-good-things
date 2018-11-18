@@ -56,12 +56,8 @@ export default(state = initialState, action) => {
     case UNLIKE_POST:
       index = state.findIndex( post => post.id === action.postId )
       post = state[index]
-      likeIndex = post.likes.findIndex( like => {
-        if(like.user) {
-          return like.user.email === action.userEmail
-        }
-        return like.user_id === action.userId
-      })
+      likeIndex = post.likes.findIndex( like => like.id === action.likeId )
+      debugger
       return [
         ...state.slice(0, index),
         Object.assign({}, post, {
@@ -72,14 +68,7 @@ export default(state = initialState, action) => {
         }),
         ...state.slice(index + 1)
       ]
-    // case LOGIN_OR_SIGNUP:
-    //   const posts = action.user.user.followers.map( follower => {
-    //     if(!follower) return null
-    //     return follower.posts
-    //   })
-    //   return [ ...action.user.user.posts, ...posts.flat() ]
     case FETCHED_FEED:
-      debugger
       return [...action.posts.flat()]
     case FOLLOW_USER:
       const { user } = action
