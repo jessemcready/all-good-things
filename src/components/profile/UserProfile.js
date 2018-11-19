@@ -54,9 +54,10 @@ class Profile extends Component {
       const { posts } = this.props
       const { currentUser } = this.state
       debugger
-      return posts.filter(post => post.user.email === currentUser.email)
+      return posts.filter(post => (
+        !!post.post ? post.post.user_id === currentUser.id : post.user_id === currentUser.id
+      ))
     }
-    debugger
     return this.state.currentUser.posts
   }
 
@@ -65,6 +66,7 @@ class Profile extends Component {
   render(){
     const { currentUser, signedInUser, contextRef } = this.state
     const posts = this.getPosts()
+
     return(
       <Grid centered columns={3} className='underNav'>
         {
@@ -75,7 +77,7 @@ class Profile extends Component {
                 { posts !== undefined ?
                   <div ref={this.handleRef}>
                     <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-                      {posts.map( post => <Post key={post.id} {...post} profile={true} />)}
+                      {posts.map( post => <Post key={post.id} post={post.post} name={currentUser.name} profile={true} />)}
                     </Feed>
                     <Rail position='left' attached>
                       <Sticky context={contextRef} style={{marginTop: '90px'}}>

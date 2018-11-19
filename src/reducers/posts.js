@@ -48,6 +48,7 @@ export default(state = initialState, action) => {
     case LIKE_POST:
       index = state.findIndex( post => post.id === action.like.post.id )
       post = state[index]
+      debugger
       return [
         ...state.slice(0, index),
         Object.assign({}, post, { likes: [...post.likes, action.like] }),
@@ -69,7 +70,7 @@ export default(state = initialState, action) => {
         ...state.slice(index + 1)
       ]
     case FETCHED_FEED:
-      return [...action.posts.flat()]
+      return [...action.posts.posts.flat()]
     case FOLLOW_USER:
       const { user } = action
       return [ ...state, ...user.posts ]

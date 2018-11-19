@@ -24,6 +24,7 @@ class FeedContainer extends Component{
 
     const posts = this.orderPosts(this.props.posts)
     const { contextRef } = this.state
+    const { user } = this.props
 
     if(posts.length === 0){
       return (
@@ -42,7 +43,11 @@ class FeedContainer extends Component{
         <Grid.Column>
           <div ref={this.handleRef}>
               <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-                {posts.map( post => <Post key={post.id} {...post} />)}
+                {posts.map( post => (
+                  !!post.user ?
+                  <Post key={post.id} post={post.post} user={post.user} /> :
+                  <Post key={post.id} post={post} user={user} />
+                ))}
               </Feed>
               <Rail attached position='left'>
                 <Sticky context={contextRef} offset={150}>
