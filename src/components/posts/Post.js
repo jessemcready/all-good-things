@@ -18,9 +18,9 @@ class Post extends Component {
 
   componentDidMount(){
     const { id, users, likes } = this.props
-    const foundPost = users.likes.find( like =>
-      likes.some(postLike => postLike.id === like.id)
-    )
+    let foundPost
+    !!likes ? foundPost = users.likes.find(like => likes.some(postLike => postLike.id === like.id))
+    : foundPost = false
     if(foundPost){
       this.setState({ liked: true, likeId: foundPost.id })
     }
@@ -76,7 +76,7 @@ class Post extends Component {
       id, content, comments, created_at, users, likes, profile, flagged
     } = this.props
     const { liked, clicked, usernameClick, errors } = this.state
-    debugger
+
     return users.name === undefined && content === undefined ?
     null :
     (
@@ -136,7 +136,11 @@ class Post extends Component {
                     Unlike
                   </Button>
                   <Label basic color='red' pointing='left'>
-                    {likes.length}
+                    {
+                      !!likes ?
+                      likes.length :
+                      0
+                    }
                   </Label>
                 </Button>:
                 <Button as='div' labelPosition='right' onClick={this.handleLike}>
@@ -145,12 +149,20 @@ class Post extends Component {
                     Like
                   </Button>
                   <Label basic color='red' pointing='left'>
-                    {likes.length}
+                  {
+                    !!likes ?
+                    likes.length :
+                    0
+                  }
                   </Label>
                 </Button>
               }
               </Feed.Like>
-              <CommentContainer comments={comments.slice(0, 2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} errors={errors} />
+              {
+                !!comments ?
+                <CommentContainer comments={comments.slice(0, 2)} postId={id} handleSubmit={this.handleSubmit} profile={profile} errors={errors} /> :
+                <CommentContainer comments={[]} postId={id} handleSubmit={this.handleSubmit} profile={profile} errors={errors} />
+              }
             </Feed.Meta>
           </Feed.Content>
           </Card>
