@@ -17,13 +17,11 @@ class Post extends Component {
   }
 
   componentDidMount(){
-    const { id, users, likes } = this.props
+    const { post: { id, likes }, users } = this.props
     let foundPost
-    !!likes ? foundPost = users.likes.find(like => likes.some(postLike => postLike.id === like.id))
+    !!likes ? foundPost = users.likes.find(like => likes.find(postLike => postLike.id === like.id))
     : foundPost = false
-    if(foundPost){
-      this.setState({ liked: true, likeId: foundPost.id })
-    }
+    if(foundPost){ this.setState({ liked: true, likeId: foundPost.id }) }
   }
 
   handleSubmit = (event, input) => {
@@ -43,7 +41,6 @@ class Post extends Component {
 
   handleLike = () => {
     const { post: { id }, users, likePost } = this.props
-    debugger
     const like = { user_id: users.id, post_id: id }
     FetchAdapter.createLike(like).then(likeObj => {
       likePost(likeObj)
@@ -65,12 +62,9 @@ class Post extends Component {
 
   handleUserClick = () => this.setState({ usernameClick: true })
 
-  handleReport = () => {
-    FetchAdapter.reportPost(this.props.id).then(postObj => this.props.reportPost(this.props.id))
-  }
+  handleReport = () => FetchAdapter.reportPost(this.props.id).then(postObj => this.props.reportPost(this.props.id))
 
   render() {
-    debugger
     const {
       post: { id, content, created_at, flagged, likes, comments },
       user: { email, name, profile_url }, users, posts, profile

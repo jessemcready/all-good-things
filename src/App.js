@@ -23,7 +23,6 @@ class App extends Component {
 
   render() {
     const { user } = this.props
-    debugger
     return (
       <Container fluid>
           {

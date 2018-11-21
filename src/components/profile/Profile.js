@@ -41,7 +41,7 @@ class Profile extends Component {
         <Grid.Column>
           <div ref={this.handleRef}>
             <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-              { posts.map( post => <Post key={post.id} {...post} profile={true} />) }
+              { posts.map( post => <Post key={post.post.id} post={post.post} user={post.user} profile={true} />) }
             </Feed>
             <Rail attached position='left'>
               <Sticky context={contextRef} style={{marginTop: '90px'}}>

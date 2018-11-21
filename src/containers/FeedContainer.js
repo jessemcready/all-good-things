@@ -12,16 +12,13 @@ class FeedContainer extends Component{
 
   handleRef = contextRef => this.setState({ contextRef })
 
-  orderPosts = posts =>
-    posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+  orderPosts = posts => posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
 
   componentDidMount() {
-    const { getFeed } = this.props
-    getFeed()
+    this.props.getFeed()
   }
 
   render() {
-
     const posts = this.orderPosts(this.props.posts)
     const { contextRef } = this.state
     const { user } = this.props
@@ -43,11 +40,7 @@ class FeedContainer extends Component{
         <Grid.Column>
           <div ref={this.handleRef}>
               <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-                {posts.map( post => (
-                  !!post.user ?
-                  <Post key={post.id} post={post.post} user={post.user} profile={false} /> :
-                  <Post key={post.id} post={post} user={user} profile={false} />
-                ))}
+                {posts.map(post => (<Post key={post.post.id} post={post.post} user={post.user} profile={false}/> ))}
               </Feed>
               <Rail attached position='left'>
                 <Sticky context={contextRef} offset={150}>
