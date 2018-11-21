@@ -72,12 +72,12 @@ class Post extends Component {
   }
 
   render() {
-    debugger
     const {
-      post: { id, content, created_at, flagged },
-      user: { email, name, profile_url }, users, posts
+      post: { id, content, created_at, flagged, likes, comments },
+      user: { email, name, profile_url }, users, posts, profile
     } = this.props
     const { liked, clicked, usernameClick, errors } = this.state
+    debugger
 
     return name === undefined && content === undefined ?
     null :

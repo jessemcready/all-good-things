@@ -45,8 +45,8 @@ class FeedContainer extends Component{
               <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
                 {posts.map( post => (
                   !!post.user ?
-                  <Post key={post.id} post={post.post} user={post.user} /> :
-                  <Post key={post.id} post={post} user={user} />
+                  <Post key={post.id} post={post.post} user={post.user} profile={false} /> :
+                  <Post key={post.id} post={post} user={user} profile={false} />
                 ))}
               </Feed>
               <Rail attached position='left'>
