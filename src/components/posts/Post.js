@@ -70,7 +70,6 @@ class Post extends Component {
       user: { email, name, profile_url }, users, posts, profile
     } = this.props
     const { liked, clicked, usernameClick, errors } = this.state
-
     return name === undefined && content === undefined ?
     null :
     (
@@ -86,7 +85,7 @@ class Post extends Component {
               <Feed.User>
               {
                 usernameClick ?
-                <Redirect to={`/profile/${users.id}`} /> :
+                <Redirect to={`/profile/${this.props.user.id}`} /> :
                 <span onClick={this.handleUserClick}>{name}</span>
               }
               {

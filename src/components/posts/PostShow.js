@@ -8,20 +8,17 @@ import { likePost, unlikePost } from '../../actions/users'
 import FetchAdapter from '../../adapters/FetchAdapter'
 
 class PostShow extends Component {
-  state = {
-    liked: false,
-    errors: ''
-  }
+  state = { liked: false, errors: '' }
 
   componentDidMount(){
     const id = parseInt(this.props.match.params.id)
     const { user } = this.props
-    const foundPost = user.likes.find( like =>
-      like.post ? like.post.id === id : like.post_id === id
-    )
-    if(foundPost){
-      this.setState({ liked: true })
-    }
+    const foundPost = user.likes.find( like => {
+      debugger
+      return this.props.posts.find(post => post.post.likes.find(postLike => postLike.id === like.id ))
+    })
+    debugger
+    if(!!foundPost){ this.setState({ liked: true }) }
   }
 
   handleSubmit = (event, input) => {
@@ -29,7 +26,8 @@ class PostShow extends Component {
     const id = parseInt(this.props.match.params.id)
     const { posts, user, createPostComment } = this.props
     const post = posts.find( post => post.id === id)
-    const comment = { post_id: post.id, user_id: user.id, content: userInput }
+    debugger
+    const comment = { post_id: post.post.id, user_id: user.id, content: userInput }
     FetchAdapter.createComment(comment).then( commentObj => {
       if( commentObj.errors ){
         this.setState({ errors: commentObj.errors[0] })
@@ -54,6 +52,7 @@ class PostShow extends Component {
   handleUnlike = () => {
     const { unlikePost, user } = this.props
     const id = parseInt(this.props.match.params.id)
+    debugger
     const like = { user_id: user.id, post_id: id }
     FetchAdapter.deleteLike(like).then( deletedObj => {
       unlikePost(id, user.id, user.email)
@@ -61,22 +60,17 @@ class PostShow extends Component {
     })
   }
 
-  handleReport = postId => {
-    const { reportPost } = this.props
-    FetchAdapter.reportPost(postId).then( postObj => {
-      reportPost(postId)
-    })
-  }
+  handleReport = postId => FetchAdapter.reportPost(postId).then( postObj => this.props.reportPost(postId) )
 
   render() {
     const { liked, errors } = this.state
     const id = parseInt(this.props.match.params.id)
     const { posts } = this.props
-    const post = posts.find( post => post.id === id)
-
-    return post.user === undefined ?
-    null :
-    (
+    const post = posts.find( post => post.post.id === id)
+    debugger
+    // return !!post.user ?
+    // null :
+    return (
       <Feed.Event className='underNav'>
         <Card centered raised onClick={this.handlePostPage} style={{ width: '25vw' }}>
         <Feed.Content>
@@ -85,7 +79,7 @@ class PostShow extends Component {
             <Feed.User>
               <span className='robotoFam'>{ post.user.name }</span>
               {
-                post.flagged ?
+                post.post.flagged ?
                 <Popup
                 trigger={
                   <Button inverted color='red' disabled icon='warning' size='small' className='popupButton' />
@@ -96,7 +90,7 @@ class PostShow extends Component {
                 /> :
                 <Popup
                 trigger={
-                  <Button inverted color='red' onClick={() => this.handleReport.post(id)} icon='warning'  className='popupButton' size='small' />
+                  <Button inverted color='red' onClick={ () => this.handleReport(id) } icon='warning'  className='popupButton' size='small' />
                 }
                 content='Post Reported!'
                 on='click'
@@ -106,13 +100,13 @@ class PostShow extends Component {
             </Feed.User>
             <Card.Meta>
               <Feed.Date>
-                <Moment fromNow ago>{post.created_at}</Moment> ago
+                <Moment fromNow ago>{post.post.created_at}</Moment> ago
               </Feed.Date>
             </Card.Meta>
           </Feed.Summary>
           <br />
           <Feed.Extra text className='robotoFam'>
-            {post.content}
+            {post.post.content}
           </Feed.Extra>
           <Feed.Meta>
           <br />
@@ -125,7 +119,7 @@ class PostShow extends Component {
                   Unlike
                 </Button>
                 <Label as='a' basic color='red' pointing='left'>
-                  {post.likes.length}
+                  {post.post.likes.length}
                 </Label>
               </Button>:
               <Button as='div' labelPosition='right' onClick={this.handleLike}>
@@ -134,12 +128,12 @@ class PostShow extends Component {
                   Like
                 </Button>
                 <Label as='a' basic color='red' pointing='left'>
-                  {post.likes.length}
+                  {post.post.likes.length}
                 </Label>
               </Button>
             }
             </Feed.Like>
-            <CommentContainer comments={post.comments} postId={id} handleSubmit={this.handleSubmit} className='robotoFam' errors={errors} />
+            <CommentContainer comments={post.post.comments} postId={id} handleSubmit={this.handleSubmit} className='robotoFam' errors={errors} />
           </Feed.Meta>
         </Feed.Content>
         </Card>

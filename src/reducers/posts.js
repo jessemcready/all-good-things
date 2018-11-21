@@ -46,7 +46,6 @@ export default(state = initialState, action) => {
         ...state.slice(index + 1)
       ]
     case LIKE_POST:
-      debugger
       index = state.findIndex( post => post.post.id === action.like.post.id )
       post = state[index]
       return [
@@ -60,11 +59,15 @@ export default(state = initialState, action) => {
       likeIndex = post.post.likes.findIndex( like => like.id === action.likeId )
       return [
         ...state.slice(0, index),
-        Object.assign({}, post, { post: { ...post.post,
-          likes: [
-          ...post.post.likes.slice(0, likeIndex),
-          ...post.post.likes.slice(likeIndex + 1)
-        ]}}),
+        Object.assign({}, post, {
+          post: {
+            ...post.post,
+            likes: [
+              ...post.post.likes.slice(0, likeIndex),
+              ...post.post.likes.slice(likeIndex + 1)
+            ]
+          }
+        }),
         ...state.slice(index + 1)
       ]
     case FETCHED_FEED:
