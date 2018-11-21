@@ -42,7 +42,8 @@ class Post extends Component {
   }
 
   handleLike = () => {
-    const { id, users, likePost } = this.props
+    const { post: { id }, users, likePost } = this.props
+    debugger
     const like = { user_id: users.id, post_id: id }
     FetchAdapter.createLike(like).then(likeObj => {
       likePost(likeObj)
@@ -51,7 +52,7 @@ class Post extends Component {
   }
 
   handleUnlike = () => {
-    const { id, unlikePost, users } = this.props
+    const { post: { id }, unlikePost, users } = this.props
     const { likeId } = this.state
     const like = { user_id: users.id, post_id: id }
     FetchAdapter.deleteLike(like).then( deletedObj => {
@@ -65,19 +66,16 @@ class Post extends Component {
   handleUserClick = () => this.setState({ usernameClick: true })
 
   handleReport = () => {
-    const { id, reportPost } = this.props
-    FetchAdapter.reportPost(id).then( postObj => {
-      reportPost(id)
-    })
+    FetchAdapter.reportPost(this.props.id).then(postObj => this.props.reportPost(this.props.id))
   }
 
   render() {
+    debugger
     const {
       post: { id, content, created_at, flagged, likes, comments },
       user: { email, name, profile_url }, users, posts, profile
     } = this.props
     const { liked, clicked, usernameClick, errors } = this.state
-    debugger
 
     return name === undefined && content === undefined ?
     null :

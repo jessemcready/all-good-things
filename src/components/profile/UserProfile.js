@@ -77,7 +77,7 @@ class Profile extends Component {
                 { posts !== undefined ?
                   <div ref={this.handleRef}>
                     <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-                      {posts.map( post => <Post key={post.id} post={post.post} name={currentUser.name} profile={true} />)}
+                      {posts.map( post => <Post key={post.id} post={post.post} user={currentUser} profile={true} />)}
                     </Feed>
                     <Rail position='left' attached>
                       <Sticky context={contextRef} style={{marginTop: '90px'}}>
