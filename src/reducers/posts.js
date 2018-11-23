@@ -15,11 +15,12 @@ export default(state = initialState, action) => {
     case CREATE_POST:
       return [action.post, ...state]
     case CREATE_POST_COMMENT:
-      index = state.findIndex( post => post.id === action.comment.post_id)
+      index = state.findIndex( post => post.post.id === action.comment.post_id)
       post = state[index]
+      debugger
       return [
         ...state.slice(0, index),
-        Object.assign({}, post, { comments: [action.comment, ...post.comments] }),
+        Object.assign({}, post, { post: {...post.post, comments: [action.comment, ...post.post.comments] }}),
         ...state.slice(index + 1)
       ]
     case DELETE_POST:
@@ -33,7 +34,7 @@ export default(state = initialState, action) => {
       post = state[index]
       return [
         ...state.slice(0, index),
-        Object.assign({}, post, { flagged: true }),
+        Object.assign({}, post, { post: {...post.post, flagged: true }}),
         ...state.slice(index + 1)
       ]
     case UNREPORT_POST:
@@ -41,7 +42,7 @@ export default(state = initialState, action) => {
       post = state[index]
       return [
         ...state.slice(0, index),
-        Object.assign({}, post, { flagged: false }),
+        Object.assign({}, post, { post: {...post.post, flagged: false }}),
         ...state.slice(index + 1)
       ]
     case LIKE_POST:

@@ -26,15 +26,14 @@ class PostShow extends Component {
     const { userInput } = input
     const id = parseInt(this.props.match.params.id)
     const { posts, user, createPostComment } = this.props
-    const post = posts.find( post => post.id === id)
-    debugger
+    const post = posts.find( post => post.post.id === id)
     const comment = { post_id: post.post.id, user_id: user.id, content: userInput }
     FetchAdapter.createComment(comment).then( commentObj => {
       if( commentObj.errors ){
         this.setState({ errors: commentObj.errors[0] })
       } else {
-        const { id, post, user, content } = commentObj
-        createPostComment({ id, post_id: post.id, user, content })
+        const { id, post, user, content, created_at } = commentObj
+        createPostComment({ id, post_id: post.id, user_id: user.id, content, created_at })
         this.setState({ errors: '' })
       }
     })
