@@ -23,13 +23,9 @@ class NewPostModal extends Component {
     const post = { user_id: user.id, content: userInput }
     if( userInput.length > 0){
       FetchAdapter.createPost(post).then( postObj => {
-        debugger
-        if( postObj.errors ){
-          this.setState({ errors: postObj.errors[0] })
-        } else {
-          this.setState({ userInput: '', modalOpen: false })
-          createPost(postObj.post)
-        }
+        !!postObj.errors ? this.setState({ errors: postObj.errors[0] }) :
+        this.setState({ userInput: '', modalOpen: false })
+        createPost({post: postObj.post, user: postObj.post.user})
       })
     }
   }

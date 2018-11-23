@@ -12,7 +12,7 @@ class FeedContainer extends Component{
 
   handleRef = contextRef => this.setState({ contextRef })
 
-  orderPosts = posts => posts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+  orderPosts = posts => posts.sort((a,b) => new Date(b.post.created_at) - new Date(a.post.created_at))
 
   componentDidMount() {
     this.props.getFeed()
