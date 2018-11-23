@@ -3,9 +3,7 @@ import { Card, Grid, Image } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 
 class User extends Component{
-  state = {
-    clicked: false
-  }
+  state = { clicked: false }
 
   handleClick = () => this.setState({ clicked: !this.state.clicked })
 

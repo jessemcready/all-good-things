@@ -7,10 +7,7 @@ import FetchAdapter from '../../adapters/FetchAdapter'
 import Post from '../posts/Post'
 
 class Profile extends Component {
-  state = {
-    currentUser: {},
-    signedInUser: false
-  }
+  state = { currentUser: {}, signedInUser: false }
 
   componentDidMount(){
     const id = this.props.match.params.id
@@ -35,25 +32,20 @@ class Profile extends Component {
     const { user, unfollowUser } = this.props
     const { currentUser } = this.state
     const relationship = { follower_id: user.id, followee_id: currentUser.id }
-    FetchAdapter.unfollowUser(relationship).then( relationshipObj => {
-      unfollowUser(currentUser.email)
-    })
+    FetchAdapter.unfollowUser(relationship).then( relationshipObj => unfollowUser(currentUser.email))
   }
 
   following = () => {
     const { user } = this.props
     const { currentUser } = this.state
-    const foundUser = user.followers.find(follower =>
-      follower.email === currentUser.email
-    )
-    return foundUser === undefined ? true : false
+    const foundUser = user.followers.find( follower => follower.email === currentUser.email )
+    return !!foundUser ? true : false
   }
 
   getPosts = () => {
     if( !this.following() ){
       const { posts } = this.props
       const { currentUser } = this.state
-      debugger
       return posts.filter(post => (
         !!post.post ? post.post.user_id === currentUser.id : post.user_id === currentUser.id
       ))

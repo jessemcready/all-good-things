@@ -11,11 +11,7 @@ class NavBar extends Component {
 
   componentDidMount() {
     const activeItem = this.props.location.pathname.split('/')[1]
-    if(activeItem === ''){
-      this.setState({ activeItem: 'feed' })
-    } else {
-      this.setState({ activeItem })
-    }
+    activeItem === '' ? this.setState({ activeItem: 'feed' }) : this.setState({ activeItem })
   }
 
   render() {

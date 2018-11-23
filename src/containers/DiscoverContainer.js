@@ -6,25 +6,17 @@ import { connect } from 'react-redux'
 import FetchAdapter from '../adapters/FetchAdapter'
 
 class DiscoverContainer extends Component {
-  state = {
-    users: [],
-    searchTerm: ''
-  }
+  state = { users: [], searchTerm: '' }
 
   componentDidMount(){
     const { user } = this.props
     FetchAdapter.getUsers().then( userObjs => {
-      debugger
-      const users = userObjs.filter( userObj =>
-        user.email !== userObj.email
-      )
+      const users = userObjs.filter( userObj => user.email !== userObj.email )
       this.setState({ users })
     })
   }
 
-  handleChange = event => {
-    this.setState({ searchTerm: event.target.value })
-  }
+  handleChange = event => this.setState({ searchTerm: event.target.value })
 
   usersToShow = () => {
     const { users, searchTerm } = this.state
@@ -32,10 +24,7 @@ class DiscoverContainer extends Component {
     return users.filter( user => {
       const lowercaseName = user.name.toLowerCase()
       const lowercaseEmail = user.email.toLowerCase()
-      return (
-        lowercaseName.includes(lowercaseTerm) ||
-        lowercaseEmail.includes(lowercaseTerm)
-      )
+      return ( lowercaseName.includes(lowercaseTerm) || lowercaseEmail.includes(lowercaseTerm) )
     })
   }
 

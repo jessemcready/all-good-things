@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import { Form, Input, Button, Header, Message, Segment } from 'semantic-ui-react'
 
 class LoginForm extends Component {
-  state = {
-    email: '',
-    password: ''
-  }
+  state = { email: '', password: '' }
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value })
-  }
+  handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
   render(){
     const { email, password } = this.state

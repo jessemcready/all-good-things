@@ -5,11 +5,7 @@ import FetchAdapter from '../../adapters/FetchAdapter'
 import { createPost } from '../../actions/posts'
 
 class NewPostModal extends Component {
-  state = {
-    userInput: '',
-    modalOpen: false,
-    errors: ''
-  }
+  state = { userInput: '', modalOpen: false, errors: '' }
 
   handleChange = (event) => {
     if(this.state.userInput.length < 400){
@@ -35,6 +31,7 @@ class NewPostModal extends Component {
   handleClose = () => this.setState({ modalOpen: false })
 
   handleMouseOut = () => { document.body.style.cursor = 'default' }
+  
   handleMouseOver = () => { document.body.style.cursor = 'pointer' }
 
   render() {

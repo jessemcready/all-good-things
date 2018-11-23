@@ -6,10 +6,7 @@ import FriendsList from '../components/chat/FriendsList'
 class ChatContainer extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      response: '',
-      selectedUser: {}
-    }
+    this.state = { response: '', selectedUser: {} }
     // this.socket = socketIOClient('http://127.0.0.1:4001')
   }
 
@@ -27,9 +24,7 @@ class ChatContainer extends Component {
   //   })
   // }
 
-  handleUserSelect = follower => {
-    this.setState({ selectedUser: follower })
-  }
+  handleUserSelect = follower => this.setState({ selectedUser: follower })
 
   render() {
     const { user } = this.props

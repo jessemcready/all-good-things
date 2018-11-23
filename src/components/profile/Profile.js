@@ -20,23 +20,16 @@ class Profile extends Component {
     }
   }
 
-  orderPosts = () => (
-    this.getUserPosts().sort((a,b) =>
-      new Date(b.created_at) - new Date(a.created_at)
-    )
-  )
+  orderPosts = () => this.getUserPosts().sort( (a,b) => new Date(b.post.created_at) - new Date(a.post.created_at) )
 
-  getUserPosts = () => {
-    const { posts, user } = this.props
-    return posts.filter( post => post.user.email === user.email )
-  }
+  getUserPosts = () => this.props.posts.filter( post => post.user.email === this.props.user.email )
 
   handleRef = contextRef => this.setState({ contextRef })
 
   renderCard = () => {
     const { user } = this.props
     const { open, contextRef } = this.state
-    const posts = this.getUserPosts()
+    const posts = this.orderPosts()
     return (
         <Grid.Column>
           <div ref={this.handleRef}>
@@ -72,10 +65,7 @@ class Profile extends Component {
     )
   }
 
-  handleConfirm = () => {
-    const { user, signout } = this.props
-    FetchAdapter.deleteUser(user.id).then( deletedObj => { signout() } )
-  }
+  handleConfirm = () => FetchAdapter.deleteUser(this.props.user.id).then( deletedObj => { this.props.signout() } )
 
   handleCancel = () => this.setState({ result: 'cancelled', open: false })
 

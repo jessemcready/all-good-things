@@ -4,13 +4,9 @@ import PostComment from '../components/posts/PostComment'
 import { connect } from 'react-redux'
 
 class CommentContainer extends Component {
-  state = {
-    userInput: ''
-  }
+  state = { userInput: '' }
 
-  handleChange = event =>{
-    this.setState({ userInput: event.target.value })
-  }
+  handleChange = event => this.setState({ userInput: event.target.value })
 
   handleComment = (event, input) => {
     const { handleSubmit } = this.props

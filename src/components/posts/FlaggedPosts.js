@@ -13,7 +13,7 @@ class FlaggedPosts extends Component {
 
   render() {
     const { user, posts } = this.props
-    const flaggedPosts = posts.filter( post => post.post.flagged)
+    const flaggedPosts = posts.filter( post => post.post.flagged )
     return !user.admin ?
     <Redirect to='/' /> :
     (
