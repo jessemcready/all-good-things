@@ -14,10 +14,10 @@ class App extends Component {
   componentDidMount() {
     const { loginOrSignup, getFeed } = this.props
     if(localStorage.jwt){
-      // getFeed()
+      getFeed()
       FetchAdapter.getCurrentUser().then( user => {
         loginOrSignup(user)
-      }).then(getFeed())
+      })
     }
   }
 

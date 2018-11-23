@@ -17,7 +17,7 @@ class Post extends Component {
   }
 
   componentDidMount(){
-    const { post: { id, likes }, users } = this.props
+    const { post: { likes }, users } = this.props
     let foundPost
     !!likes ? foundPost = users.likes.find(like => likes.find(postLike => postLike.id === like.id))
     : foundPost = false
@@ -67,7 +67,7 @@ class Post extends Component {
   render() {
     const {
       post: { id, content, created_at, flagged, likes, comments },
-      user: { email, name, profile_url }, users, posts, profile
+      user: { name, profile_url }, profile
     } = this.props
     const { liked, clicked, usernameClick, errors } = this.state
     return name === undefined && content === undefined ?

@@ -2,9 +2,8 @@ import {
   CREATE_POST, CREATE_POST_COMMENT, DELETE_POST, REPORT_POST, UNREPORT_POST, FETCHED_FEED
 } from '../constants/postActions'
 import {
-  LOGIN_OR_SIGNUP, SIGNOUT, FOLLOW_USER, UNFOLLOW_USER, LIKE_POST, UNLIKE_POST, EDIT_USER
+  SIGNOUT, FOLLOW_USER, UNFOLLOW_USER, LIKE_POST, UNLIKE_POST, EDIT_USER
 } from '../constants/userActions'
-import FetchAdapter from '../adapters/FetchAdapter'
 
 const initialState = []
 
@@ -57,6 +56,7 @@ export default(state = initialState, action) => {
       index = state.findIndex( post => post.post.id === action.postId )
       post = state[index]
       likeIndex = post.post.likes.findIndex( like => like.id === action.likeId )
+      debugger
       return [
         ...state.slice(0, index),
         Object.assign({}, post, {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import socketIOClient from 'socket.io-client'
+// import socketIOClient from 'socket.io-client'
 import FriendsList from '../components/chat/FriendsList'
 
 class ChatContainer extends Component {

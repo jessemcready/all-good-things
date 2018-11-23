@@ -4,6 +4,7 @@ import { Grid } from 'semantic-ui-react'
 import LoginForm from '../components/form/LoginForm'
 import SignupForm from '../components/form/SignupForm'
 import { loginOrSignup } from '../actions/users'
+import { getFeed } from '../actions/posts'
 import FetchAdapter from '../adapters/FetchAdapter'
 
 class FormContainer extends Component {
@@ -18,19 +19,20 @@ class FormContainer extends Component {
   }
 
   handleLogin = (event, formData) => {
-    const { loginOrSignup } = this.props
+    const { loginOrSignup, getFeed } = this.props
     FetchAdapter.loginUser(formData).then( user => {
       if(user.message){
         this.setState({ errors: user.message })
       } else {
         localStorage.setItem('jwt', user.jwt)
         loginOrSignup(user)
+        getFeed()
       }
     })
   }
 
   handleSignup = (event, formData) => {
-    const { loginOrSignup } = this.props
+    const { loginOrSignup, getFeed } = this.props
     const cloudUrl = 'https://api.cloudinary.com/v1_1/jessemcready/image/upload'
     const upload_preset = 'wshmuzkt'
     const file = formData.profileUrl
@@ -47,6 +49,7 @@ class FormContainer extends Component {
         } else {
           localStorage.setItem('jwt', user.jwt)
           loginOrSignup(user)
+          getFeed()
         }
       })
     })
@@ -71,4 +74,4 @@ class FormContainer extends Component {
 
 }
 
-export default connect(null, { loginOrSignup })(FormContainer);
+export default connect(null, { loginOrSignup, getFeed })(FormContainer);

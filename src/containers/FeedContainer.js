@@ -21,7 +21,6 @@ class FeedContainer extends Component{
   render() {
     const posts = this.orderPosts(this.props.posts)
     const { contextRef } = this.state
-    const { user } = this.props
 
     if(posts.length === 0){
       return (

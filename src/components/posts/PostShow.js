@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { Feed, Card, Icon, Button, Label, Popup, Image } from 'semantic-ui-react'
 import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
@@ -12,13 +13,13 @@ class PostShow extends Component {
 
   componentDidMount(){
     const id = parseInt(this.props.match.params.id)
-    const { user } = this.props
-    const foundPost = user.likes.find( like => {
-      debugger
-      return this.props.posts.find(post => post.post.likes.find(postLike => postLike.id === like.id ))
-    })
-    debugger
-    if(!!foundPost){ this.setState({ liked: true }) }
+    const { user, posts } = this.props
+    if(posts.length === 0){
+      return;
+    }
+    const currentPost = posts.find(post => post.post.id === id)
+    const foundPost = currentPost.post.likes.find(like => like.user_id === user.id )
+    if(!!foundPost){ this.setState({ liked: true, likeId: foundPost.id }) }
   }
 
   handleSubmit = (event, input) => {
@@ -45,18 +46,19 @@ class PostShow extends Component {
     const like = { user_id: user.id, post_id: id }
     FetchAdapter.createLike(like).then(likeObj => {
       likePost(likeObj)
-      this.setState({ liked: true })
+      this.setState({ liked: true, likeId: likeObj.id })
     })
   }
 
   handleUnlike = () => {
     const { unlikePost, user } = this.props
+    const { likeId } = this.state
     const id = parseInt(this.props.match.params.id)
     debugger
     const like = { user_id: user.id, post_id: id }
     FetchAdapter.deleteLike(like).then( deletedObj => {
-      unlikePost(id, user.id, user.email)
-      this.setState({ liked: false })
+      unlikePost(id, user.id, user.email, likeId)
+      this.setState({ liked: false, likeId: '' })
     })
   }
 
@@ -67,10 +69,8 @@ class PostShow extends Component {
     const id = parseInt(this.props.match.params.id)
     const { posts } = this.props
     const post = posts.find( post => post.post.id === id)
-    debugger
-    // return !!post.user ?
-    // null :
-    return (
+    return !!post ?
+    (
       <Feed.Event className='underNav'>
         <Card centered raised onClick={this.handlePostPage} style={{ width: '25vw' }}>
         <Feed.Content>
@@ -138,7 +138,8 @@ class PostShow extends Component {
         </Feed.Content>
         </Card>
       </Feed.Event>
-    );
+    ) : <Redirect to='/' />
+
   }
 
 }
