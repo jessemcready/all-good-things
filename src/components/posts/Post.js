@@ -25,7 +25,7 @@ class Post extends Component {
   }
 
   handleSubmit = (event, input) => {
-    const { users, createPostComment, id, comments } = this.props
+    const { users, createPostComment, post: { id, comments } } = this.props
     const { userInput } = input
     const comment = { post_id: id, user_id: users.id, content: userInput }
     FetchAdapter.createComment(comment).then( commentObj => {
@@ -34,7 +34,7 @@ class Post extends Component {
       } else {
         this.setState({ comments: [commentObj, ...comments], errors: '' })
         const { id, post, user, content } = commentObj
-        createPostComment({ id, post_id: post.id, user, content })
+        createPostComment({ id, post_id: post.id, user_id: user.id, content })
       }
     })
   }
@@ -64,12 +64,15 @@ class Post extends Component {
 
   handleReport = () => FetchAdapter.reportPost(this.props.id).then(postObj => this.props.reportPost(this.props.id))
 
+  orderComments = (comments) => comments.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+
   render() {
     const {
-      post: { id, content, created_at, flagged, likes, comments },
+      post: { id, content, created_at, flagged, likes },
       user: { name, profile_url }, profile
     } = this.props
     const { liked, clicked, usernameClick, errors } = this.state
+    const comments = this.orderComments(this.props.post.comments)
     return name === undefined && content === undefined ?
     null :
     (
