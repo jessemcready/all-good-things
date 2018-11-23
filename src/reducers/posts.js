@@ -24,13 +24,13 @@ export default(state = initialState, action) => {
         ...state.slice(index + 1)
       ]
     case DELETE_POST:
-      index = state.findIndex( post => post.id === action.postId)
+      index = state.findIndex( post => post.post.id === action.postId)
       return [
         ...state.slice(0, index),
         ...state.slice(index + 1)
       ]
     case REPORT_POST:
-      index = state.findIndex( post => post.id === action.postId)
+      index = state.findIndex( post => post.post.id === action.postId)
       post = state[index]
       return [
         ...state.slice(0, index),
@@ -38,7 +38,7 @@ export default(state = initialState, action) => {
         ...state.slice(index + 1)
       ]
     case UNREPORT_POST:
-      index = state.findIndex( post => post.id === action.postId)
+      index = state.findIndex( post => post.post.id === action.postId)
       post = state[index]
       return [
         ...state.slice(0, index),

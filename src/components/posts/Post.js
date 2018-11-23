@@ -9,12 +9,7 @@ import CommentContainer from '../../containers/CommentContainer'
 import FetchAdapter from '../../adapters/FetchAdapter'
 
 class Post extends Component {
-  state = {
-    liked : false,
-    clicked: false,
-    usernameClick: false,
-    errors: ''
-  }
+  state = { liked : false, clicked: false, usernameClick: false, errors: '' }
 
   componentDidMount(){
     const { post: { likes }, users } = this.props
@@ -62,7 +57,7 @@ class Post extends Component {
 
   handleUserClick = () => this.setState({ usernameClick: true })
 
-  handleReport = () => FetchAdapter.reportPost(this.props.id).then(postObj => this.props.reportPost(this.props.id))
+  handleReport = id => FetchAdapter.reportPost(id).then(postObj => this.props.reportPost(id))
 
   orderComments = (comments) => comments.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
 
@@ -103,7 +98,7 @@ class Post extends Component {
                 /> :
                 <Popup
                 trigger={
-                  <Button inverted color='red' onClick={this.handleReport} icon='warning' className='popupButton' size='small' />
+                  <Button inverted color='red' onClick={() => this.handleReport(this.props.post.id)} icon='warning' className='popupButton' size='small' />
                 }
                 content='Post Reported!'
                 on='click'

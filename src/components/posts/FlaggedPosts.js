@@ -7,34 +7,24 @@ import { unreportPost, deletePost } from '../../actions/posts'
 
 class FlaggedPosts extends Component {
 
-  handleUnreport = id => {
-    const { unreportPost } = this.props
-    FetchAdapter.unreportPost(id).then( postObj => {
-      unreportPost(id)
-    })
-  }
+  handleUnreport = id => FetchAdapter.unreportPost(id).then( postObj => this.props.unreportPost(id) )
 
-  handleDelete = id => {
-    const { deletePost } = this.props
-    FetchAdapter.deletePost(id).then( deletedObj => {
-      deletePost(id)
-    })
-  }
+  handleDelete = id => FetchAdapter.deletePost(id).then( deletedObj => this.props.deletePost(id) )
 
   render() {
     const { user, posts } = this.props
-    const flaggedPosts = posts.filter( post => post.flagged)
+    const flaggedPosts = posts.filter( post => post.post.flagged)
     return !user.admin ?
     <Redirect to='/' /> :
     (
       <Container className='underNav'>
         {flaggedPosts.map( post => (
           <Message>
-            <h3>{post.content}</h3>
-            <Button basic color='blue' onClick={() => this.handleUnreport(post.id)}>
+            <h3>{post.post.content}</h3>
+            <Button basic color='blue' onClick={() => this.handleUnreport(post.post.id)}>
               Unreport
             </Button>
-            <Button basic color='red' onClick={() => this.handleDelete(post.id)}>
+            <Button basic color='red' onClick={() => this.handleDelete(post.post.id)}>
               Delete Post
             </Button>
           </Message>
