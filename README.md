@@ -2,6 +2,8 @@
 
 All Good Things is a social media website that focuses on positive messages and community. The [backend](https://github.com/jessemcready/all-good-things-backend) is written in Rails, while the frontend uses React and Redux.
 
+## [Demo Video](https://www.youtube.com/watch?v=BUFdx1474hk)
+
 ## How to use
 
 First clone the backend and follow those steps to get that set up. Then run `npm install && npm start` or `yarn && yarn start` and that's it. 
