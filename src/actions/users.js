@@ -11,6 +11,7 @@ import {
   FAILED_LOGIN
 } from '../constants/userActions'
 import FetchAdapter from '../adapters/FetchAdapter'
+import { getFeed } from './posts'
 
 // export const loginOrSignup = user => ({ type: LOGIN_OR_SIGNUP, user })
 export const loginUser = (user) => {
@@ -19,7 +20,15 @@ export const loginUser = (user) => {
     FetchAdapter.loginUser(user).then( JSONResponse => {
       localStorage.setItem('jwt', JSONResponse.jwt)
       dispatch(setCurrentUser(JSONResponse.user))
+      dispatch(getFeed())
     }).catch( err => err.json().then( e => dispatch({ type: FAILED_LOGIN, payload: e.message })))
+  }
+}
+
+export const fetchCurrentUser = () => {
+  return (dispatch) => {
+    dispatch(authenticatingUser)
+    FetchAdapter.getCurrentUser().then( JSONResponse => dispatch(setCurrentUser(JSONResponse.user)))
   }
 }
 

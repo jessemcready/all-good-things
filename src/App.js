@@ -6,18 +6,14 @@ import MainPage from './containers/MainPage'
 import NavBar from './components/NavBar'
 import { withRouter } from 'react-router-dom'
 import FetchAdapter from './adapters/FetchAdapter'
-import { loginUser } from './actions/users'
+import { fetchCurrentUser } from './actions/users'
 import { getFeed } from './actions/posts'
 import './App.css'
 
 class App extends Component {
   componentDidMount() {
-    const { loginUser, getFeed } = this.props
     if(localStorage.jwt){
-      getFeed()
-      FetchAdapter.getCurrentUser().then( user => {
-        loginUser(user)
-      })
+      this.props.fetchCurrentUser()
     }
   }
 
@@ -43,4 +39,4 @@ class App extends Component {
 
 const mapStateToProps = ({ users: { user } }) => ({ user })
 
-export default withRouter(connect(mapStateToProps, { loginUser, getFeed })(App));
+export default withRouter(connect(mapStateToProps, { fetchCurrentUser })(App));
