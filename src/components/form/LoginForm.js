@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { loginUser } from '../../actions/users'
 import { Form, Input, Button, Header, Message, Segment } from 'semantic-ui-react'
 
 class LoginForm extends Component {
@@ -6,13 +8,15 @@ class LoginForm extends Component {
 
   handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
+  handleLogin = (event, formData) => this.props.loginUser(formData)
+
   render(){
     const { email, password } = this.state
-    const { handleLogin, handleLinkClick, errors } = this.props
+    const { handleLinkClick, error, authenticatingUser, failedLogin } = this.props
 
     return(
       <Segment raised>
-          <Form error onSubmit={(event) => handleLogin(event, this.state)} >
+          <Form error={failedLogin} loading={authenticatingUser} onSubmit={(event) => this.handleLogin(event, this.state)} >
             <Header className='robotoFam'>Log In</Header>
             <Form.Field>
               <Input
@@ -29,11 +33,7 @@ class LoginForm extends Component {
                 value={password}
                 onChange={this.handleChange} />
             </Form.Field>
-            {
-              errors !== '' ?
-              <Message error header='Login Failed' content={errors[0]} className='robotoFam' /> :
-              null
-            }
+            <Message error header={failedLogin ? error : null} className='robotoFam' />
             <Button fluid color='blue'>Log In</Button>
             <Message onClick={handleLinkClick}>
               <h3 className='robotoFam'>Need an account? Sign Up</h3>
@@ -44,4 +44,8 @@ class LoginForm extends Component {
   }
 };
 
-export default LoginForm;
+const mapStateToProps = ({ users: { authenticatingUser, failedLogin, error, loggedIn }}) => {
+  return { authenticatingUser, failedLogin, error, loggedIn }
+}
+
+export default connect(mapStateToProps, { loginUser })(LoginForm);

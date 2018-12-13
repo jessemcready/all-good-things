@@ -1,5 +1,5 @@
 import {
-  SET_CURRENT_USER, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST
+  SET_CURRENT_USER, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN
 } from '../constants/userActions'
 import { DELETE_POST } from '../constants/postActions'
 
@@ -26,7 +26,12 @@ export default(state = initialState, action) => {
   switch(action.type){
     case SET_CURRENT_USER:
       return { ...state, user: action.user, loggedIn: true, authenticatingUser: false, userFollowers: action.user.followers, userLikes: action.user.likes, userPosts: action.user.posts }
-      // return Object.assign({}, action.user)
+    case AUTHENTICATING_USER:
+      return { ...state, authenticatingUser: true }
+    case AUTHENTICATED_USER:
+      return { ...state, authenticatingUser: false }
+    case FAILED_LOGIN:
+      return { ...state, failedLogin: true, error: action.payload, authenticatingUser: false }
     case FOLLOW_USER:
       return {
         user: {...state.user, followers: [ action.user, ...state.user.followers ]}
