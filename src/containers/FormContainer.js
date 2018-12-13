@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 import LoginForm from '../components/form/LoginForm'
 import SignupForm from '../components/form/SignupForm'
-import { loginOrSignup } from '../actions/users'
+import { loginUser } from '../actions/users'
 import { getFeed } from '../actions/posts'
 import FetchAdapter from '../adapters/FetchAdapter'
 
@@ -19,20 +19,21 @@ class FormContainer extends Component {
   }
 
   handleLogin = (event, formData) => {
-    const { loginOrSignup, getFeed } = this.props
-    FetchAdapter.loginUser(formData).then( user => {
-      if(user.message){
-        this.setState({ errors: user.message })
-      } else {
-        localStorage.setItem('jwt', user.jwt)
-        loginOrSignup(user)
-        getFeed()
-      }
-    })
+    const { loginUser, getFeed } = this.props
+    // FetchAdapter.loginUser(formData).then( user => {
+    //   if(user.message){
+    //     this.setState({ errors: user.message })
+    //   } else {
+    //     localStorage.setItem('jwt', user.jwt)
+    //     loginUser(user)
+    //     getFeed()
+    //   }
+    // })
+    loginUser(formData)
   }
 
   handleSignup = (event, formData) => {
-    const { loginOrSignup, getFeed } = this.props
+    const { loginUser, getFeed } = this.props
     const cloudUrl = 'https://api.cloudinary.com/v1_1/jessemcready/image/upload'
     const upload_preset = 'wshmuzkt'
     const file = formData.profileUrl
@@ -48,7 +49,7 @@ class FormContainer extends Component {
           this.setState({ errors: user.errors })
         } else {
           localStorage.setItem('jwt', user.jwt)
-          loginOrSignup(user)
+          loginUser(user)
           getFeed()
         }
       })
@@ -71,7 +72,6 @@ class FormContainer extends Component {
       </Fragment>
     );
   }
-
 }
 
-export default connect(null, { loginOrSignup, getFeed })(FormContainer);
+export default connect(null, { loginUser, getFeed })(FormContainer);

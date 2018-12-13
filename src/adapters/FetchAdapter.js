@@ -7,7 +7,13 @@ export default class FetchAdapter {
     return fetch(`${backendUrl}/login`,{
       ...loginHeader,
       body: JSON.stringify({ user: userData })
-    }).then(res => res.json())
+    }).then(res => {
+      if(res.ok) {
+        return res.json()
+      } else {
+        throw res
+      }
+    })
   }
 
   static signupUser(userData, profileUrl=''){

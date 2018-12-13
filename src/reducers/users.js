@@ -1,5 +1,5 @@
 import {
-  LOGIN_OR_SIGNUP, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST
+  SET_CURRENT_USER, FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST
 } from '../constants/userActions'
 import { DELETE_POST } from '../constants/postActions'
 
@@ -11,14 +11,22 @@ const initialState = {
     followers: [],
     likes: [],
     posts: []
-  }
+  },
+  loggedIn: false,
+  authenticatingUser: false,
+  failedLogin: false,
+  error: null,
+  userFollowers: [],
+  userLikes: [],
+  userPosts: []
 }
 
 export default(state = initialState, action) => {
   let index
   switch(action.type){
-    case LOGIN_OR_SIGNUP:
-      return Object.assign({}, action.user)
+    case SET_CURRENT_USER:
+      return { ...state, user: action.user, loggedIn: true, authenticatingUser: false, userFollowers: action.user.followers, userLikes: action.user.likes, userPosts: action.user.posts }
+      // return Object.assign({}, action.user)
     case FOLLOW_USER:
       return {
         user: {...state.user, followers: [ action.user, ...state.user.followers ]}
