@@ -1,14 +1,5 @@
 import {
-  LOGIN_OR_SIGNUP,
-  FOLLOW_USER,
-  UNFOLLOW_USER,
-  SIGNOUT,
-  EDIT_USER,
-  LIKE_POST,
-  UNLIKE_POST,
-  SET_CURRENT_USER,
-  AUTHENTICATING_USER,
-  FAILED_LOGIN
+  FOLLOW_USER, UNFOLLOW_USER, SIGNOUT, EDIT_USER, LIKE_POST, UNLIKE_POST, SET_CURRENT_USER, AUTHENTICATING_USER, FAILED_LOGIN
 } from '../constants/userActions'
 import FetchAdapter from '../adapters/FetchAdapter'
 import { getFeed } from './posts'
