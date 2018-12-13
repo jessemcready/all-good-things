@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 import LoginForm from '../components/form/LoginForm'
 import SignupForm from '../components/form/SignupForm'
-import { loginUser } from '../actions/users'
+import { loginUser, signUpUser } from '../actions/users'
 import { getFeed } from '../actions/posts'
 import FetchAdapter from '../adapters/FetchAdapter'
 
@@ -19,7 +19,6 @@ class FormContainer extends Component {
   }
 
   handleLogin = (event, formData) => {
-    const { loginUser, getFeed } = this.props
     // FetchAdapter.loginUser(formData).then( user => {
     //   if(user.message){
     //     this.setState({ errors: user.message })
@@ -29,11 +28,10 @@ class FormContainer extends Component {
     //     getFeed()
     //   }
     // })
-    loginUser(formData)
+    this.props.loginUser(formData)
   }
 
   handleSignup = (event, formData) => {
-    const { loginUser, getFeed } = this.props
     const cloudUrl = 'https://api.cloudinary.com/v1_1/jessemcready/image/upload'
     const upload_preset = 'wshmuzkt'
     const file = formData.profileUrl
@@ -44,15 +42,17 @@ class FormContainer extends Component {
       method: 'POST',
       body: formInfo
     }).then( res => res.json()).then( data => {
-      FetchAdapter.signupUser(formData, data.secure_url).then(user => {
-        if(user.errors){
-          this.setState({ errors: user.errors })
-        } else {
-          localStorage.setItem('jwt', user.jwt)
-          loginUser(user)
-          getFeed()
-        }
-      })
+      // FetchAdapter.signupUser(formData, data.secure_url).then(user => {
+      //   if(user.errors){
+      //     this.setState({ errors: user.errors })
+      //   } else {
+      //     localStorage.setItem('jwt', user.jwt)
+      //     loginUser(user)
+      //     getFeed()
+      //   }
+      // })
+      const user = { ...formData, profile_url: data.secure_url }
+      this.props.signUpUser(user)
     })
   }
 
@@ -74,4 +74,4 @@ class FormContainer extends Component {
   }
 }
 
-export default connect(null, { loginUser, getFeed })(FormContainer);
+export default connect(null, { loginUser, getFeed, signUpUser })(FormContainer);

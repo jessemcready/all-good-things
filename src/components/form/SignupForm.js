@@ -41,7 +41,8 @@ class SignupForm extends Component {
             {
               preFilled ?
               <Header className='robotoFam'>Edit {originalName}</Header> :
-              <Header className='robotoFam'>Sign Up</Header> }
+              <Header className='robotoFam'>Sign Up</Header>
+            }
             <Form.Field className='robotoFam'>
               <Input
                 placeholder='Name'

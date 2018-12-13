@@ -13,11 +13,21 @@ import {
 import FetchAdapter from '../adapters/FetchAdapter'
 import { getFeed } from './posts'
 
-// export const loginOrSignup = user => ({ type: LOGIN_OR_SIGNUP, user })
+/* BEGIN ACTIONS FOR CREATING AND LOGGING IN */
 export const loginUser = (user) => {
   return (dispatch) => {
     dispatch(authenticatingUser())
     FetchAdapter.loginUser(user).then( JSONResponse => {
+      localStorage.setItem('jwt', JSONResponse.jwt)
+      dispatch(setCurrentUser(JSONResponse.user))
+      dispatch(getFeed())
+    }).catch( err => err.json().then( e => dispatch({ type: FAILED_LOGIN, payload: e.message })))
+  }
+}
+
+export const signUpUser = user => {
+  return (dispatch) => {
+    FetchAdapter.signupUser(user).then( JSONResponse => {
       localStorage.setItem('jwt', JSONResponse.jwt)
       dispatch(setCurrentUser(JSONResponse.user))
       dispatch(getFeed())
@@ -34,7 +44,10 @@ export const fetchCurrentUser = () => {
 
 export const setCurrentUser = user => ({ type: SET_CURRENT_USER, user })
 
+export const failedLogin = errorMsg => ({ type: FAILED_LOGIN, errorMsg })
+
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
+/* END ACTIONS FOR CREATING AND LOGGING IN */
 
 export const followUser = user => ({ type: FOLLOW_USER, user })
 

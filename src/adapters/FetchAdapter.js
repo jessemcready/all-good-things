@@ -16,11 +16,17 @@ export default class FetchAdapter {
     })
   }
 
-  static signupUser(userData, profileUrl=''){
+  static signupUser(user){
     return fetch(`${backendUrl}/users`, {
       ...postHeader,
-      body: JSON.stringify({ user: {...userData, profile_url: profileUrl }})
-    }).then(res => res.json())
+      body: JSON.stringify({ user })
+    }).then(res => {
+      if(res.ok){
+        return res.json()
+      }else {
+        throw res
+      }
+    })
   }
 
   static getUsers(){
