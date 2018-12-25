@@ -13,12 +13,13 @@ class PostShow extends Component {
 
   componentDidMount(){
     const id = parseInt(this.props.match.params.id)
-    const { user, posts } = this.props
+    const { user, posts, userLikes } = this.props
     if(posts.length === 0){
       return;
     }
     const currentPost = posts.find(post => post.post.id === id)
-    const foundPost = currentPost.post.likes.find(like => like.user_id === user.id )
+    const foundPost = currentPost.post.likes.find(like => like.user.id === user.id )
+    // const foundPost = userLikes.find(like => like.user.email)
     if(!!foundPost){ this.setState({ liked: true, likeId: foundPost.id }) }
   }
 
@@ -143,7 +144,7 @@ class PostShow extends Component {
 
 }
 
-const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
+const mapStateToProps = ({ posts, users: { user, userLikes }}) => ({ posts, user, userLikes })
 
 export default connect(mapStateToProps, {
   createPostComment, likePost, unlikePost, reportPost
