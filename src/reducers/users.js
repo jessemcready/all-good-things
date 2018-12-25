@@ -52,6 +52,7 @@ export default(state = initialState, action) => {
       //     ]
       //   }
       // }
+      debugger
       return {
         ...state,
         userFollowers: [...state.userFollowers.slice(0, index), ...state.userFollowers.slice(index + 1)]
