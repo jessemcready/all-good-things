@@ -1,35 +1,28 @@
 import React, { Component } from 'react';
 import { Card, Grid, Image } from 'semantic-ui-react'
-import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class User extends Component{
-  state = { clicked: false }
-
-  handleClick = () => this.setState({ clicked: !this.state.clicked })
+  handleClick = () => this.props.history.push({pathname: `/profile/${this.props.id}`})
 
   render() {
-    const { clicked } = this.state
     const { id, name, email, profile_url } = this.props
     return(
       <Grid.Column>
-        {
-          !clicked ?
-          <Card centered onClick={this.handleClick} className='userCard'>
-            <Card.Content>
-              <Image circular src={profile_url} size='tiny' />
-              <Card.Header>{name}</Card.Header>
-              <Card.Description>
-                <p>Email: { email }</p>
-              </Card.Description>
-            </Card.Content>
-          </Card> :
-          <Redirect to={`/profile/${id}`} />
-        }
-
+        <Card centered onClick={this.handleClick} className='userCard'>
+          <Card.Content>
+            <Image circular src={profile_url} size='tiny' />
+            <Card.Header>{name}</Card.Header>
+            <Card.Description>
+              <p>Email: { email }</p>
+            </Card.Description>
+          </Card.Content>
+        </Card>
       </Grid.Column>
 
     )
   }
 }
 
-export default User;
+export default withRouter(User);

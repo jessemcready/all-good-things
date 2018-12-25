@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Feed, Card, Icon, Button, Label, Popup, Image } from 'semantic-ui-react'
 import CommentContainer from '../../containers/CommentContainer'
 import Moment from 'react-moment'
@@ -44,6 +44,10 @@ class PostShow extends Component {
     })
   }
 
+  pushToHome = () => this.props.history.push({pathname: '/'})
+
+  handleUserClick = id => this.props.history.push({pathname: `/profile/${id}`})
+
   handleLike = () => {
     const { user, likePost } = this.props
     const id = parseInt(this.props.match.params.id)
@@ -81,7 +85,7 @@ class PostShow extends Component {
           <Feed.Summary>
             <Image src={post.user.profile_url} size="mini" floated='left' circular />
             <Feed.User>
-              <span className='robotoFam'>{ post.user.name }</span>
+              <span className='robotoFam' onClick={e => this.handleUserClick(post.user.id)}>{ post.user.name }</span>
               {
                 post.post.flagged ?
                 <Popup
@@ -142,14 +146,13 @@ class PostShow extends Component {
         </Feed.Content>
         </Card>
       </Feed.Event>
-    ) : <Redirect to='/' />
-
+    ) : this.pushToHome()
   }
 
 }
 
 const mapStateToProps = ({ posts, users: { user, userLikes }}) => ({ posts, user, userLikes })
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
   createPostComment, likePost, unlikePost, reportPost
-})(PostShow);
+})(PostShow));

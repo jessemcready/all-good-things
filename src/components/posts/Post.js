@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Card, Feed, Icon, Button, Label, Popup, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { likePost, unlikePost } from '../../actions/users'
@@ -56,9 +56,9 @@ class Post extends Component {
     })
   }
 
-  handlePostPage = () => this.setState({ clicked: true })
+  handlePostPage = () => this.props.history.push({pathname: `/posts/${this.props.post.id}`})
 
-  handleUserClick = () => this.setState({ usernameClick: true })
+  handleUserClick = () => this.props.history.push({pathname: `/profile/${this.props.user.id}`})
 
   handleReport = id => FetchAdapter.reportPost(id).then(postObj => this.props.reportPost(id))
 
@@ -75,21 +75,14 @@ class Post extends Component {
     null :
     (
       <Fragment>
-      {
-        clicked ?
-        <Redirect to={`/posts/${id}`} /> :
         <Feed.Event style={{margin: '20px'}}>
           <Card centered raised style={{ width: '25vw' }}>
           <Feed.Content>
             <Feed.Summary>
               <Image src={profile_url} size="mini" floated='left' circular />
               <Feed.User>
-              {
-                usernameClick ?
-                <Redirect to={`/profile/${this.props.user.id}`} /> :
                 <span onClick={this.handleUserClick}>{name}</span>
-              }
-              {
+                {
                 flagged ?
                 <Popup
                 trigger={
@@ -161,7 +154,6 @@ class Post extends Component {
           </Feed.Content>
           </Card>
         </Feed.Event>
-      }
       </Fragment>
     );
   }
@@ -169,6 +161,6 @@ class Post extends Component {
 
 const mapStateToProps = ({ posts, users: { user, userLikes }}) => ({ posts, users: user, userLikes })
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
    likePost, unlikePost, createPostComment, reportPost
- })(Post);
+ })(Post));
