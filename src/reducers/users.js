@@ -25,7 +25,6 @@ export default(state = initialState, action) => {
   let index
   switch(action.type){
     case SET_CURRENT_USER:
-      debugger
       return { ...state, user: action.user, loggedIn: true, authenticatingUser: false, userFollowers: action.user.followers, userLikes: action.user.likes, userPosts: action.user.posts }
     case AUTHENTICATING_USER:
       return { ...state, authenticatingUser: true }
