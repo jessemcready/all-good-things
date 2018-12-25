@@ -72,8 +72,7 @@ export default(state = initialState, action) => {
         ...state.slice(index + 1)
       ]
     case FETCHED_FEED:
-      debugger
-      return [...action.posts.posts.flat()]
+      return action.payload.data.posts.flat()
     case FOLLOW_USER:
       const { user } = action
       return [ ...state, ...user.posts ]

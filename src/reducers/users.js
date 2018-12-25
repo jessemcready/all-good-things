@@ -33,19 +33,27 @@ export default(state = initialState, action) => {
     case FAILED_LOGIN:
       return { ...state, failedLogin: true, error: action.payload, authenticatingUser: false }
     case FOLLOW_USER:
+      // return {
+      //   user: {...state.user, followers: [ action.user, ...state.user.followers ]}
+      // }
       return {
-        user: {...state.user, followers: [ action.user, ...state.user.followers ]}
+        ...state,
+        userFollowers: [action.user, ...state.userFollowers]
       }
     case UNFOLLOW_USER:
-      index = state.user.followers.findIndex( follower => follower.email === action.userEmail)
+      index = state.userFollowers.findIndex( follower => follower.email === action.userEmail)
+      // return {
+      //   user: {
+      //     ...state.user,
+      //     followers: [
+      //       ...state.user.followers.slice(0, index),
+      //       ...state.user.followers.slice(index + 1)
+      //     ]
+      //   }
+      // }
       return {
-        user: {
-          ...state.user,
-          followers: [
-            ...state.user.followers.slice(0, index),
-            ...state.user.followers.slice(index + 1)
-          ]
-        }
+        ...state,
+        userFollowers: [...state.userFollowers.slice(0, index), ...state.userFollowers.slice(index + 1)]
       }
     case LIKE_POST:
       return {

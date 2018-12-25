@@ -1,7 +1,10 @@
 import {
   CREATE_POST, CREATE_POST_COMMENT, DELETE_POST, REPORT_POST, UNREPORT_POST, FETCHED_FEED
 } from '../constants/postActions'
-import FetchAdapter from '../adapters/FetchAdapter'
+import { backendUrl } from '../constants/fetchUrls'
+import { getHeader } from '../constants/fetchHeaders'
+// import FetchAdapter from '../adapters/FetchAdapter'
+import axios from 'axios'
 
 export const createPost = post => ({ type: CREATE_POST, post })
 
@@ -14,7 +17,16 @@ export const reportPost = postId => ({ type: REPORT_POST, postId })
 export const unreportPost = postId => ({ type: UNREPORT_POST, postId })
 
 export const getFeed = () => {
-  return (dispatch) => {
-    FetchAdapter.getFeed().then( posts => dispatch({ type: FETCHED_FEED, posts }))
+  // return (dispatch) => {
+  //   FetchAdapter.getFeed().then( posts => dispatch({ type: FETCHED_FEED, posts }))
+  // }
+  let config = {
+    headers: { ...getHeader }
+  }
+  const request = axios.get(`${backendUrl}/feed`, { headers: { 'Authorization': `Bearer ${localStorage.jwt}` }})
+
+  return {
+    type: FETCHED_FEED,
+    payload: request
   }
 }

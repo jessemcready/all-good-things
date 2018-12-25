@@ -12,7 +12,7 @@ import 'semantic-ui-css/semantic.min.css'
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto'
 
-let store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+let store = createStore(rootReducer, composeWithDevTools(applyMiddleware(promise, thunk)))
 
 ReactDOM.render(
   <Provider store={store}>
