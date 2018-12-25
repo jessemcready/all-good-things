@@ -12,10 +12,10 @@ class Post extends Component {
   state = { liked : false, clicked: false, usernameClick: false, errors: '' }
 
   componentDidMount(){
-    const { post: { likes }, users } = this.props
+    const { post: { likes }, users, userLikes } = this.props
     let foundPost
     !!likes ?
-    foundPost = users.likes.find(like => likes.find(postLike => postLike.id === like.id)) :
+    foundPost = userLikes.find(like => likes.find(postLike => postLike.id === like.id)) :
     foundPost = false
     if(foundPost){
       this.setState({ liked: true, likeId: foundPost.id })
@@ -167,7 +167,7 @@ class Post extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, users: { user }}) => ({ posts, users: user })
+const mapStateToProps = ({ posts, users: { user, userLikes }}) => ({ posts, users: user, userLikes })
 
 export default connect(mapStateToProps, {
    likePost, unlikePost, createPostComment, reportPost
