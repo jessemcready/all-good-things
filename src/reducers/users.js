@@ -25,6 +25,7 @@ export default(state = initialState, action) => {
   let index
   switch(action.type){
     case SET_CURRENT_USER:
+      debugger
       return { ...state, user: action.user, loggedIn: true, authenticatingUser: false, userFollowers: action.user.followers, userLikes: action.user.likes, userPosts: action.user.posts }
     case AUTHENTICATING_USER:
       return { ...state, authenticatingUser: true }
@@ -38,41 +39,18 @@ export default(state = initialState, action) => {
       index = state.userFollowers.findIndex( follower => follower.email === action.userEmail)
       return { ...state, userFollowers: [...state.userFollowers.slice(0, index), ...state.userFollowers.slice(index + 1)] }
     case LIKE_POST:
-      // return {
-      //   user: {...state.user, likes: [ ...state.user.likes, action.like ]}
-      // }
       return { ...state, userLikes: [...state.userLikes, action.like] }
     case UNLIKE_POST:
       index = state.user.likes.findIndex( like => like.id === action.likeId)
-      // debugger
-      // return {
-      //   user: {
-      //     ...state.user,
-      //     likes: [
-      //       ...state.user.likes.slice(0, index),
-      //       ...state.user.likes.slice(index + 1)
-      //     ]
-      //   }
-      // }
       return { ...state, userLikes: [...state.userLikes.slice(0, index), ...state.userLikes.slice(index + 1)] }
     case DELETE_POST:
       index = state.user.posts.findIndex( post => post.id === action.postId )
       if( index === -1 ){
         return state
       } else {
-        // return {
-        //   user: {
-        //     ...state.user,
-        //     posts: [
-        //       ...state.user.posts.slice(0, index),
-        //       ...state.user.posts.slice(index + 1)
-        //     ]
-        //   }
-        // }
         return { ...state, userPosts: [...state.userPosts.slice(0, index), ...state.userPosts.slice(index + 1)] }
       }
     case EDIT_USER:
-      // return Object.assign({}, action.user)
       return { ...state, user: action.user }
     case SIGNOUT:
       localStorage.clear()

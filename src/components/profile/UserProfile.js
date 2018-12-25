@@ -59,49 +59,46 @@ class Profile extends Component {
     const { currentUser, signedInUser, contextRef } = this.state
     const posts = this.getPosts()
     return(
-      <Grid centered columns={3} className='underNav'>
-        {
           signedInUser ?
           <Redirect to='/profile' /> :
-          <Fragment>
-              <Grid.Column>
-                { posts !== undefined || posts.length !== 0 ?
-                  <div ref={this.handleRef}>
-                    <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-                      {posts.map( post => <Post key={post.id} post={post} user={currentUser} profile={true} />)}
-                    </Feed>
-                    <Rail position='left' attached>
-                      <Sticky context={contextRef} style={{marginTop: '90px'}}>
-                      <Card fluid>
-                        <Image src={currentUser.profile_url} />
-                        <Card.Content>
-                          <Card.Header>{currentUser.name}</Card.Header>
-                          <Card.Description>
-                            Email: {currentUser.email}
-                          </Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                          {
-                            !this.following() ?
-                            <Button inverted color='teal' onClick={this.handleFollow}>
-                              Follow
-                            </Button> :
-                            <Button inverted color='red' onClick={this.handleUnfollow}>
-                              Unfollow
-                            </Button>
-                          }
-                        </Card.Content>
-                      </Card>
-                      </Sticky>
-                    </Rail>
-                  </div>
-                   :
-                  null
-                 }
-              </Grid.Column>
-          </Fragment>
-        }
-      </Grid>
+          <Grid centered columns={3}>
+            <Grid.Column>
+              <div ref={this.handleRef}>
+                <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
+                  { posts.length > 0 ?
+                    posts.map( post => <Post key={post.id} post={post} user={currentUser} profile={true} />) :
+                    <h1>This user current has no posts!</h1>
+                  }
+                </Feed>
+                <Rail attached position='left'>
+                  <Sticky context={contextRef}
+                          style={ posts.length > 0 ? {marginTop: '150px'} : { marginTop: '150px' } }
+                          offset={ posts.length > 0 ? 150 : null } >
+                    <Card fluid>
+                      <Image src={currentUser.profile_url} />
+                      <Card.Content>
+                        <Card.Header>{currentUser.name}</Card.Header>
+                        <Card.Description>
+                          Email: {currentUser.email}
+                        </Card.Description>
+                      </Card.Content>
+                      <Card.Content extra>
+                        {
+                          !this.following() ?
+                          <Button inverted color='teal' onClick={this.handleFollow}>
+                            Follow
+                          </Button> :
+                          <Button inverted color='red' onClick={this.handleUnfollow}>
+                            Unfollow
+                          </Button>
+                        }
+                      </Card.Content>
+                    </Card>
+                  </Sticky>
+                </Rail>
+              </div>
+            </Grid.Column>
+          </Grid>
     );
   }
 }

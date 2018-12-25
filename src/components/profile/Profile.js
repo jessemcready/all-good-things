@@ -20,9 +20,7 @@ class Profile extends Component {
     }
   }
 
-  orderPosts = () => this.getUserPosts().sort( (a,b) => new Date(b.post.created_at) - new Date(a.post.created_at) )
-
-  getUserPosts = () => this.props.posts.filter( post => post.user.email === this.props.user.email )
+  orderPosts = () => this.props.userPosts.sort( (a,b) => new Date(b.created_at) - new Date(a.created_at) )
 
   handleRef = contextRef => this.setState({ contextRef })
 
@@ -34,10 +32,10 @@ class Profile extends Component {
         <Grid.Column>
           <div ref={this.handleRef}>
             <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-              { posts.map( post => <Post key={post.post.id} post={post.post} user={post.user} profile={true} />) }
+              { posts.map( post => <Post key={post.id} post={post} user={post.user} profile={true} />) }
             </Feed>
             <Rail attached position='left'>
-              <Sticky context={contextRef} style={{marginTop: '90px'}}>
+              <Sticky context={contextRef} offset={150}>
                 <Card fluid>
                   <Image src={user.profile_url} />
                   <Card.Content>
@@ -142,6 +140,6 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
+const mapStateToProps = ({ posts, users: { user, userPosts }}) => ({ posts, user, userPosts })
 
 export default connect(mapStateToProps, { editUser, signout })(Profile);
