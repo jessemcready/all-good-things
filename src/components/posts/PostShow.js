@@ -18,8 +18,12 @@ class PostShow extends Component {
       return;
     }
     const currentPost = posts.find(post => post.post.id === id)
-    const foundPost = currentPost.post.likes.find(like => like.user.id === user.id )
-    // const foundPost = userLikes.find(like => like.user.email)
+    debugger
+    const foundPost = currentPost.post.likes.find(like => {
+      return !!like.user ?
+      like.user.id === user.id :
+      like.user_id === user.id
+    })
     if(!!foundPost){ this.setState({ liked: true, likeId: foundPost.id }) }
   }
 
