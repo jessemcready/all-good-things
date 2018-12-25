@@ -14,9 +14,12 @@ class Post extends Component {
   componentDidMount(){
     const { post: { likes }, users } = this.props
     let foundPost
-    !!likes ? foundPost = users.likes.find(like => likes.find(postLike => postLike.id === like.id))
-    : foundPost = false
-    if(foundPost){ this.setState({ liked: true, likeId: foundPost.id }) }
+    !!likes ?
+    foundPost = users.likes.find(like => likes.find(postLike => postLike.id === like.id)) :
+    foundPost = false
+    if(foundPost){
+      this.setState({ liked: true, likeId: foundPost.id })
+    }
   }
 
   handleSubmit = (event, input) => {

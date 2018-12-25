@@ -13,7 +13,7 @@ class Profile extends Component {
     const id = this.props.match.params.id
     const { user } = this.props
 
-    id === 'undefined' || parseInt(id) === user.id ? this.setState({ signedInUser: true }) :
+    id === 'undefined' || parseInt(id) === user.id ? this.setState({ signedInUser: true, currentUser: user }) :
     FetchAdapter.getUser(id).then( currentUser => {
       this.setState( { currentUser: currentUser.user } )
     })
@@ -36,9 +36,9 @@ class Profile extends Component {
   }
 
   following = () => {
-    const { user } = this.props
+    const { userFollowers } = this.props
     const { currentUser } = this.state
-    const foundUser = user.followers.find( follower => follower.email === currentUser.email )
+    const foundUser = userFollowers.find( follower => follower.email === currentUser.email )
     return !!foundUser ? true : false
   }
 
@@ -58,7 +58,6 @@ class Profile extends Component {
   render(){
     const { currentUser, signedInUser, contextRef } = this.state
     const posts = this.getPosts()
-
     return(
       <Grid centered columns={3} className='underNav'>
         {
@@ -66,10 +65,10 @@ class Profile extends Component {
           <Redirect to='/profile' /> :
           <Fragment>
               <Grid.Column>
-                { posts !== undefined ?
+                { posts !== undefined || posts.length !== 0 ?
                   <div ref={this.handleRef}>
                     <Feed size='large' style={{marginTop: '75px', fontFamily:'Roboto'}}>
-                      {posts.map( post => <Post key={post.id} post={post.post} user={currentUser} profile={true} />)}
+                      {posts.map( post => <Post key={post.id} post={post} user={currentUser} profile={true} />)}
                     </Feed>
                     <Rail position='left' attached>
                       <Sticky context={contextRef} style={{marginTop: '90px'}}>
@@ -83,7 +82,7 @@ class Profile extends Component {
                         </Card.Content>
                         <Card.Content extra>
                           {
-                            this.following() ?
+                            !this.following() ?
                             <Button inverted color='teal' onClick={this.handleFollow}>
                               Follow
                             </Button> :
@@ -107,6 +106,6 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, users: { user }}) => ({ posts, user })
+const mapStateToProps = ({ posts, users: { user, userFollowers }}) => ({ posts, user, userFollowers })
 
 export default connect(mapStateToProps, { followUser, unfollowUser })(Profile);
